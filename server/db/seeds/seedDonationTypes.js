@@ -5,9 +5,34 @@
 export async function seed(knex) {
   // Deletes ALL existing entries
   await knex('donation_types').del()
+
+  const date = new Date().getTime()
+
+  // Seeding Donation Types
   await knex('donation_types').insert([
-    { id: 1, accepting: true, urgently: false, date: '20/08/2023' },
-    { id: 2, accepting: false, urgently: false, date: '21/08/2023' },
-    { id: 3, accepting: true, urgently: false, date: '23/08/2023' },
+    {
+      id: 1,
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: true,
+      organisation_id: 1,
+      date: `${date}`,
+    },
+    {
+      id: 2,
+      name: 'Furniture',
+      accepting: false,
+      urgently_seeking: false,
+      organisation_id: 1,
+      date: `${date}`,
+    },
+    {
+      id: 3,
+      name: 'Food',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 1,
+      date: `${date}`,
+    },
   ])
 }
