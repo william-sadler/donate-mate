@@ -12,14 +12,14 @@ const queryClient = new QueryClient()
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
     /**
-     * TODO: replace domain, clientId, and audience
+     * DONE: replace domain, clientId, and audience
      */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="dev-m8ff1hl5oxw1g7y5.au.auth0.com"
+      clientId="ckLCjVJeTFwtPgDHWTK3C0hyrPKhZoIl"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://donatemate/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
