@@ -17,7 +17,7 @@ export async function seed(knex) {
     { id: 7, name: 'Volunteering' },
     { id: 8, name: 'Appliances' },
     { id: 9, name: 'Pet care' },
-    { id: 10, name: 'Linen bedding' },
+    { id: 10, name: 'Linen & Bedding' },
     { id: 11, name: 'Household goods' },
     { id: 12, name: 'Baby care' },
     { id: 13, name: 'Toiletries' },
