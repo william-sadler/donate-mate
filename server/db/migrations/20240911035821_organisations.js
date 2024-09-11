@@ -6,6 +6,8 @@ export async function up(knex) {
     table.text('about')
     table.integer('longitude')
     table.integer('latitude')
+    table.string('org_types')
+    table.string('image')
     table.boolean('volunteering_needed').defaultTo(false)
     table.string('method')
   })

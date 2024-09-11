@@ -7,21 +7,13 @@ const router = Router()
 // GET /api/v1/organisation/
 router.get('/', async (req, res) => {
   try {
-    const fruits = await db.getAllOrganisations()
+    const organisations = await db.getAllOrganisations()
 
-    res.json({ fruits: fruits.map((fruit) => fruit.name) })
+    res.json(organisations)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'Something went wrong' })
   }
 })
 
-// GET /api/v1/organisation/:id
-router.get('/:id', async (req, res, next) => {
-  try {
-    const fruit = await db.getOrganisationsById(req.params.id)
-    res.json(fruit)
-  } catch (err) {
-    next(err)
-  }
-})
+export default router

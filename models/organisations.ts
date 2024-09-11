@@ -6,6 +6,7 @@ export interface Organisation {
   longitude: number
   latitude: number
   org_types: string
+  image: string
   volunteering_needed: boolean
   method?: string
 }
