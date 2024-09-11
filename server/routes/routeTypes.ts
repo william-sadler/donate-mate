@@ -6,19 +6,13 @@ import * as db from '../db/dbTypes.ts'
 
 const router = Router()
 
-router.get('/', async (req, res) => {
-  try {
-    const types = await db.getAllTypes()
-    res.json({ types: types.map((type) => type.name) })
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: 'Something went wrong' })
-  }
-})
-
 router.get('/:id', async (req, res, next) => {
+  const id = Number(req.params.id)
+  if (!id) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
   try {
-    const type = await db.getTypesById(req.params.id)
+    const type = await db.getTypesById(id)
     res.json(type)
   } catch (err) {
     next(err)

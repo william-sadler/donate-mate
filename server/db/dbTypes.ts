@@ -1,7 +1,7 @@
 import db from './connection.ts'
 import { Types } from '../../models/modelTypes.ts'
 
-export async function getAllTypes(orgId: number) {
+export async function getTypesById(orgId: number): Promise<Types[]> {
   const type = await db('donation_types')
     .where('organisation_id', orgId)
     .select(
@@ -13,11 +13,6 @@ export async function getAllTypes(orgId: number) {
       'date',
     )
   return type as Types[]
-}
-
-export async function getTypesById(id: number | string) {
-  const type = await db('donation_types').where({ id }).first()
-  return type as Types
 }
 
 export async function addType(data: Types) {

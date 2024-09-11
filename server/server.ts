@@ -1,13 +1,13 @@
 import express from 'express'
 import * as Path from 'node:path'
 
-import typesRoutes from './routes/routeTypes'
+import routeTypes from './routes/routeTypes'
 
 const server = express()
 
 server.use(express.json())
 
-server.use('/api/v1/donation_types', typesRoutes)
+server.use('/api/v1/types', routeTypes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
