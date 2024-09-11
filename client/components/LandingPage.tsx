@@ -1,6 +1,4 @@
-import React from 'react'
-
-const LandingPage: React.FC = () => {
+export default function LandingPage() {
   return (
     <div className="container">
       <h1 className="text-3xl font-bold">DonateMate</h1>
@@ -8,7 +6,7 @@ const LandingPage: React.FC = () => {
         <div className="image-card">
           <img
             className="image"
-            src="https://via.placeholder.com/150"
+            src="/Users/wookie/Documents/workspace/donate-mate/client/Org_Images/cuba_hospice.jpeg"
             alt="Placeholder 1"
           />
           <div className="name">Hospice Cuba Street</div>
@@ -33,5 +31,3 @@ const LandingPage: React.FC = () => {
     </div>
   )
 }
-
-export default LandingPage

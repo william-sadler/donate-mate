@@ -4,6 +4,7 @@ import * as db from '../db/dbOrganisations.ts'
 
 const router = Router()
 
+// GET /api/v1/organisation/
 router.get('/', async (req, res) => {
   try {
     const fruits = await db.getAllOrganisations()
@@ -15,6 +16,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+// GET /api/v1/organisation/:id
 router.get('/:id', async (req, res, next) => {
   try {
     const fruit = await db.getOrganisationsById(req.params.id)
