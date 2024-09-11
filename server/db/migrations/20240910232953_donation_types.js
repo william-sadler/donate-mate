@@ -6,7 +6,7 @@ export async function up(knex) {
     table.increments('id')
     table.string('name')
     table.boolean('accepting')
-    table.boolean('urgently_seeking')
+    table.boolean('urgently_needed')
     table.integer('organisation_id')
     table.string('date')
   })
