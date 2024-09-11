@@ -4,3 +4,8 @@ export interface User {
   email: string
   orgId: string
 }
+
+export interface UserData {
+  name: string
+  email: string
+}
