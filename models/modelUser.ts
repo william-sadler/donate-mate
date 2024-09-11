@@ -1,4 +1,4 @@
-export interface Users {
+export interface User {
   auth0Id: string
   name: string
   email: string
