@@ -11,7 +11,9 @@ interface Props {
 export default function LandingCard({ name, src, alt, orgId }: Props) {
   return (
     <div className="image-card">
-      <CardUrgentlyStatus id={orgId} />
+      <div>
+        <CardUrgentlyStatus id={orgId} />
+      </div>
       <img className="image" src={src} alt={alt} />
       <div className="name">{name}</div>
       <CardTypes id={orgId} />
