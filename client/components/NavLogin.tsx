@@ -21,11 +21,31 @@ function Nav() {
   return (
     <>
       <IfAuthenticated>
-        <button onClick={handleSignOut}>Log out</button>
-        {user && <p> Signed in as: {user?.name}</p>}
+        {user && (
+          <div className="raleway-light flex flex-col items-center">
+            <img
+              src={user.picture}
+              alt="User Profile"
+              className="mb-1 h-6 w-6 rounded-full"
+            />
+            <p> Welcome {user?.given_name}!</p>
+          </div>
+        )}
+        <button
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4
+           rounded px-4 py-2 transition duration-300"
+          onClick={handleSignOut}
+        >
+          Log out
+        </button>
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <button onClick={handleSignIn}>Login</button>
+        <button
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+          onClick={handleSignIn}
+        >
+          Login
+        </button>
       </IfNotAuthenticated>
     </>
   )

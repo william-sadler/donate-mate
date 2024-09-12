@@ -1,3 +1,85 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* --- !! TAILWIND CSS !! ---- */
+
+/* --- // HEADINGS // ---- */
+.heading-1 {
+  @apply text-4xl font-bold;
+}
+
+.heading-2 {
+  @apply text-3xl font-bold;
+}
+
+.heading-3 {
+  @apply text-2xl font-bold;
+}
+
+.heading-4 {
+  @apply text-xl font-bold;
+}
+
+.paragraph {
+  @apply text-base font-normal;
+}
+
+.small-text {
+  @apply text-sm font-normal;
+}
+
+/* --- // LAYOUT // ---- */
+
+/* This will help get you left/right margins to center your content */
+.container {
+  @apply mx-auto px-4;
+}
+
+.custom_flex {
+  @apply flex items-center justify-center;
+}
+
+/* --- // BUTTONS // ---- */
+
+/* Primary Button */
+
+@layer components {
+  .primary_button {
+    @apply raleway-light rounded-lg px-4 py-2 text-white;
+  }
+
+  /* Secondary Button */
+  .secondary_button {
+    @apply raleway-light rounded-lg px-4 py-2;
+  }
+}
+
+/* --- YOUR MANUAL CSS GOES HERE ---- */
+
+/* FONTS */
+
+.caveat-bold {
+  font-family: 'Caveat', cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.raleway-light {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Default Browser styling override */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 135px;
+}
