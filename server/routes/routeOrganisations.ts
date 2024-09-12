@@ -16,6 +16,11 @@ router.get('/:id', async (req, res) => {
 
   try {
     const org = await db.getOrganisationsById(id)
+
+    if (!org) {
+      return res.sendStatus(StatusCodes.NOT_FOUND)
+    }
+
     res.json(org)
   } catch (error) {
     console.log(error)
