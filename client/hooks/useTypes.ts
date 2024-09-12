@@ -37,7 +37,7 @@ export function useTypesMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['types'] })
+      queryClient.invalidateQueries({ queryKey: ['type'] })
     },
   })
 
