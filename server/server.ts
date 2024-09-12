@@ -1,14 +1,16 @@
 import express from 'express'
 import * as Path from 'node:path'
 
-import fruitRoutes from './routes/routeFruits.ts'
+import routeTypes from './routes/routeTypes'
+import usersRoutes from './routes/routeUsers.ts'
 import organisationRoutes from './routes/routeOrganisations.ts'
 
 const server = express()
 
 server.use(express.json())
 
-server.use('/api/v1/fruits', fruitRoutes)
+server.use('/api/v1/types', routeTypes)
+server.use('/api/v1/users', usersRoutes)
 server.use('/api/v1/organisations', organisationRoutes)
 
 if (process.env.NODE_ENV === 'production') {
