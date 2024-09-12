@@ -46,12 +46,12 @@
 
 @layer components {
   .primary_button {
-    @apply rounded-lg px-4 py-2 text-white;
+    @apply raleway-light rounded-lg px-4 py-2 text-white;
   }
 
   /* Secondary Button */
   .secondary_button {
-    @apply rounded-lg px-4 py-2;
+    @apply raleway-light rounded-lg px-4 py-2;
   }
 }
 
@@ -59,10 +59,17 @@
 
 /* FONTS */
 
-.caveat-font {
+.caveat-bold {
   font-family: 'Caveat', cursive;
   font-optical-sizing: auto;
   font-weight: 700;
+  font-style: normal;
+}
+
+.raleway-light {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
   font-style: normal;
 }
 
