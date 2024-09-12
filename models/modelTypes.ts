@@ -3,6 +3,6 @@ export interface Types {
   name: string
   accepting: boolean
   urgentlySeeking: boolean
-  organisationId: BigInteger
+  organisationId: number
   date: string
 }

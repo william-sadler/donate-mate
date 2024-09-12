@@ -2,7 +2,9 @@ import connection from './connection.js'
 import { User, UserData } from '../../models/modelUsers.ts'
 
 export async function getUserByToken(auth0Id: string): Promise<User> {
-  return connection('users').where('auth0Id', auth0Id).first()
+  return connection('users')
+    .where('auth0Id', auth0Id)
+    .first('*', 'org_id as orgId')
 }
 
 export async function postUser(
