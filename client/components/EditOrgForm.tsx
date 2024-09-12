@@ -7,6 +7,7 @@ import EditHowToAdd from './EditHowToAdd.tsx'
 import EditCurrentlyAccepting from './EditCurrentlyAccepting.tsx'
 import EditAbout from './EditAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
+import { Types } from '../../models/modelTypes.ts'
 
 interface Props {
   organisation: Organisation
@@ -23,6 +24,7 @@ type FormState = {
   orgImage: string
   orgVolunteeringNeeded: boolean
   orgMethod: string
+  orgDonationTypes: Types[] | []
 }
 
 export default function EditOrgForm({ organisation, onUpdate }: Props) {
@@ -37,6 +39,7 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     orgImage: '',
     orgVolunteeringNeeded: false,
     orgMethod: '',
+    orgDonationTypes: [],
   })
 
   const org = useOrganisationsById(organisation.id)
@@ -100,6 +103,13 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     })
   }
 
+  const handleTypeChange = (typeData: Types[]) => {
+    setForm({
+      ...form,
+      orgDonationTypes: typeData,
+    })
+  }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -119,7 +129,12 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
           orgHowToAdd={form.orgMethod}
           handleChange={() => handleChange}
         />
-        <EditCurrentlyAccepting form={donationTypes.data} handleUpdate={} />
+        <EditCurrentlyAccepting
+          orgId={organisation.id}
+          form={form.orgDonationTypes}
+          orgDonationTypes={donationTypes.data}
+          handleUpdate={() => handleTypeChange}
+        />
       </form>
     </>
   )

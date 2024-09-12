@@ -3,11 +3,18 @@ import { useAllDonationNames } from '../hooks/useTypes'
 import { Types } from '../../models/modelTypes'
 
 interface Props {
-  form: Types[]
-  handleUpdate: () => void
+  orgId: number
+  form: Types[] | []
+  orgDonationTypes: Types[]
+  handleUpdate: (typeData: Types[]) => void
 }
 
-export default function EditCurrentlyAccepting({ form }: Props) {
+export default function EditCurrentlyAccepting({
+  orgId,
+  form,
+  orgDonationTypes,
+  handleUpdate,
+}: Props) {
   const [selectedType, setSelectedType] = useState<string>('')
 
   const {
@@ -36,15 +43,64 @@ export default function EditCurrentlyAccepting({ form }: Props) {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedType(event.target.value)
+    handleUpdate([
+      ...form,
+      {
+        id: form.length === 0 ? 1 : form.length - 1,
+        name: event.target.value,
+        accepting: true,
+        urgentlySeeking: false,
+        organisationId: orgId,
+        date: `${new Date().getTime()}`,
+      },
+    ])
   }
 
   const handleCheckboxChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const { name, value } = event.target
+    const { name, id } = event.target
+    const updatedType = form.find((type) => type.name === id)
+    if (updatedType === undefined) {
+      return
+    }
+    switch (name) {
+      case 'accepting':
+        handleUpdate([
+          ...form.filter((type) => type.name === id),
+          {
+            id: updatedType.id,
+            name: updatedType.name,
+            accepting: !updatedType.accepting,
+            urgentlySeeking: updatedType.accepting
+              ? updatedType.urgentlySeeking
+              : false,
+            organisationId: orgId,
+            date: `${new Date().getTime()}`,
+          },
+        ])
+        break
+      case 'urgentlySeeking':
+        handleUpdate([
+          ...form.filter((type) => type.name === id),
+          {
+            id: updatedType.id,
+            name: updatedType.name,
+            accepting: updatedType.accepting,
+            urgentlySeeking: updatedType.accepting
+              ? !updatedType.urgentlySeeking
+              : false,
+            organisationId: orgId,
+            date: `${new Date().getTime()}`,
+          },
+        ])
+        break
+    }
   }
 
-  const handleClick = async () => {}
+  const handleClick = async (name: string) => {
+    handleUpdate([...form.filter((type) => type.name === name)])
+  }
 
   return (
     <>
@@ -61,13 +117,14 @@ export default function EditCurrentlyAccepting({ form }: Props) {
           ))}
         </select>
       </label>
-      {form.map((type) => (
+      {(!form ? orgDonationTypes : form).map((type) => (
         <div key={type.id}>
           <label className="switch">
             {type.name}:
             <input
               type="checkbox"
               name="accepting"
+              id={type.name}
               checked={type.accepting}
               onChange={handleCheckboxChange}
             />
@@ -77,12 +134,13 @@ export default function EditCurrentlyAccepting({ form }: Props) {
             <input
               type="checkbox"
               name="urgentlySeeking"
+              id={type.name}
               checked={type.urgentlySeeking}
               onChange={handleCheckboxChange}
             />
             {type.urgentlySeeking}
           </label>
-          <button onClick={handleClick}>Delete</button>
+          <button onClick={() => handleClick(type.name)}>Delete</button>
         </div>
       ))}
     </>
