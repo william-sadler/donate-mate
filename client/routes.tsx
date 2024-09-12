@@ -6,6 +6,6 @@ import OrgProfilePage from './pages/OrgProfilePage.tsx'
 export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<App />} />
-    <Route path="/orgs/:id" element={<OrgProfilePage />} />
+    <Route path="/org/:id" element={<OrgProfilePage />} />
   </Route>,
 )
