@@ -3,6 +3,7 @@ import { useOrganisationsById } from '../hooks/useOrganisations'
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useUsers } from '../hooks/useUsers'
+import EditOrgForm from '../components/EditOrgForm'
 
 export default function EditProfilePage() {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ export default function EditProfilePage() {
   const handleUpdate = async () => {
     try {
       queryClient.invalidateQueries()
+      navigate(`/org/${id}`)
     } catch (error) {
       handleError(error)
     }
@@ -80,7 +82,7 @@ export default function EditProfilePage() {
         <button>Close</button>
       </Link>
       {organisation.isSuccess && organisation.data !== undefined && (
-        <OrgEditForm
+        <EditOrgForm
           key={organisation.data.id}
           organisation={organisation.data}
           onUpdate={handleUpdate}

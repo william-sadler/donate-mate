@@ -6,6 +6,7 @@ import { useOrganisationsById } from '../hooks/useOrganisations.ts'
 import EditHowToAdd from './EditHowToAdd.tsx'
 import EditCurrentlyAccepting from './EditCurrentlyAccepting.tsx'
 import EditAbout from './EditAbout.tsx'
+import { useTypesById } from '../hooks/useTypes.ts'
 
 interface Props {
   organisation: Organisation
@@ -39,6 +40,7 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
   })
 
   const org = useOrganisationsById(organisation.id)
+  const donationTypes = useTypesById(organisation.id)
 
   const handleMutationSuccess = () => {
     onUpdate()
@@ -46,6 +48,19 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
 
   const mutationOptions = {
     onSuccess: handleMutationSuccess,
+  }
+
+  if (org.isPending || donationTypes.isPending) {
+    return <p>You are loved 💖...</p>
+  }
+
+  if (org.isError || donationTypes.isError) {
+    return (
+      <p>
+        uh oh, something went wrong...{' '}
+        {org.error?.message || donationTypes.error?.message}
+      </p>
+    )
   }
 
   const handleSubmit = async (event?: React.FormEvent<HTMLFormElement>) => {
@@ -104,7 +119,7 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
           orgHowToAdd={form.orgMethod}
           handleChange={() => handleChange}
         />
-        <EditCurrentlyAccepting form={[]} handleUpdate={} />
+        <EditCurrentlyAccepting form={donationTypes.data} handleUpdate={} />
       </form>
     </>
   )
