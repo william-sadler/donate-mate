@@ -1,5 +1,5 @@
 import db from './connection.ts'
-import { Types } from '../../models/modelTypes.ts'
+import { DonationNames, Types } from '../../models/modelTypes.ts'
 
 export async function getTypesById(orgId: number): Promise<Types[]> {
   const type = await db('donation_types')
@@ -13,6 +13,11 @@ export async function getTypesById(orgId: number): Promise<Types[]> {
       'date',
     )
   return type as Types[]
+}
+
+export async function getAllDonationNames(): Promise<DonationNames[]> {
+  const type = await db('donation_names').select()
+  return type as DonationNames[]
 }
 
 export async function addType(data: Types) {

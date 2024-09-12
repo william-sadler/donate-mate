@@ -6,3 +6,8 @@ export interface Types {
   organisationId: number
   date: string
 }
+
+export interface DonationNames {
+  id: number
+  name: string
+}

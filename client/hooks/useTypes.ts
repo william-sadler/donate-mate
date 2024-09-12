@@ -5,13 +5,23 @@ import {
   MutationFunction,
   UseMutationResult,
 } from '@tanstack/react-query'
-import { getTypesById } from '../apis/apiTypes'
-import { Types } from '../../models/modelTypes'
+import { getAllDonationNames, getTypesById } from '../apis/apiTypes'
+import { DonationNames, Types } from '../../models/modelTypes'
 
-export function useTypes(id: number) {
+export function useTypesById(id: number) {
   const query = useQuery<Types[]>({
-    queryKey: ['types'],
+    queryKey: ['type', id],
     queryFn: () => getTypesById(id),
+  })
+
+  return {
+    ...query,
+  }
+}
+export function useAllDonationNames() {
+  const query = useQuery<DonationNames[]>({
+    queryKey: ['donationNames'],
+    queryFn: () => getAllDonationNames(),
   })
 
   return {

@@ -19,6 +19,15 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.get('/', async (req, res, next) => {
+  try {
+    const DonationNames = await db.getAllDonationNames()
+    res.json(DonationNames)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
