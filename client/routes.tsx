@@ -1,9 +1,9 @@
 import { createRoutesFromElements, Route } from 'react-router-dom'
-import App from './components/App.tsx'
 import Layout from './components/Layout.tsx'
+import LandingPage from './pages/LandingPage.tsx'
 
 export default createRoutesFromElements(
   <Route path="/" element={<Layout />}>
-    <Route index element={<App />} />
+    <Route index element={<LandingPage />} />
   </Route>,
 )
