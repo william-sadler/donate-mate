@@ -1,12 +1,12 @@
 export interface Organisation {
   id: number
   name: string
-  contactDetails: string
+  contact_details: string
   about: string
   longitude: number
   latitude: number
+  org_types: string
   image: string
-  orgTypes: string
-  volunteeringNeeded: boolean
+  volunteering_needed: boolean
   method?: string
 }

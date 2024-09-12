@@ -1,6 +1,5 @@
 import express from 'express'
 import * as Path from 'node:path'
-
 import routeTypes from './routes/routeTypes'
 import usersRoutes from './routes/routeUsers.ts'
 import organisationRoutes from './routes/routeOrganisations.ts'
