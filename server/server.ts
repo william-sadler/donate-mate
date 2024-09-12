@@ -1,11 +1,8 @@
 import express from 'express'
 import * as Path from 'node:path'
 import fruitRoutes from './routes/routeFruits.ts'
-<<<<<<< HEAD
 import usersRoutes from './routes/routeUsers.ts'
-=======
 import routeOrganisations from './routes/routeOrganisations.ts'
->>>>>>> 1-show-a-grid-of-organisations
 
 const server = express()
 
