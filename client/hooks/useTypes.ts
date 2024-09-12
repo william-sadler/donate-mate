@@ -10,7 +10,7 @@ import { Types } from '../../models/modelTypes'
 
 export function useTypes(id: number) {
   const query = useQuery<Types[]>({
-    queryKey: ['types'],
+    queryKey: ['type', id],
     queryFn: () => getTypesById(id),
   })
 
@@ -27,7 +27,7 @@ export function useTypesMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['types'] })
+      queryClient.invalidateQueries({ queryKey: ['type'] })
     },
   })
 
