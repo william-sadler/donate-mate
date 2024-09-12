@@ -21,11 +21,22 @@ function Nav() {
   return (
     <>
       <IfAuthenticated>
-        <button onClick={handleSignOut}>Log out</button>
         {user && <p> Signed in as: {user?.name}</p>}
+        <button
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4
+           rounded px-4 py-2 transition duration-300"
+          onClick={handleSignOut}
+        >
+          Log out
+        </button>
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <button onClick={handleSignIn}>Login</button>
+        <button
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+          onClick={handleSignIn}
+        >
+          Login
+        </button>
       </IfNotAuthenticated>
     </>
   )

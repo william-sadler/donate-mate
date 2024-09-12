@@ -46,20 +46,33 @@
 
 @layer components {
   .primary_button {
-    @apply bg-accent-5 rounded-lg px-4 py-2 text-white;
+    @apply rounded-lg px-4 py-2 text-white;
   }
 
   /* Secondary Button */
   .secondary_button {
-    @apply bg-accent-1 rounded-lg px-4 py-2;
+    @apply rounded-lg px-4 py-2;
   }
 }
 
 /* --- YOUR MANUAL CSS GOES HERE ---- */
+
+/* FONTS */
+
+.caveat-font {
+  font-family: 'Caveat', cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
 
 /* Default Browser styling override */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.logo {
+  height: 135px;
 }

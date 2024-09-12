@@ -1,11 +1,18 @@
 import Nav from './NavLogin'
-
+import iconLogo from '../../public/images/iconLogo.png'
 export default function NavBar() {
   return (
     <>
-      <div></div>
-      <h1>DonateMate!</h1>
-      <Nav />
+      <div className="bg-lightTeal flex items-center">
+        <img src={iconLogo} alt="logo" className="logo" />
+
+        <h1 className="heading-1 caveat-font -translate-y-1/8 ml-1">
+          DonateMate
+        </h1>
+      </div>
+      <div className="bg-lightTeal flex items-center justify-end space-x-2">
+        <Nav />
+      </div>
     </>
   )
 }
