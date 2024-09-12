@@ -1,0 +1,21 @@
+import { useParams } from 'react-router-dom'
+import { useOrganisationsById } from '../hooks/useOrganisations'
+
+export default function OrgProfilePage() {
+  const param = useParams()
+  const id = Number(param.id)
+  const { data, isPending, isError, error } = useOrganisationsById(id)
+
+  if (isPending) {
+    return <p>Loading...</p>
+  }
+  if (isError) {
+    return <p>Failed to get Org: {error.message}</p>
+  }
+
+  return (
+    <>
+      <h2>{data.name}</h2>
+    </>
+  )
+}
