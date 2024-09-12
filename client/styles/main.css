@@ -1,5 +1,6 @@
 @tailwind base;
 @tailwind components;
+<<<<<<< HEAD
 @tailwind utilities;
 
 /* --- !! TAILWIND CSS !! ---- */
@@ -63,3 +64,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+||||||| 259f245
+@tailwind utilities;
+=======
+@tailwind utilities;
+>>>>>>> 35cafcd9f185ce633255e97b0007b78bf2ec3c77
