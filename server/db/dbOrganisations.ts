@@ -10,6 +10,7 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
   const organisations = await db('organisations')
     .where({ id })
     .first(
+      'id',
       'name',
       'contact_details as contactDetails',
       'about',

@@ -18,6 +18,7 @@ export default function LandingPage() {
               name={organisation.name}
               src={organisation.image}
               alt={organisation.name}
+              orgId={organisation.id}
             />
           </Link>
         ))}

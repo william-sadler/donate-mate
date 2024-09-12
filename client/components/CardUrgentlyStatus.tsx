@@ -15,8 +15,6 @@ export default function CarUrgentlyStatus({ id }: Props) {
   }
 
   return (
-    data.find((type) => type.urgentlySeeking === true) && (
-      <div>Urgently Seeking</div>
-    )
+    data.find((type) => type.urgentlySeeking) && <div>Urgently Seeking</div>
   )
 }
