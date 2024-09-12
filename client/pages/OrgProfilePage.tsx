@@ -16,6 +16,10 @@ export default function OrgProfilePage() {
   return (
     <>
       <h2>{data.name}</h2>
+      <h3>{data.orgTypes}</h3>
+      <p>{data.contactDetails}</p>
+      <p>{data.method}</p>
+      <p>{data.about}</p>
     </>
   )
 }
