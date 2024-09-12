@@ -2,7 +2,7 @@ import express from 'express'
 import * as Path from 'node:path'
 import routeTypes from './routes/routeTypes'
 import usersRoutes from './routes/routeUsers.ts'
-import routeOrganisations from './routes/routeOrganisations.ts'
+import organisationRoutes from './routes/routeOrganisations.ts'
 
 const server = express()
 
@@ -10,8 +10,7 @@ server.use(express.json())
 
 server.use('/api/v1/types', routeTypes)
 server.use('/api/v1/users', usersRoutes)
-
-server.use('/api/v1/organisations', routeOrganisations)
+server.use('/api/v1/organisations', organisationRoutes)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(Path.resolve('public')))
