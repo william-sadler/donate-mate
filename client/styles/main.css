@@ -14,7 +14,7 @@
 }
 
 .heading-3 {
-  @apply text-2xl font-bold;
+  @apply raleway-light text-2xl font-bold;
 }
 
 .heading-4 {
@@ -22,7 +22,7 @@
 }
 
 .paragraph {
-  @apply raleway-light text-base font-normal;
+  @apply raleway-bold text-base font-normal;
 }
 
 .small-text {
@@ -33,7 +33,7 @@
 
 /* This will help get you left/right margins to center your content */
 .container {
-  @apply mx-auto px-4;
+  @apply mx-auto rounded px-4 shadow-sm;
 }
 
 .custom_flex {
@@ -66,6 +66,13 @@
   font-style: normal;
 }
 
+.raleway-bold {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .raleway-light {
   font-family: 'Raleway', sans-serif;
   font-optical-sizing: auto;
@@ -80,6 +87,10 @@
   box-sizing: border-box;
 }
 
+/* ORG PROFILE PAGE */
+.orgProfilePage {
+  background-color: #fbe8d1;
+}
 .logo {
   height: 135px;
 }

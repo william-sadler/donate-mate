@@ -45,7 +45,7 @@ export default function OrgProfilePage() {
   }
 
   return (
-    <>
+    <div className="orgProfilePage">
       <ProfileCard
         image={data.image}
         name={data.name}
@@ -62,6 +62,6 @@ export default function OrgProfilePage() {
         <ProfileHowToDonate method={data.method} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
-    </>
+    </div>
   )
 }
