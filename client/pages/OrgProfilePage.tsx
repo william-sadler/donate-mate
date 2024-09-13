@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypes } from '../hooks/useTypes'
+import ProfileCard from '../components/ProfileCard'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -53,9 +54,7 @@ export default function OrgProfilePage() {
       <p>{data.contactDetails}</p>
       <p>{data.method}</p>
       <p>{data.about}</p>
-      <CurrentlyAccepting
-        typeData={typeData.data}
-      />
+      <CurrentlyAccepting typeData={typeData.data} />
     </>
   )
 }
