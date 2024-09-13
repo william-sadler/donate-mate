@@ -24,8 +24,27 @@ export async function patchTypesById({
   token,
   typeData,
 }: PatchTypesFunction): Promise<void> {
+  const updateTypes = typeData.filter((type) => type.id === 0 || type.id === -1)
+  const newTypes = typeData.filter((type) => type.id !== 0)
   await request
-    .get(`${rootUrl}/types/${id}`)
+    .patch(`${rootUrl}/types/${id}`)
     .set('Authorization', `Bearer ${token}`)
-    .send(typeData)
+    .send(updateTypes)
+
+  await request
+    .post(`${rootUrl}/types`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(newTypes)
+}
+
+export async function deleteTypesById({
+  token,
+  typeData,
+}: PatchTypesFunction): Promise<void> {
+  typeData.map(
+    async (type) =>
+      await request
+        .delete(`${rootUrl}/types/${type.id}`)
+        .set('Authorization', `Bearer ${token}`),
+  )
 }

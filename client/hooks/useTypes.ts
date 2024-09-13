@@ -6,20 +6,22 @@ import {
   UseMutationResult,
 } from '@tanstack/react-query'
 import { getAllDonationNames, getTypesById } from '../apis/apiTypes'
-import { DonationNames, Types } from '../../models/modelTypes'
+import * as API from '../apis/apiTypes'
 
 export function useTypesById(id: number) {
-  const query = useQuery<Types[]>({
+  const query = useQuery({
     queryKey: ['type', id],
     queryFn: () => getTypesById(id),
   })
 
   return {
     ...query,
+    patchOrgData: usePatchTypes(),
+    deleteOrgData: useDeleteTypes(),
   }
 }
 export function useAllDonationNames() {
-  const query = useQuery<DonationNames[]>({
+  const query = useQuery({
     queryKey: ['donationNames'],
     queryFn: () => getAllDonationNames(),
   })
@@ -42,4 +44,12 @@ export function useTypesMutation<TData = unknown, TVariables = unknown>(
   })
 
   return mutation
+}
+
+export function usePatchTypes() {
+  return useTypesMutation(API.patchTypesById)
+}
+
+export function useDeleteTypes() {
+  return useTypesMutation(API.deleteTypesById)
 }

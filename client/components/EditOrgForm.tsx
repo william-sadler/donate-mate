@@ -25,6 +25,7 @@ type FormState = {
   orgVolunteeringNeeded: boolean
   orgMethod: string
   orgDonationTypes: Types[] | []
+  orgDonationTypesDeleted: Types[] | []
 }
 
 export default function EditOrgForm({ organisation, onUpdate }: Props) {
@@ -40,6 +41,7 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     orgVolunteeringNeeded: false,
     orgMethod: '',
     orgDonationTypes: [],
+    orgDonationTypesDeleted: [],
   })
 
   const org = useOrganisationsById(organisation.id)
@@ -93,6 +95,20 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
       },
       mutationOptions,
     )
+    if (form.orgDonationTypes) {
+      donationTypes.patchOrgData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypes,
+      })
+    }
+    if (form.orgDonationTypesDeleted) {
+      donationTypes.deleteOrgData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypesDeleted,
+      })
+    }
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,6 +123,12 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     setForm({
       ...form,
       orgDonationTypes: typeData,
+    })
+  }
+  const handleTypeDelete = (typeData: Types[]) => {
+    setForm({
+      ...form,
+      orgDonationTypesDeleted: typeData,
     })
   }
 
@@ -133,6 +155,7 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
           orgId={organisation.id}
           form={form.orgDonationTypes}
           orgDonationTypes={donationTypes.data}
+          handleDelete={() => handleTypeDelete}
           handleUpdate={() => handleTypeChange}
         />
       </form>
