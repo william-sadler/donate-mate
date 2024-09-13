@@ -128,7 +128,6 @@ export default function AddCurrentlyAccepting({
           ))}
         </select>
       </label>
-
       <div className="space-y-4">
         <div className="flex items-center justify-between space-x-4">
           <div className="flex-1">Donations</div>
@@ -174,11 +173,11 @@ export default function AddCurrentlyAccepting({
                 className="sr-only"
               />
               <span
-                className={`h-5 w-5 rounded-full border-2 ${
+                className={`h-4 w-4 rounded-full ${
                   type.urgentlySeeking
-                    ? 'border-red-600 bg-red-600'
+                    ? 'bg-white-600 border-red-600'
                     : 'border-gray-300'
-                }`}
+                } border-4`}
               ></span>
               <span className="text-sm font-medium text-gray-900">
                 {type.urgentlySeeking ? 'Urgently' : 'Seeking'}
