@@ -6,11 +6,11 @@
 
 /* --- // HEADINGS // ---- */
 .heading-1 {
-  @apply text-4xl font-bold;
+  @apply caveat-bold text-4xl font-bold;
 }
 
 .heading-2 {
-  @apply text-3xl font-bold;
+  @apply caveat-bold text-3xl;
 }
 
 .heading-3 {
@@ -22,7 +22,7 @@
 }
 
 .paragraph {
-  @apply text-base font-normal;
+  @apply raleway-light text-base font-normal;
 }
 
 .small-text {
@@ -82,4 +82,29 @@
 
 .logo {
   height: 135px;
+}
+
+/*Hover urgently Status*/
+
+.name-container {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.card-urgently-status {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.circle {
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
 }

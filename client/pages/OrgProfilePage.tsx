@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import ProfileAbout from '../components/ProfileAbout'
+import ProfileCard from '../components/ProfileCard'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -23,10 +24,15 @@ export default function OrgProfilePage() {
   if (isError) {
     return <p>Failed to get Org: {error.message}</p>
   }
-
+  console.log(data)
   return (
     <>
-      <h2>{data.name}</h2>
+      <ProfileCard
+        image={data.image}
+        name={data.name}
+        contactDetails={data.contactDetails}
+      />
+
       <h3>{data.orgTypes}</h3>
       <p>{data.contactDetails}</p>
       <p>{data.method}</p>
