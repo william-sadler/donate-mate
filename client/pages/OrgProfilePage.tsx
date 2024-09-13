@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
-import { useTypes } from '../hooks/useTypes'
+import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
 
@@ -11,7 +11,7 @@ export default function OrgProfilePage() {
   const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
-  const typeData = useTypes(id)
+  const typeData = useTypesById(id)
 
   if (isPending || !data) {
     let failures = ''
