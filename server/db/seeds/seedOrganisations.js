@@ -5,6 +5,7 @@ export async function seed(knex) {
   // Inserts seed entries
   await knex('organisations').insert([
     {
+      id: 1,
       name: 'Hospice Cuba Street',
       contact_details: '123 Cuba St, Wellington',
       about: 'Providing essential services to the community.',
@@ -16,6 +17,7 @@ export async function seed(knex) {
       method: 'Email',
     },
     {
+      id: 2,
       name: 'Salvation Army Miramar',
       contact_details: '50 Miramar Ave, Wellington',
       about: 'Supporting those in need.',
@@ -27,6 +29,7 @@ export async function seed(knex) {
       method: 'Phone',
     },
     {
+      id: 3,
       name: 'Aro Valley Opshop',
       contact_details: 'Aro St, Wellington',
       about: 'Affordable goods and support for the local community.',
