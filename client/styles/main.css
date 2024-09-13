@@ -86,26 +86,25 @@
 
 /*Hover urgently Status*/
 
-.landing-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.name {
-  margin-bottom: 10px;
+.name-container {
   display: flex;
   align-items: center;
 }
 
-.red-cycle {
+.name {
   display: flex;
+  align-items: center;
+}
+
+.card-urgently-status {
+  display: flex;
+  align-items: center;
   margin-left: 10px;
 }
 
 .circle {
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background-color: red;
   border-radius: 50%;
 }

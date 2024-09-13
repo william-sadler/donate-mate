@@ -9,18 +9,12 @@ interface Props {
 }
 
 export default function LandingCard({ name, src, alt, orgId }: Props) {
-  const isUrgent = CardUrgentlyStatus({ id: orgId })
-
   return (
-    <div className="landing-card">
+    <div className="image">
       <img className="image" src={src} alt={alt} />
-      <div className="name">
-        {name}
-        {isUrgent && (
-          <div className="red-cycle">
-            <div className="circle"></div>
-          </div>
-        )}
+      <div className="name-container">
+        <div className="name">{name}</div>
+        <CardUrgentlyStatus id={orgId} />
       </div>
       <CardTypes id={orgId} />
     </div>
