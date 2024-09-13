@@ -6,11 +6,11 @@
 
 /* --- // HEADINGS // ---- */
 .heading-1 {
-  @apply text-4xl font-bold;
+  @apply caveat-bold text-4xl font-bold;
 }
 
 .heading-2 {
-  @apply text-3xl font-bold;
+  @apply caveat-bold text-3xl;
 }
 
 .heading-3 {
@@ -22,7 +22,7 @@
 }
 
 .paragraph {
-  @apply text-base font-normal;
+  @apply raleway-light text-base font-normal;
 }
 
 .small-text {
