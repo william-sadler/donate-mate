@@ -14,6 +14,7 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
       'name',
       'contact_email as contactEmail',
       'contact_number as contactNumber',
+      'location',
       'about',
       'longitude',
       'latitude',

@@ -16,7 +16,8 @@ export async function seed(knex) {
       org_types: 'Charity',
       image: '/images/placeholder-image.webp',
       volunteering_needed: true,
-      donation_method: 'Email',
+      donation_method:
+        'Drop off donations in store, or contact for collection of large items',
       website: null,
     },
     {
@@ -31,7 +32,8 @@ export async function seed(knex) {
       org_types: 'Non-Profit',
       image: '/images/placeholder-image.webp',
       volunteering_needed: false,
-      donation_method: 'Phone',
+      donation_method:
+        'Drop into our shop during business hours or by request a pick up by our Family Store truck.',
       website: null,
     },
     {
@@ -63,7 +65,8 @@ export async function seed(knex) {
       org_types: 'Charity',
       image: '/images/koha.webp',
       volunteering_needed: true,
-      donation_method: 'Email',
+      donation_method:
+        'Koha drop off in person between Tues 10 - 12 and Sunday 1 - 3pm.',
       website: 'https://www.wellingtoncitymission.org.nz/koha-shed',
     },
     {
@@ -79,7 +82,7 @@ export async function seed(knex) {
       org_types: 'Charity',
       image: '/images/dress_for_success.webp',
       volunteering_needed: true,
-      donation_method: 'Email',
+      donation_method: 'Good quality and clean. Email to discuss.',
       website: 'https://wellington.dressforsuccess.org/',
     },
     {
@@ -95,7 +98,8 @@ export async function seed(knex) {
       org_types: 'Animal Welfare',
       image: '/images/spca.webp',
       volunteering_needed: true,
-      donation_method: 'Phone',
+      donation_method:
+        'If you would like to donate any of these items, they can be dropped to your local SPCA Centre.',
       website: 'https://www.spca.nz/centre/wellington-centre',
     },
     {
@@ -241,6 +245,22 @@ export async function seed(knex) {
       volunteering_needed: true,
       donation_method: 'Email',
       website: 'https://soupkitchen.org.nz/',
+    },
+    {
+      id: 16,
+      name: 'Free Coffee for Coders Wellington',
+      contact_email: 'donatemate4@gmail.com',
+      contact_number: '04 300 500',
+      location: '275 Cuba Street, Te Aro, Wellington 6023',
+      about:
+        'Providing free coffee for hard-working students and facilitators, one cohort at a time',
+      longitude: -41.28795621507406,
+      latitude: 174.7886706700347,
+      org_types: 'Community Centre',
+      image: '/images/soup_kitchen.webp',
+      volunteering_needed: true,
+      donation_method: 'Drop-in between daily housr!',
+      website: 'https://devacademy.co.nz/',
     },
   ])
 }

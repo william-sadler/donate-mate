@@ -48,12 +48,13 @@ export default function OrgProfilePage() {
       <ProfileCard
         image={data.image}
         name={data.name}
-        contactDetails={data.contactDetails}
+        location={data.location}
       />
 
       <h3>{data.orgTypes}</h3>
-      <p>{data.contactDetails}</p>
-      <p>{data.method}</p>
+      <p>{data.contactEmail}</p>
+      <p>{data.contactEmail}</p>
+      <p>{data.donationMethod}</p>
       <ProfileAbout about={data.about} />
 
       <CurrentlyAccepting typeData={typeData.data} />
