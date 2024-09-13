@@ -6,6 +6,8 @@ import * as db from '../db/dbTypes.ts'
 
 const router = Router()
 
+export default router
+
 router.get('/:id', async (req, res, next) => {
   const id = Number(req.params.id)
   if (!id) {
@@ -19,6 +21,15 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.get('/', async (req, res, next) => {
+  try {
+    const DonationNames = await db.getAllDonationNames()
+    res.json(DonationNames)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -26,15 +37,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { name, accepting, urgentlySeeking, organisationId, date } = req.body
-    const id = await db.addType({
-      name,
-      accepting,
-      urgentlySeeking,
-      organisationId,
-      date,
-      id: 0,
-    })
+    const data = req.body
+    const id = await db.addType(data)
     res
       .setHeader('Location', `${req.baseUrl}/${id}`)
       .sendStatus(StatusCodes.CREATED)
@@ -43,4 +47,44 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-export default router
+router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+  const id = Number(req.params.id)
+
+  if (!id || id < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    await db.deleteType(id)
+    res.setHeader('Location', `${req.baseUrl}/${id}`).sendStatus(StatusCodes.OK)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    return res.sendStatus(StatusCodes.UNAUTHORIZED)
+  }
+
+  const id = Number(req.params.id)
+
+  if (!id || id < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  const typeData = req.body
+
+  try {
+    await db.updateType(typeData, id)
+    res
+      .setHeader('Location', `${req.baseUrl}/${id}`)
+      .sendStatus(StatusCodes.CREATED)
+  } catch (err) {
+    next(err)
+  }
+})

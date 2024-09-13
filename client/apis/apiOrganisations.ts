@@ -12,3 +12,20 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
   const res = await request.get(orgURL + `/${id}`)
   return res.body
 }
+
+interface PatchOrgFunction {
+  id: number
+  token: string
+  orgData: Organisation
+}
+
+export async function patchOrganisationById({
+  id,
+  token,
+  orgData,
+}: PatchOrgFunction): Promise<void> {
+  await request
+    .get(orgURL + `/${id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(orgData)
+}

@@ -22,3 +22,20 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
     )
   return organisations as Organisation
 }
+
+export async function patchOrganisationsById(
+  id: number,
+  orgData: Organisation,
+): Promise<void> {
+  await db('organisations').where({ id }).update({
+    name: orgData.name,
+    contact_details: orgData.contactDetails,
+    about: orgData.about,
+    longitude: orgData.longitude,
+    latitude: orgData.latitude,
+    org_types: orgData.orgTypes,
+    image: orgData.image,
+    volunteering_needed: orgData.volunteeringNeeded,
+    method: orgData.method,
+  })
+}

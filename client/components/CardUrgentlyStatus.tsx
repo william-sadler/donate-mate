@@ -1,11 +1,11 @@
-import { useTypes } from '../hooks/useTypes'
+import { useTypesById } from '../hooks/useTypes'
 
 interface Props {
   id: number
 }
 
 export default function CarUrgentlyStatus({ id }: Props) {
-  const { data, isPending, isError, error } = useTypes(id)
+  const { data, isPending, isError, error } = useTypesById(id)
 
   if (isPending) {
     return <p>Loading...</p>
