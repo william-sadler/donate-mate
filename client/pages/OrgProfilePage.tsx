@@ -4,43 +4,44 @@ import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypes } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
+import CardUrgentlyStatus from '../components/VolunteersNeeded'
 
 export default function OrgProfilePage() {
-  const param = useParams()
+  const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const id = Number(param.id)
+  const numericId = Number(id)
+
   const { data, isPending, isError, error, failureCount } =
-    useOrganisationsById(id)
-  const typeData = useTypes(id)
+    useOrganisationsById(numericId)
+  const {
+    data: typeData,
+    isPending: isTypePending,
+    isError: isTypeError,
+    failureCount: typeFailureCount,
+  } = useTypes(numericId)
 
-  if (isPending || !data) {
-    let failures = ''
-    if (failureCount > 0) {
-      failures = ` (failed ${failureCount} times)`
-    }
-    if (failureCount > 3) {
+  if (isPending || isTypePending) {
+    const failures = failureCount > 0 ? ` (failed ${failureCount} times)` : ''
+    const typeFailures =
+      typeFailureCount > 0 ? ` (failed ${typeFailureCount} times)` : ''
+    if (failureCount > 3 || typeFailureCount > 3) {
       navigate('/')
+      return null
     }
-    return <div>Loading... {failures}</div>
+    return (
+      <div>
+        Loading...{failures}
+        {typeFailures}
+      </div>
+    )
   }
 
-  if (isError) {
-    return <p>Failed to get Org: {error.message}</p>
+  if (isError || isTypeError) {
+    return <p>Failed to get Org: {error?.message || 'Unknown error'}</p>
   }
 
-  if (typeData.isPending || !typeData.data) {
-    let failures = ''
-    if (typeData.failureCount > 0) {
-      failures = ` (failed ${typeData.failureCount} times)`
-    }
-    if (typeData.failureCount > 3) {
-      navigate('/')
-    }
-    return <div>Loading... {failures}</div>
-  }
-
-  if (typeData.isError) {
-    return <p>Failed to get Org: {typeData.error.message}</p>
+  if (!data || !typeData) {
+    return <p>No data available</p>
   }
 
   return (
@@ -57,7 +58,9 @@ export default function OrgProfilePage() {
       <div>
         <ProfileAbout about={data.about} />
       </div>
-      <CurrentlyAccepting typeData={typeData.data} />
+
+      <CurrentlyAccepting typeData={typeData} />
+      <CardUrgentlyStatus id={numericId} />
     </>
   )
 }
