@@ -1,5 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
+import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
+import { useTypes } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
 
@@ -9,6 +11,7 @@ export default function OrgProfilePage() {
   const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
+  const typeData = useTypes(id)
 
   if (isPending || !data) {
     let failures = ''
@@ -24,7 +27,22 @@ export default function OrgProfilePage() {
   if (isError) {
     return <p>Failed to get Org: {error.message}</p>
   }
-  console.log(data)
+
+  if (typeData.isPending || !typeData.data) {
+    let failures = ''
+    if (typeData.failureCount > 0) {
+      failures = ` (failed ${typeData.failureCount} times)`
+    }
+    if (typeData.failureCount > 3) {
+      navigate('/')
+    }
+    return <div>Loading... {failures}</div>
+  }
+
+  if (typeData.isError) {
+    return <p>Failed to get Org: {typeData.error.message}</p>
+  }
+
   return (
     <>
       <ProfileCard
@@ -39,6 +57,7 @@ export default function OrgProfilePage() {
       <div>
         <ProfileAbout about={data.about} />
       </div>
+      <CurrentlyAccepting typeData={typeData.data} />
     </>
   )
 }
