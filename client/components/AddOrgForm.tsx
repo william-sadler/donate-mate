@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import EditCard from './EditCard.tsx'
-import { Organisation } from '../../models/modelOrganisations.ts'
+import {
+  Organisation,
+  OrganisationData,
+} from '../../models/modelOrganisations.ts'
 import { useOrganisationsById } from '../hooks/useOrganisations.ts'
-import EditHowToAdd from './EditHowToAdd.tsx'
-import EditCurrentlyAccepting from './EditCurrentlyAccepting.tsx'
-import EditAbout from './EditAbout.tsx'
+import AddCard from './AddCard.tsx'
+import AddHowToAdd from './AddHowToAdd.tsx'
+import AddCurrentlyAccepting from './AddCurrentlyAccepting.tsx'
+import AddAbout from './AddAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
 import { Types } from '../../models/modelTypes.ts'
 
 interface Props {
-  organisation: Organisation
-  onUpdate: () => void
+  newOrgId: number
+  organisation: OrganisationData
+  onUpdate: (id: number) => void
 }
 
 type FormState = {
@@ -28,7 +32,11 @@ type FormState = {
   orgDonationTypesDeleted: Types[] | []
 }
 
-export default function EditOrgForm({ organisation, onUpdate }: Props) {
+export default function AddOrgForm({
+  newOrgId,
+  organisation,
+  onUpdate,
+}: Props) {
   const { getAccessTokenSilently } = useAuth0()
   const [form, setForm] = useState<FormState>({
     orgName: '',
@@ -44,26 +52,26 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     orgDonationTypesDeleted: [],
   })
 
-  const org = useOrganisationsById(organisation.id)
-  const donationTypes = useTypesById(organisation.id)
+  const orgQuery = useOrganisationsById(1)
+  const donationTypes = useTypesById(1)
 
-  const handleMutationSuccess = () => {
-    onUpdate()
+  const handleMutationSuccess = (id: number) => {
+    onUpdate(id)
   }
 
   const mutationOptions = {
     onSuccess: handleMutationSuccess,
   }
 
-  if (org.isPending || donationTypes.isPending) {
+  if (orgQuery.isPending || donationTypes.isPending) {
     return <p>You are loved 💖...</p>
   }
 
-  if (org.isError || donationTypes.isError) {
+  if (orgQuery.isError || donationTypes.isError) {
     return (
       <p>
         uh oh, something went wrong...{' '}
-        {org.error?.message || donationTypes.error?.message}
+        {orgQuery.error?.message || donationTypes.error?.message}
       </p>
     )
   }
@@ -76,12 +84,11 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     if (event) {
       event.preventDefault()
     }
-    org.patchOrgData.mutate(
+    orgQuery.addOrgData.mutate(
       {
-        id: organisation.id,
         token: token,
         orgData: {
-          id: 0,
+          id: newOrgId,
           name: form.orgName,
           contactDetails: form.orgContactDetails,
           about: form.orgAbout,
@@ -97,14 +104,14 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
     )
     if (form.orgDonationTypes) {
       donationTypes.patchOrgData.mutate({
-        id: organisation.id,
+        id: newOrgId,
         token: token,
         typeData: form.orgDonationTypes,
       })
     }
     if (form.orgDonationTypesDeleted) {
       donationTypes.deleteOrgData.mutate({
-        id: organisation.id,
+        id: newOrgId,
         token: token,
         typeData: form.orgDonationTypesDeleted,
       })
@@ -135,24 +142,24 @@ export default function EditOrgForm({ organisation, onUpdate }: Props) {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <EditCard
+        <AddCard
           form={organisation}
           orgName={form.orgName}
           orgContactDetails={form.orgContactDetails}
           handleChange={() => handleChange}
         />
-        <EditAbout
+        <AddAbout
           form={organisation}
           orgAbout={form.orgAbout}
           handleChange={() => handleChange}
         />
-        <EditHowToAdd
+        <AddHowToAdd
           form={organisation}
           orgHowToAdd={form.orgMethod}
           handleChange={() => handleChange}
         />
-        <EditCurrentlyAccepting
-          orgId={organisation.id}
+        <AddCurrentlyAccepting
+          orgId={newOrgId}
           form={form.orgDonationTypes}
           orgDonationTypes={donationTypes.data}
           handleDelete={() => handleTypeDelete}

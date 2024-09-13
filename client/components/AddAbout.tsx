@@ -1,12 +1,12 @@
-import { Organisation } from '../../models/modelOrganisations'
+import { OrganisationData } from '../../models/modelOrganisations'
 
 interface Props {
-  form: Organisation
+  form: OrganisationData
   orgAbout: string
   handleChange: () => void
 }
 
-export default function EditAbout({ form, orgAbout, handleChange }: Props) {
+export default function AddAbout({ form, orgAbout, handleChange }: Props) {
   return (
     <>
       <input

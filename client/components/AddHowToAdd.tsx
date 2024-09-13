@@ -1,12 +1,12 @@
-import { Organisation } from '../../models/modelOrganisations'
+import { OrganisationData } from '../../models/modelOrganisations'
 
 interface Props {
-  form: Organisation
+  form: OrganisationData
   orgHowToAdd: string
   handleChange: () => void
 }
 
-export default function EditHowToAdd({
+export default function AddHowToAdd({
   form,
   orgHowToAdd,
   handleChange,

@@ -1,13 +1,13 @@
-import { Organisation } from '../../models/modelOrganisations'
+import { OrganisationData } from '../../models/modelOrganisations'
 
 interface Props {
-  form: Organisation
+  form: OrganisationData
   orgName: string
   orgContactDetails: string
   handleChange: () => void
 }
 
-export default function EditCard({
+export default function AddCard({
   form,
   orgName,
   orgContactDetails,

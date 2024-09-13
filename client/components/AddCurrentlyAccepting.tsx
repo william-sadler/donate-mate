@@ -10,7 +10,7 @@ interface Props {
   handleDelete: (typeData: Types[]) => void
 }
 
-export default function EditCurrentlyAccepting({
+export default function AddCurrentlyAccepting({
   orgId,
   form,
   orgDonationTypes,
