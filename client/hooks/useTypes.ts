@@ -16,8 +16,9 @@ export function useTypesById(id: number) {
 
   return {
     ...query,
-    patchOrgData: usePatchTypes(),
-    deleteOrgData: useDeleteTypes(),
+    patchTypesData: usePatchTypes(),
+    postTypesData: usePostTypes(),
+    deleteTypesData: useDeleteTypes(),
   }
 }
 export function useAllDonationNames() {
@@ -48,6 +49,10 @@ export function useTypesMutation<TData = unknown, TVariables = unknown>(
 
 export function usePatchTypes() {
   return useTypesMutation(API.patchTypesById)
+}
+
+export function usePostTypes() {
+  return useTypesMutation(API.postTypes)
 }
 
 export function useDeleteTypes() {

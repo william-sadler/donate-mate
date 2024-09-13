@@ -13,5 +13,5 @@ export interface UserData {
 export interface UserDBData {
   name: string
   email: string
-  org_id: number
+  orgId: number
 }

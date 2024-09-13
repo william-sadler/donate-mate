@@ -3,6 +3,7 @@ import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/dbTypes.ts'
+import { Types } from '../../models/modelTypes.ts'
 
 const router = Router()
 
@@ -38,10 +39,8 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
 
   try {
     const data = req.body
-    const id = await db.addType(data)
-    res
-      .setHeader('Location', `${req.baseUrl}/${id}`)
-      .sendStatus(StatusCodes.CREATED)
+    await db.addType(data)
+    res.sendStatus(StatusCodes.CREATED)
   } catch (err) {
     next(err)
   }
@@ -77,8 +76,12 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
     return res.sendStatus(StatusCodes.NOT_FOUND)
   }
 
-  const typeData = req.body
+  const typeData = req.body as Types[]
 
+  if (!typeData[0]) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  console.log(typeData)
   try {
     await db.updateType(typeData, id)
     res

@@ -42,13 +42,14 @@ export async function postOrganisation({
   token,
   orgData,
 }: PostOrgFunction): Promise<void> {
-  const res = await request
+  console.log('Org Added')
+  const id = await request
     .post(orgURL)
     .set('Authorization', `Bearer ${token}`)
     .send(orgData)
 
   await request
-    .post(`/api/v1/users${res.body.id}`)
+    .post(`/api/v1/users/${id.body}`)
     .set('Authorization', `Bearer ${token}`)
     .send(userData)
 }

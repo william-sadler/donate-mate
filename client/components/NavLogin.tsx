@@ -13,7 +13,7 @@ function Nav() {
     console.log('sign in')
     loginWithRedirect({
       authorizationParams: {
-        redirectUrl: `${window.location.origin}/register`,
+        redirect_uri: `${window.location.origin}`,
       },
     })
   }

@@ -21,23 +21,16 @@ export async function getAllDonationNames(): Promise<DonationNames[]> {
 }
 
 export async function addType(data: Types[]) {
-  const newData = data.map((item) =>
-    Object.fromEntries(
-      Object.entries(item).map(([key, value]) => [
-        key === 'id'
-          ? null
-          : key === 'urgentlySeeking'
-            ? 'urgently_seeking'
-            : key === 'organisationId'
-              ? 'organisation_id'
-              : key,
-        key === 'id' ? null : value,
-      ]),
-    ),
+  data.map(
+    async (type: Types) =>
+      await db('donation_types').insert({
+        name: type.name,
+        accepting: type.accepting,
+        urgently_seeking: type.urgentlySeeking,
+        organisation_id: type.organisationId,
+        date: type.date,
+      }),
   )
-
-  const [id] = await db('donation_types').insert(newData)
-  return id
 }
 
 export async function updateType(data: Types[], orgId: number): Promise<void> {

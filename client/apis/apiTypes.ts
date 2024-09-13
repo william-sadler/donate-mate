@@ -24,13 +24,23 @@ export async function patchTypesById({
   token,
   typeData,
 }: PatchTypesFunction): Promise<void> {
-  const updateTypes = typeData.filter((type) => type.id === 0 || type.id === -1)
-  const newTypes = typeData.filter((type) => type.id !== 0)
+  const updateTypes = typeData.filter((type) => type.id !== 0)
+
+  if (updateTypes.length === 0) {
+    return
+  }
+
   await request
     .patch(`${rootUrl}/types/${id}`)
     .set('Authorization', `Bearer ${token}`)
     .send(updateTypes)
+}
 
+export async function postTypes({
+  token,
+  typeData,
+}: PatchTypesFunction): Promise<void> {
+  const newTypes = typeData.filter((type) => type.id === 0)
   await request
     .post(`${rootUrl}/types`)
     .set('Authorization', `Bearer ${token}`)

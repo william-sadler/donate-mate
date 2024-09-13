@@ -21,5 +21,6 @@ export async function postUser(
     auth0Id: auth0Id,
     name: userData.name,
     email: userData.email,
+    org_id: userData.orgId,
   })
 }

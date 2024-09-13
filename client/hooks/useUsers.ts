@@ -8,9 +8,13 @@ export function useUsers() {
   const { user, getAccessTokenSilently } = useAuth0()
 
   const query = useQuery({
-    queryKey: ['users'],
+    queryKey: ['user'],
     queryFn: async () => {
-      const token = await getAccessTokenSilently()
+      const token = await getAccessTokenSilently().catch(() => {
+        console.error('Login Required')
+        return 'undefined'
+      })
+      if (token === 'undefined') return []
       return API.getUsers({ token })
     },
     enabled: !!user,
@@ -30,7 +34,7 @@ export function useUserMutation<TData = unknown, TVariables = unknown>(
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] })
+      queryClient.invalidateQueries({ queryKey: ['user'] })
     },
   })
 

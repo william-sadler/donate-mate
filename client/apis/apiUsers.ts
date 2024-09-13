@@ -8,13 +8,11 @@ interface GetUsersFunction {
   token: string
 }
 
-export async function getUsers({
-  token,
-}: GetUsersFunction): Promise<User | null> {
+export async function getUsers({ token }: GetUsersFunction): Promise<User> {
   return await request
     .get(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body.users ? res.body.users : null))
+    .then((res) => (res.body ? res.body : null))
     .catch(logError)
 }
 
