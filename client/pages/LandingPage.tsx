@@ -7,7 +7,7 @@ export default function LandingPage() {
 
   if (isPending) return <p>Yoo hold up brother!</p>
   if (isError) return <p>Naa bao, it aint working: {error.message}</p>
-
+  console.log(data)
   return (
     <div className="container">
       <h1 className="text-3xl font-bold">DonateMate</h1>
@@ -16,8 +16,7 @@ export default function LandingPage() {
           <Link to={`/org/${organisation.id}`} key={i}>
             <LandingCard
               name={organisation.name}
-              src={organisation.image}
-              alt={organisation.name}
+              image={organisation.image}
               orgId={organisation.id}
             />
           </Link>

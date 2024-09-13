@@ -5,6 +5,23 @@
 /* --- !! TAILWIND CSS !! ---- */
 
 /* --- // HEADINGS // ---- */
+
+.grid-layout {
+  @apply grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3;
+}
+
+.image-card {
+  @apply overflow-hidden rounded-lg bg-white shadow-lg;
+}
+
+.image {
+  @apply h-auto w-full;
+}
+
+.name {
+  @apply py-2 text-center text-lg font-bold;
+}
+
 .heading-1 {
   @apply text-4xl font-bold;
 }
