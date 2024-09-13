@@ -1,5 +1,6 @@
 import request from 'superagent'
 import { Organisation } from '../../models/modelOrganisations'
+import { UserData } from '../../models/modelUsers'
 
 const orgURL = '/api/v1/organisations'
 
@@ -19,6 +20,12 @@ interface PatchOrgFunction {
   orgData: Organisation
 }
 
+interface PostOrgFunction {
+  userData: UserData
+  token: string
+  orgData: Organisation
+}
+
 export async function patchOrganisationById({
   id,
   token,
@@ -31,11 +38,17 @@ export async function patchOrganisationById({
 }
 
 export async function postOrganisation({
+  userData,
   token,
   orgData,
-}: PatchOrgFunction): Promise<void> {
-  await request
+}: PostOrgFunction): Promise<void> {
+  const res = await request
     .post(orgURL)
     .set('Authorization', `Bearer ${token}`)
     .send(orgData)
+
+  await request
+    .post(`/api/v1/users${res.body.id}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(userData)
 }

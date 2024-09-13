@@ -1,9 +1,6 @@
 import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import {
-  Organisation,
-  OrganisationData,
-} from '../../models/modelOrganisations.ts'
+import { OrganisationData } from '../../models/modelOrganisations.ts'
 import { useOrganisationsById } from '../hooks/useOrganisations.ts'
 import AddCard from './AddCard.tsx'
 import AddHowToAdd from './AddHowToAdd.tsx'
@@ -37,7 +34,7 @@ export default function AddOrgForm({
   organisation,
   onUpdate,
 }: Props) {
-  const { getAccessTokenSilently } = useAuth0()
+  const { user, getAccessTokenSilently } = useAuth0()
   const [form, setForm] = useState<FormState>({
     orgName: '',
     orgContactDetails: '',
@@ -55,8 +52,8 @@ export default function AddOrgForm({
   const orgQuery = useOrganisationsById(1)
   const donationTypes = useTypesById(1)
 
-  const handleMutationSuccess = (id: number) => {
-    onUpdate(id)
+  const handleMutationSuccess = () => {
+    onUpdate(newOrgId)
   }
 
   const mutationOptions = {
@@ -88,7 +85,7 @@ export default function AddOrgForm({
 
     orgQuery.postOrgData.mutate(
       {
-        id: 0,
+        userData: { name: user?.name || '', email: user?.email || '' },
         token: token,
         orgData: {
           id: newOrgId,
@@ -135,12 +132,6 @@ export default function AddOrgForm({
       orgDonationTypes: typeData,
     })
   }
-  const handleTypeDelete = (typeData: Types[]) => {
-    setForm({
-      ...form,
-      orgDonationTypesDeleted: typeData,
-    })
-  }
 
   return (
     <>
@@ -165,7 +156,6 @@ export default function AddOrgForm({
           orgId={newOrgId}
           form={form.orgDonationTypes}
           orgDonationTypes={donationTypes.data}
-          handleDelete={() => handleTypeDelete}
           handleUpdate={() => handleTypeChange}
         />
       </form>

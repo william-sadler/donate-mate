@@ -30,7 +30,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
-  const { name, email } = req.body
+  const { name, email, orgId } = req.body
 
   if (!auth0Id) {
     return res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -45,7 +45,39 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postUser(auth0Id, { name, email })
+    await db.postUser(auth0Id, { name, email, org_id: orgId })
+    res.sendStatus(StatusCodes.CREATED)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('failed to add new user')
+  }
+})
+
+// POST newUser by Org Id
+
+router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+  const { name, email } = req.body
+  const id = Number(req.params.id)
+
+  if (!auth0Id) {
+    return res.sendStatus(StatusCodes.UNAUTHORIZED)
+  }
+
+  if (!id || id < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  if (!name) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  if (!email) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    await db.postUser(auth0Id, { name, email, org_id: id })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)

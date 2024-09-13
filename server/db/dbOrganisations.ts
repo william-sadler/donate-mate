@@ -39,3 +39,18 @@ export async function patchOrganisationsById(
     method: orgData.method,
   })
 }
+
+export async function postOrganisation(orgData: Organisation): Promise<number> {
+  const [id] = await db('organisations').insert({
+    name: orgData.name,
+    contact_details: orgData.contactDetails,
+    about: orgData.about,
+    longitude: orgData.longitude,
+    latitude: orgData.latitude,
+    org_types: orgData.orgTypes,
+    image: orgData.image,
+    volunteering_needed: orgData.volunteeringNeeded,
+    method: orgData.method,
+  })
+  return id
+}

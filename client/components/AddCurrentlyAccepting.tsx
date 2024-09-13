@@ -7,7 +7,6 @@ interface Props {
   form: Types[] | []
   orgDonationTypes: Types[]
   handleUpdate: (typeData: Types[]) => void
-  handleDelete: (typeData: Types[]) => void
 }
 
 export default function AddCurrentlyAccepting({
@@ -15,7 +14,6 @@ export default function AddCurrentlyAccepting({
   form,
   orgDonationTypes,
   handleUpdate,
-  handleDelete,
 }: Props) {
   const [selectedType, setSelectedType] = useState<string>('')
 
@@ -102,7 +100,6 @@ export default function AddCurrentlyAccepting({
 
   const handleClick = async (name: string) => {
     handleUpdate([...form.filter((type) => type.name === name)])
-    handleDelete([...form.filter((type) => type.name !== name)])
   }
 
   return (
