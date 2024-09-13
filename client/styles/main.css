@@ -83,3 +83,28 @@
 .logo {
   height: 135px;
 }
+
+/*Hover urgently Status*/
+
+.name-container {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.card-urgently-status {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.circle {
+  width: 15px;
+  height: 15px;
+  background-color: red;
+  border-radius: 50%;
+}
