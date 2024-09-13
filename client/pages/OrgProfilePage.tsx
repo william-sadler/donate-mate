@@ -4,6 +4,7 @@ import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
+import ProfileHowToDonate from '../components/ProfileHowToDonate'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -56,6 +57,9 @@ export default function OrgProfilePage() {
       <p>{data.method}</p>
       <div>
         <ProfileAbout about={data.about} />
+      </div>
+      <div>
+        <ProfileHowToDonate method={data.method} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
     </>
