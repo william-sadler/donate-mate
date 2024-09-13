@@ -23,7 +23,7 @@ export default function OrgProfilePage() {
   if (isError) {
     return <p>Failed to get Org: {error.message}</p>
   }
-
+  console.log(data)
   return (
     <>
       <ProfileCard
