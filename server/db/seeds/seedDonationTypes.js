@@ -10,6 +10,60 @@ export async function seed(knex) {
 
   // Seeding Donation Types
   await knex('donation_types').insert([
+    // id: 1
+    // name: 'Hospice Cuba Street'
+
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 1,
+      date: `${date}`,
+    },
+    {
+      name: 'Furniture',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 1,
+      date: `${date}`,
+    },
+
+    // id: 2
+    // name: 'Salvation Army Miramar'
+
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 2,
+      date: `${date}`,
+    },
+    {
+      name: 'Food',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 2,
+      date: `${date}`,
+    },
+
+    // id: 3
+    // name: 'Aro Valley Opshop'
+
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 3,
+      date: `${date}`,
+    },
+    {
+      name: 'Household goods',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 3,
+      date: `${date}`,
+    },
+
     // id: 4
     // name: 'The Koha Shed Wellington'
 
