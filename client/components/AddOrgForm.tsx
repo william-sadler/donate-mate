@@ -81,11 +81,14 @@ export default function AddOrgForm({
       console.error('Login Required')
       return 'undefined'
     })
+
     if (event) {
       event.preventDefault()
     }
-    orgQuery.addOrgData.mutate(
+
+    orgQuery.postOrgData.mutate(
       {
+        id: 0,
         token: token,
         orgData: {
           id: newOrgId,

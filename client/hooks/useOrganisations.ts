@@ -22,6 +22,7 @@ export function useOrganisationsById(id: number) {
   return {
     ...query,
     patchOrgData: usePatchOrganisation(),
+    postOrgData: usePostOrganisation(),
   }
 }
 
@@ -46,4 +47,8 @@ export function useOrganisationMutation<TData = unknown, TVariables = unknown>(
 
 export function usePatchOrganisation() {
   return useOrganisationMutation(API.patchOrganisationById)
+}
+
+export function usePostOrganisation() {
+  return useOrganisationMutation(API.postOrganisation)
 }

@@ -29,3 +29,13 @@ export async function patchOrganisationById({
     .set('Authorization', `Bearer ${token}`)
     .send(orgData)
 }
+
+export async function postOrganisation({
+  token,
+  orgData,
+}: PatchOrgFunction): Promise<void> {
+  await request
+    .post(orgURL)
+    .set('Authorization', `Bearer ${token}`)
+    .send(orgData)
+}
