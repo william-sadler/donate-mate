@@ -28,7 +28,9 @@ export default function LandingPage() {
       <h1 className="text-3xl font-bold">DonateMate</h1>
       <IfAuthenticated>
         <Link to="/org/signup">
-          <button>Sing Up!</button>
+          <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
+            Sing Up!
+          </button>
         </Link>
       </IfAuthenticated>
       <IfNotAuthenticated>
