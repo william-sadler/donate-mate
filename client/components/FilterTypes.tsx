@@ -19,8 +19,11 @@ export default function FilterTypes({ setfilter, history }: Props) {
   console.log(donationType)
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const duplicateCheck = history.find((type) => type === event.target.value)
     setSelectedType(event.target.value)
-    setfilter([...history, event.target.value])
+    if (!duplicateCheck) {
+      setfilter([...history, event.target.value])
+    }
   }
 
   const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
