@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
@@ -59,6 +59,9 @@ export default function OrgProfilePage() {
         <ProfileHowToDonate method={data.method} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
+      <Link to={`/org/edit/${id}`}>
+        <button>Edit</button>
+      </Link>
     </>
   )
 }

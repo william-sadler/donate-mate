@@ -5,11 +5,7 @@ import {
   MutationFunction,
   UseMutationResult,
 } from '@tanstack/react-query'
-import {
-  getAllDonationNames,
-  getAllTypes,
-  getTypesById,
-} from '../apis/apiTypes'
+import { getAllDonationNames, getTypesById } from '../apis/apiTypes'
 import * as API from '../apis/apiTypes'
 
 export function useTypesById(id: number) {
@@ -28,8 +24,8 @@ export function useTypesById(id: number) {
 
 export function useAllTypes() {
   const query = useQuery({
-    queryKey: ['donationTypes'],
-    queryFn: () => getAllTypes(),
+    queryKey: ['donationType'],
+    queryFn: () => API.getAllTypes(),
   })
 
   return {
