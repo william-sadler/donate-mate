@@ -3,6 +3,7 @@ import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/dbUsers.ts'
+import { User } from '../../models/modelUsers.ts'
 
 const router = Router()
 export default router
@@ -19,7 +20,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
   try {
     const users = await db.getUserByToken(auth0Id)
-    res.json(users)
+    res.json(users as User)
   } catch (error) {
     console.log(error)
     res.status(500).json({ message: 'something went wrong' })
@@ -30,7 +31,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
-  const { name, email } = req.body
+  const { name, email, orgId } = req.body
 
   if (!auth0Id) {
     return res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -45,7 +46,31 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postUser(auth0Id, { name, email })
+    await db.postUser(auth0Id, { name, email, orgId })
+    res.sendStatus(StatusCodes.CREATED)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('failed to add new user')
+  }
+})
+
+// POST newUser by Org Id
+
+router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+  const { name, email } = req.body
+  const orgId = Number(req.params.id)
+
+  if (!auth0Id) {
+    return res.sendStatus(StatusCodes.UNAUTHORIZED)
+  }
+
+  if (!orgId || orgId < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    await db.postUser(auth0Id, { name, email, orgId })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)

@@ -1,4 +1,4 @@
-import { useTypes } from '../hooks/useTypes'
+import { useTypesById } from '../hooks/useTypes'
 
 import { Types } from '../../models/modelTypes'
 
@@ -7,7 +7,7 @@ interface Props {
 }
 
 export default function CardTypes({ id }: Props) {
-  const { data, isLoading, isError, error } = useTypes(id)
+  const { data, isLoading, isError, error } = useTypesById(id)
 
   if (isLoading) {
     return <p>Loading...</p>

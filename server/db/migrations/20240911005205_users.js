@@ -3,7 +3,7 @@ export async function up(knex) {
     table.string('auth0Id').primary()
     table.string('name')
     table.string('email')
-    table.string('org_id')
+    table.integer('org_id')
   })
 }
 
