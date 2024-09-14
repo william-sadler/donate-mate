@@ -21,6 +21,7 @@ export function useTypesById(id: number) {
     deleteTypesData: useDeleteTypes(),
   }
 }
+
 export function useAllDonationNames() {
   const query = useQuery({
     queryKey: ['donationNames'],
