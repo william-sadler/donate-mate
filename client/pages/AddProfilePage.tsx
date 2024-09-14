@@ -137,9 +137,9 @@ export default function AddProfilePage() {
               <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <div className="custom-svg mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full sm:mx-0 sm:h-10 sm:w-10">
                       <svg
-                        className="h-6 w-6 text-red-600"
+                        className="h-6 w-6 text-red-500"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
