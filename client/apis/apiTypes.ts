@@ -8,6 +8,12 @@ export async function getTypesById(id: number): Promise<Types[]> {
   return res.body as Types[]
 }
 
+export async function getAllTypes(): Promise<Types[]> {
+  const res = await request.get(`/api/v1/types/all`)
+  console.log(res.body)
+  return res.body as Types[]
+}
+
 export async function getAllDonationNames(): Promise<DonationNames[]> {
   const res = await request.get(`${rootUrl}/types`)
   return res.body as DonationNames[]

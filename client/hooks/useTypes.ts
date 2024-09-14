@@ -5,7 +5,11 @@ import {
   MutationFunction,
   UseMutationResult,
 } from '@tanstack/react-query'
-import { getAllDonationNames, getTypesById } from '../apis/apiTypes'
+import {
+  getAllDonationNames,
+  getAllTypes,
+  getTypesById,
+} from '../apis/apiTypes'
 import * as API from '../apis/apiTypes'
 
 export function useTypesById(id: number) {
@@ -21,6 +25,18 @@ export function useTypesById(id: number) {
     deleteTypesData: useDeleteTypes(),
   }
 }
+
+export function useAllTypes() {
+  const query = useQuery({
+    queryKey: ['donationTypes'],
+    queryFn: () => getAllTypes(),
+  })
+
+  return {
+    ...query,
+  }
+}
+
 export function useAllDonationNames() {
   const query = useQuery({
     queryKey: ['donationNames'],
