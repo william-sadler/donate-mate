@@ -21,11 +21,12 @@ export function useOrganisationsById(id: number) {
   })
   return {
     ...query,
-    // updateStatus: useUpdateStatus(),
+    patchOrgData: usePatchOrganisation(),
+    postOrgData: usePostOrganisation(),
   }
 }
 
-export function useFruitsMutation<TData = unknown, TVariables = unknown>(
+export function useOrganisationMutation<TData = unknown, TVariables = unknown>(
   mutationFn: MutationFunction<TData, TVariables>,
 ) {
   const queryClient = useQueryClient()
@@ -43,3 +44,11 @@ export function useFruitsMutation<TData = unknown, TVariables = unknown>(
 /* function useAddFruit() {
   return useFruitsMutation(addFruit)
 } */
+
+export function usePatchOrganisation() {
+  return useOrganisationMutation(API.patchOrganisationById)
+}
+
+export function usePostOrganisation() {
+  return useOrganisationMutation(API.postOrganisation)
+}

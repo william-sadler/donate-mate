@@ -1,9 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
-import { useTypes } from '../hooks/useTypes'
-import ProfileCard from '../components/ProfileCard.tsx'
-import ProfileAbout from '../components/ProfileAbout.tsx'
+import { useTypesById } from '../hooks/useTypes'
+import ProfileAbout from '../components/ProfileAbout'
+import ProfileCard from '../components/ProfileCard'
+import ProfileHowToDonate from '../components/ProfileHowToDonate'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -11,7 +12,7 @@ export default function OrgProfilePage() {
   const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
-  const typeData = useTypes(id)
+  const typeData = useTypesById(id)
 
   if (isPending || !data) {
     let failures = ''
@@ -50,13 +51,13 @@ export default function OrgProfilePage() {
         name={data.name}
         location={data.location}
       />
-
       <h3>{data.orgTypes}</h3>
-      <p>{data.contactEmail}</p>
-      <p>{data.contactEmail}</p>
-      <p>{data.donationMethod}</p>
-      <ProfileAbout about={data.about} />
-
+      <div>
+        <ProfileAbout about={data.about} />
+      </div>
+      <div>
+        <ProfileHowToDonate method={data.donationMethod} />
+      </div>
       <CurrentlyAccepting typeData={typeData.data} />
     </>
   )
