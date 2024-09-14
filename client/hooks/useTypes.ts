@@ -24,7 +24,7 @@ export function useTypesById(id: number) {
 
 export function useAllTypes() {
   const query = useQuery({
-    queryKey: ['donationType'],
+    queryKey: ['types'],
     queryFn: () => API.getAllTypes(),
   })
 

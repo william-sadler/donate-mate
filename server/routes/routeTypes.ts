@@ -31,16 +31,6 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/all', async (req, res, next) => {
-  console.log('what is going on')
-  try {
-    const typesNames = await db.getAllTypes()
-    res.json(typesNames)
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
