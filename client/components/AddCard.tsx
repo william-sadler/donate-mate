@@ -3,7 +3,10 @@ import { OrganisationData } from '../../models/modelOrganisations'
 interface Props {
   form: OrganisationData
   orgName: string
-  orgContactDetails: string
+  orgContactNumber: string
+  orgContactEmail: string
+  orgLocation: string
+  orgWebsite: string
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -11,7 +14,10 @@ export default function AddCard({
   form,
   handleChange,
   orgName,
-  orgContactDetails,
+  orgContactNumber,
+  orgContactEmail,
+  orgLocation,
+  orgWebsite,
 }: Props) {
   return (
     <div className="space-y-6 rounded-lg bg-white p-6 shadow-lg ring-1 ring-gray-200">
@@ -60,31 +66,53 @@ export default function AddCard({
                 name="orgAddress"
                 id="orgAddress"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value=""
+                value={orgLocation}
                 placeholder="Address"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
-                disabled
               />
             </div>
           </div>
         </div>
 
-        {/* Contact Details */}
+        {/* Contact Number */}
         <div>
           <label
-            htmlFor="orgContactDetails"
+            htmlFor="orgContactNumber"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Contact Details
+            Contact Number
           </label>
           <div className="mt-2">
             <div className="relative">
               <input
                 type="text"
-                name="orgContactDetails"
-                id="orgContactDetails"
+                name="orgContactNumber"
+                id="orgContactNumber"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={orgContactDetails}
+                value={orgContactNumber}
+                onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Contact Email */}
+        <div>
+          <label
+            htmlFor="orgContactEmail"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Contact Email
+          </label>
+          <div className="mt-2">
+            <div className="relative">
+              <input
+                type="text"
+                name="orgContactEmail"
+                id="orgContactEmail"
+                className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={orgContactEmail}
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
                 onChange={handleChange}
               />
@@ -95,7 +123,7 @@ export default function AddCard({
         {/* Website Link */}
         <div>
           <label
-            htmlFor="orgWebsiteLink"
+            htmlFor="orgWebsite"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Website Link
@@ -104,13 +132,12 @@ export default function AddCard({
             <div className="relative">
               <input
                 type="text"
-                name="orgWebsiteLink"
-                id="orgWebsiteLink"
+                name="orgWebsite"
+                id="orgWebsite"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value=""
+                value={orgWebsite}
                 placeholder="Website Link"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
-                disabled
               />
             </div>
           </div>
