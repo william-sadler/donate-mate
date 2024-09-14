@@ -17,6 +17,7 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
       'longitude',
       'latitude',
       'org_types as orgTypes',
+      'image',
       'volunteering_needed as volunteeringNeeded',
       'method',
     )
