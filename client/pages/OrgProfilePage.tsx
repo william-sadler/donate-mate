@@ -51,10 +51,7 @@ export default function OrgProfilePage() {
         name={data.name}
         contactDetails={data.contactDetails}
       />
-
       <h3>{data.orgTypes}</h3>
-      <p>{data.contactDetails}</p>
-      <p>{data.method}</p>
       <div>
         <ProfileAbout about={data.about} />
       </div>
