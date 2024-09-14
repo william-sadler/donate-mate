@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { OrganisationData } from '../../models/modelOrganisations.ts'
 import { useOrganisationsById } from '../hooks/useOrganisations.ts'
 import AddCard from './AddCard.tsx'
-import AddHowToAdd from './AddHowToAdd.tsx'
+import AddHowToDonate from './AddHowToDonate.tsx'
 import AddCurrentlyAccepting from './AddCurrentlyAccepting.tsx'
 import AddAbout from './AddAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
@@ -259,14 +259,17 @@ export default function AddOrgForm({
           </div>
         </section>
         <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
-          <AddHowToAdd orgMethod={form.orgMethod} handleChange={handleChange} />
+          <AddHowToDonate
+            orgMethod={form.orgMethod}
+            handleChange={handleChange}
+          />
           <div className="mt-4">
             <section className="hidden md:block ">PlaceHolder: Map</section>
           </div>
         </section>
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
           <div className="block md:hidden">
-            <AddHowToAdd
+            <AddHowToDonate
               orgMethod={form.orgMethod}
               handleChange={handleChange}
             />
