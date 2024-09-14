@@ -19,7 +19,7 @@ export default function LandingPage() {
     isError: typeIsError,
     error: typeError,
   } = useAllTypes()
-  const [selectedType, setSelectedType] = useState([])
+  const [selectedType, setSelectedType] = useState([] as string[])
 
   const handleSignIn = () => {
     console.log('sign in')
@@ -56,7 +56,7 @@ export default function LandingPage() {
         </button>
       </IfNotAuthenticated>
       <div className="filterTypes">
-        <FilterTypes selectedTypeName={setSelectedType} />
+        <FilterTypes setfilter={setSelectedType} history={selectedType} />
       </div>
       <div className="image-grid">
         {data

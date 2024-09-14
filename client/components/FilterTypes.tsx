@@ -22,6 +22,12 @@ export default function FilterTypes({ setfilter, history }: Props) {
     setfilter([...history, event.target.value])
   }
 
+  const handleDelete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = event.currentTarget
+    setSelectedType(name)
+    setfilter(history.filter((type) => type !== name))
+  }
+
   return (
     <>
       <h1>You ready to filter???</h1>
@@ -36,6 +42,16 @@ export default function FilterTypes({ setfilter, history }: Props) {
           ))}
         </select>
       </label>
+      {history.map((filtered: string) => (
+        <>
+          <div>
+            {filtered}
+            <button name={filtered} onClick={handleDelete}>
+              x
+            </button>
+          </div>
+        </>
+      ))}
     </>
   )
 }
