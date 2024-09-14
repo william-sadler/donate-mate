@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useAllDonationNames } from '../hooks/useTypes'
 
 interface Props {
-  selectedTypeName: (name: string) => void
+  setfilter: (types: string[]) => void
+  history: string[]
 }
-export default function FilterTypes({ selectedTypeName }: Props) {
+export default function FilterTypes({ setfilter, history }: Props) {
   const [selectedType, setSelectedType] = useState('')
 
   const {
@@ -18,7 +19,7 @@ export default function FilterTypes({ selectedTypeName }: Props) {
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedType(event.target.value)
-    selectedTypeName(event.target.value)
+    setfilter([...history, event.target.value])
   }
 
   return (

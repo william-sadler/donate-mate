@@ -19,7 +19,7 @@ export default function LandingPage() {
     isError: typeIsError,
     error: typeError,
   } = useAllTypes()
-  const [selectedType, setSelectedType] = useState('')
+  const [selectedType, setSelectedType] = useState([])
 
   const handleSignIn = () => {
     console.log('sign in')
@@ -64,7 +64,9 @@ export default function LandingPage() {
             (org) =>
               typeData.filter(
                 (type) =>
-                  type.name === selectedType && type.organisationId === org.id,
+                  selectedType.find(
+                    (selection: string) => type.name === selection,
+                  ) && type.organisationId === org.id,
               ).length === 1 || !selectedType,
           )
           .map((organisation, i) => (
