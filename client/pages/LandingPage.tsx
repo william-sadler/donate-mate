@@ -29,7 +29,7 @@ export default function LandingPage() {
       <IfAuthenticated>
         <Link to="/org/signup">
           <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
-            Sing Up!
+            Sign Up!
           </button>
         </Link>
       </IfAuthenticated>
@@ -38,7 +38,7 @@ export default function LandingPage() {
           className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
           onClick={handleSignIn}
         >
-          Sing Up!
+          Sign Up!
         </button>
       </IfNotAuthenticated>
       <div className="image-grid">
