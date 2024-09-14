@@ -99,6 +99,27 @@ export default function EditOrgForm({
       return setChanged(true)
     }
 
+    if (form.orgDonationTypes) {
+      donationTypes.patchTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypes,
+      })
+    }
+    if (form.orgDonationTypes) {
+      donationTypes.postTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypes,
+      })
+    }
+    if (form.orgDonationTypesDeleted) {
+      donationTypes.deleteTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypesDeleted,
+      })
+    }
     org.patchOrgData.mutate(
       {
         id: organisation.id,
@@ -118,26 +139,6 @@ export default function EditOrgForm({
       },
       mutationOptions,
     )
-    if (form.orgDonationTypes) {
-      donationTypes.patchTypesData.mutate(
-        {
-          id: organisation.id,
-          token: token,
-          typeData: form.orgDonationTypes,
-        },
-        mutationOptions,
-      )
-    }
-    if (form.orgDonationTypesDeleted) {
-      donationTypes.deleteTypesData.mutate(
-        {
-          id: organisation.id,
-          token: token,
-          typeData: form.orgDonationTypesDeleted,
-        },
-        mutationOptions,
-      )
-    }
   }
 
   const handleChange = (
@@ -155,12 +156,9 @@ export default function EditOrgForm({
   const handleTypeChange = (typeData: Types[], deletedData?: Types[]) => {
     setForm({
       ...form,
-      orgDonationTypesDeleted: deletedData || [],
-    })
-
-    setForm({
-      ...form,
       orgDonationTypes: typeData,
+      orgDonationTypesDeleted:
+        deletedData === undefined ? form.orgDonationTypesDeleted : deletedData,
     })
   }
 
@@ -267,6 +265,7 @@ export default function EditOrgForm({
             <EditCurrentlyAccepting
               orgId={organisation.id}
               form={form.orgDonationTypes}
+              deleted={form.orgDonationTypesDeleted}
               handleUpdate={handleTypeChange}
             />
           </div>

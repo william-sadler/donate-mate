@@ -46,6 +46,9 @@ export async function updateType(data: Types[]): Promise<void> {
   )
 }
 
-export async function deleteType(typeId: number): Promise<void> {
-  await db('donation_types').where('id', typeId).del()
+export async function deleteType(typeData: Types[]): Promise<void> {
+  typeData.map(
+    async (type: Types) =>
+      await db('donation_types').where('id', type.id).del(),
+  )
 }

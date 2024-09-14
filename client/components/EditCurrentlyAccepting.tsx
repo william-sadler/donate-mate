@@ -5,12 +5,14 @@ import { Types } from '../../models/modelTypes'
 interface Props {
   orgId: number
   form: Types[] | []
+  deleted: Types[] | []
   handleUpdate: (typeData: Types[], deletedData?: Types[]) => void
 }
 
 export default function EditCurrentlyAccepting({
   orgId,
   form,
+  deleted,
   handleUpdate,
 }: Props) {
   const [selectedType, setSelectedType] = useState<string>('')
@@ -106,7 +108,7 @@ export default function EditCurrentlyAccepting({
   const handleClick = async (name: string) => {
     handleUpdate(
       [...form.filter((type) => type.name !== name)],
-      [...form.filter((type) => type.name === name)],
+      [...deleted, ...form.filter((type) => type.name === name)],
     )
   }
 

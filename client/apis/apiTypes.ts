@@ -50,10 +50,8 @@ export async function deleteTypesById({
   token,
   typeData,
 }: PatchTypesFunction): Promise<void> {
-  typeData.map(
-    async (type) =>
-      await request
-        .delete(`${rootUrl}/types/${type.id}`)
-        .set('Authorization', `Bearer ${token}`),
-  )
+  await request
+    .delete(`${rootUrl}/types`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(typeData)
 }
