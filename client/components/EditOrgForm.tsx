@@ -98,6 +98,7 @@ export default function EditOrgForm({
     if (!changed) {
       return setChanged(true)
     }
+
     org.patchOrgData.mutate(
       {
         id: organisation.id,
@@ -151,16 +152,15 @@ export default function EditOrgForm({
     })
   }
 
-  const handleTypeChange = (typeData: Types[]) => {
+  const handleTypeChange = (typeData: Types[], deletedData?: Types[]) => {
+    setForm({
+      ...form,
+      orgDonationTypesDeleted: deletedData || [],
+    })
+
     setForm({
       ...form,
       orgDonationTypes: typeData,
-    })
-  }
-  const handleTypeDelete = (typeData: Types[]) => {
-    setForm({
-      ...form,
-      orgDonationTypesDeleted: typeData,
     })
   }
 
@@ -267,9 +267,7 @@ export default function EditOrgForm({
             <EditCurrentlyAccepting
               orgId={organisation.id}
               form={form.orgDonationTypes}
-              orgDonationTypes={donationTypes.data}
               handleUpdate={handleTypeChange}
-              handleDelete={handleTypeDelete}
             />
           </div>
         </section>

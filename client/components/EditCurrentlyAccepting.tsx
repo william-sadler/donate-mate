@@ -5,17 +5,13 @@ import { Types } from '../../models/modelTypes'
 interface Props {
   orgId: number
   form: Types[] | []
-  orgDonationTypes: Types[]
-  handleUpdate: (typeData: Types[]) => void
-  handleDelete: (typeData: Types[]) => void
+  handleUpdate: (typeData: Types[], deletedData?: Types[]) => void
 }
 
 export default function EditCurrentlyAccepting({
   orgId,
   form,
-  orgDonationTypes,
   handleUpdate,
-  handleDelete,
 }: Props) {
   const [selectedType, setSelectedType] = useState<string>('')
 
@@ -108,8 +104,10 @@ export default function EditCurrentlyAccepting({
   }
 
   const handleClick = async (name: string) => {
-    handleUpdate([...form.filter((type) => type.name !== name)])
-    handleDelete([...form.filter((type) => type.name === name)])
+    handleUpdate(
+      [...form.filter((type) => type.name !== name)],
+      [...form.filter((type) => type.name === name)],
+    )
   }
 
   return (
@@ -136,7 +134,7 @@ export default function EditCurrentlyAccepting({
           <div className="flex-1">Donations</div>
           <div className="flex items-center space-x-2">Status</div>
         </div>
-        {(!form ? orgDonationTypes : form).map((type, i) => (
+        {form.map((type, i) => (
           <div key={i} className="flex items-center justify-between space-x-4">
             <div className="flex-1">
               <p className="text-sm font-medium text-gray-900">{type.name}</p>

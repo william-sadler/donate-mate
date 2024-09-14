@@ -65,17 +65,10 @@ router.delete('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
 })
 
-router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
+router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     return res.sendStatus(StatusCodes.UNAUTHORIZED)
   }
-
-  const id = Number(req.params.id)
-
-  if (!id || id < 1) {
-    return res.sendStatus(StatusCodes.NOT_FOUND)
-  }
-
   const typeData = req.body as Types[]
 
   if (!typeData[0]) {
@@ -83,10 +76,8 @@ router.patch('/:id', checkJwt, async (req: JwtRequest, res, next) => {
   }
   console.log(typeData)
   try {
-    await db.updateType(typeData, id)
-    res
-      .setHeader('Location', `${req.baseUrl}/${id}`)
-      .sendStatus(StatusCodes.CREATED)
+    await db.updateType(typeData)
+    res.sendStatus(StatusCodes.CREATED)
   } catch (err) {
     next(err)
   }

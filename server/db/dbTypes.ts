@@ -33,8 +33,17 @@ export async function addType(data: Types[]) {
   )
 }
 
-export async function updateType(data: Types[], orgId: number): Promise<void> {
-  await db('donation_types').where('org_id', orgId).update(data)
+export async function updateType(data: Types[]): Promise<void> {
+  data.map(
+    async (type: Types) =>
+      await db('donation_types').andWhere('id', type.id).update({
+        name: type.name,
+        accepting: type.accepting,
+        urgently_seeking: type.urgentlySeeking,
+        organisation_id: type.organisationId,
+        date: type.date,
+      }),
+  )
 }
 
 export async function deleteType(typeId: number): Promise<void> {

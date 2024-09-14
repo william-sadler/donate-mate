@@ -20,7 +20,6 @@ interface PatchTypesFunction {
 }
 
 export async function patchTypesById({
-  id,
   token,
   typeData,
 }: PatchTypesFunction): Promise<void> {
@@ -31,7 +30,7 @@ export async function patchTypesById({
   }
 
   await request
-    .patch(`${rootUrl}/types/${id}`)
+    .patch(`${rootUrl}/types`)
     .set('Authorization', `Bearer ${token}`)
     .send(updateTypes)
 }
