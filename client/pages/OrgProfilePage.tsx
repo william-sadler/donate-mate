@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
-import { useTypes } from '../hooks/useTypes'
+import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
 import ProfileHowToDonate from '../components/ProfileHowToDonate'
@@ -12,7 +12,7 @@ export default function OrgProfilePage() {
   const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
-  const typeData = useTypes(id)
+  const typeData = useTypesById(id)
 
   if (isPending || !data) {
     let failures = ''
@@ -51,10 +51,7 @@ export default function OrgProfilePage() {
         name={data.name}
         contactDetails={data.contactDetails}
       />
-
       <h3>{data.orgTypes}</h3>
-      <p>{data.contactDetails}</p>
-      <p>{data.method}</p>
       <div>
         <ProfileAbout about={data.about} />
       </div>

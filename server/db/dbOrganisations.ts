@@ -17,8 +17,41 @@ export async function getOrganisationsById(id: number): Promise<Organisation> {
       'longitude',
       'latitude',
       'org_types as orgTypes',
+      'image',
       'volunteering_needed as volunteeringNeeded',
       'method',
     )
   return organisations as Organisation
+}
+
+export async function patchOrganisationsById(
+  id: number,
+  orgData: Organisation,
+): Promise<void> {
+  await db('organisations').where({ id }).update({
+    name: orgData.name,
+    contact_details: orgData.contactDetails,
+    about: orgData.about,
+    longitude: orgData.longitude,
+    latitude: orgData.latitude,
+    org_types: orgData.orgTypes,
+    image: orgData.image,
+    volunteering_needed: orgData.volunteeringNeeded,
+    method: orgData.method,
+  })
+}
+
+export async function postOrganisation(orgData: Organisation): Promise<number> {
+  const [id] = await db('organisations').insert({
+    name: orgData.name,
+    contact_details: orgData.contactDetails,
+    about: orgData.about,
+    longitude: orgData.longitude,
+    latitude: orgData.latitude,
+    org_types: orgData.orgTypes,
+    image: orgData.image,
+    volunteering_needed: orgData.volunteeringNeeded,
+    method: orgData.method,
+  })
+  return id
 }
