@@ -259,7 +259,7 @@ export async function seed(knex) {
       org_types: 'Community Centre',
       image: '/images/soup_kitchen.webp',
       volunteering_needed: true,
-      donation_method: 'Drop-in between daily housr!',
+      donation_method: 'Drop-in between 8.30am and 5pm!',
       website: 'https://devacademy.co.nz/',
     },
   ])

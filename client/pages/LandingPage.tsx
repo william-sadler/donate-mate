@@ -28,14 +28,14 @@ export default function LandingPage() {
       <h1 className="text-3xl font-bold">DonateMate</h1>
       <IfAuthenticated>
         <Link to="/org/signup">
-          <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
+          <button className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal">
             Sign Up!
           </button>
         </Link>
       </IfAuthenticated>
       <IfNotAuthenticated>
         <button
-          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+          className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal"
           onClick={handleSignIn}
         >
           Sign Up!
@@ -48,6 +48,7 @@ export default function LandingPage() {
               name={organisation.name}
               image={organisation.image}
               orgId={organisation.id}
+              location={organisation.location}
             />
           </Link>
         ))}
