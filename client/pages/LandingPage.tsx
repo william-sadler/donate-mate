@@ -67,7 +67,7 @@ export default function LandingPage() {
                   selectedType.find(
                     (selection: string) => type.name === selection,
                   ) && type.organisationId === org.id,
-              ).length === 1 || !selectedType,
+              ).length === 1 || selectedType.length === 0,
           )
           .map((organisation, i) => (
             <Link to={`/org/${organisation.id}`} key={i}>

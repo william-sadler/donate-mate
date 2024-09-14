@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useAllDonationNames } from '../hooks/useTypes'
+import FilterTag from './FilterTag'
 
 interface Props {
   setfilter: (types: string[]) => void
@@ -29,11 +30,15 @@ export default function FilterTypes({ setfilter, history }: Props) {
   }
 
   return (
-    <>
-      <h1>You ready to filter???</h1>
-      <label className="filterByType">
-        <h2 className="heading-2">Filter By:</h2>
-        <select value={selectedType} onChange={handleChange}>
+    <section className="mx-auto max-w-3xl p-6">
+      <h1 className="mb-4 text-2xl font-bold">You ready to filter???</h1>
+      <label className="mb-6 block">
+        <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
+        <select
+          value={selectedType}
+          onChange={handleChange}
+          className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
           <option value="">Donation Type</option>
           {donationType.map((type) => (
             <option key={type.id} value={type.name}>
@@ -42,16 +47,13 @@ export default function FilterTypes({ setfilter, history }: Props) {
           ))}
         </select>
       </label>
-      {history.map((filtered: string) => (
-        <>
-          <div>
-            {filtered}
-            <button name={filtered} onClick={handleDelete}>
-              x
-            </button>
-          </div>
-        </>
-      ))}
-    </>
+      {history.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {history.map((filtered, i) => (
+            <FilterTag key={i} filtered={filtered} onDelete={handleDelete} />
+          ))}
+        </div>
+      )}
+    </section>
   )
 }
