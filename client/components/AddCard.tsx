@@ -44,6 +44,7 @@ export default function AddCard({
                 id="orgName"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgName}
+                placeholder="Organisation name"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
                 onChange={handleChange}
               />
@@ -90,6 +91,7 @@ export default function AddCard({
                 id="orgContactNumber"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgContactNumber}
+                placeholder="Contact Number"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
                 onChange={handleChange}
               />
@@ -113,6 +115,7 @@ export default function AddCard({
                 id="orgContactEmail"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgContactEmail}
+                placeholder="Contact Email"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
                 onChange={handleChange}
               />
@@ -136,7 +139,7 @@ export default function AddCard({
                 id="orgWebsite"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgWebsite}
-                placeholder="Website Link"
+                placeholder="Website"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
               />
             </div>

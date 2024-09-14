@@ -8,7 +8,7 @@ export default function ProfileCard({ image, name, location }: Props) {
     <div className="profile-image-card mx-auto px-8 py-4">
       <img className="image" src={image} alt={name} />
       <h2 className="heading-2 name">{name}</h2>
-      <p className=" paragraph contactDetails">{location}</p>
+      <p className=" paragraph location">{location}</p>
     </div>
   )
 }
