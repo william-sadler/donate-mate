@@ -272,7 +272,7 @@ export default function AddOrgForm({
         </section>
         <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
           <AddHowToDonate
-            orgMethod={form.orgDonationMethod}
+            orgDonationMethod={form.orgDonationMethod}
             handleChange={handleChange}
           />
           <div className="mt-4">
@@ -282,7 +282,7 @@ export default function AddOrgForm({
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
           <div className="block md:hidden">
             <AddHowToDonate
-              orgMethod={form.orgDonationMethod}
+              orgDonationMethod={form.orgDonationMethod}
               handleChange={handleChange}
             />
           </div>

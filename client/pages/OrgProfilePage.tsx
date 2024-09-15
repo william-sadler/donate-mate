@@ -62,7 +62,7 @@ export default function OrgProfilePage() {
         <ProfileAbout about={data.about} />
       </div>
       <div>
-        <ProfileHowToDonate method={data.donationMethod} />
+        <ProfileHowToDonate method={data.donationMethod || ''} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
       <ProfileMap />
