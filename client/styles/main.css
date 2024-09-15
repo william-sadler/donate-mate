@@ -39,27 +39,27 @@
 /* HEADING AND FONT*/
 
 .heading-1-caveat {
-  @apply caveat-bold text-5xl font-bold;
+  @apply caveat-bold text-5xl font-bold text-textBlue;
 }
 
 .heading-2-caveat {
-  @apply caveat-semi text-3xl;
+  @apply caveat-semi text-3xl text-textBlue;
 }
 
 .heading-3-italic {
-  @apply raleway-bold-italic text-2xl font-bold;
+  @apply raleway-bold-italic text-2xl font-bold text-textBlue;
 }
 
 .heading-4 {
-  @apply raleway-bold  text-xl font-bold;
+  @apply raleway-bold  text-xl font-bold text-textBlue;
 }
 
 .heading-4-italic {
-  @apply raleway-bold-italic  text-xl font-bold;
+  @apply raleway-bold-italic  text-xl font-bold text-textBlue;
 }
 
 .paragraph {
-  @apply raleway-light text-base font-normal;
+  @apply raleway-light text-base font-normal text-textBlue;
 }
 
 .small-text {
