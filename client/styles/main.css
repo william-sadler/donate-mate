@@ -39,27 +39,27 @@
 /* HEADING AND FONT*/
 
 .heading-1-caveat {
-  @apply caveat-bold text-textBlue text-5xl font-bold;
+  @apply caveat-bold text-5xl font-bold text-textBlue;
 }
 
 .heading-2-caveat {
-  @apply caveat-semi text-textBlue text-3xl;
+  @apply caveat-semi text-3xl text-textBlue;
 }
 
 .heading-3-italic {
-  @apply raleway-bold-italic text-textBlue text-2xl font-bold;
+  @apply raleway-bold-italic text-2xl font-bold text-textBlue;
 }
 
 .heading-4 {
-  @apply raleway-bold  text-textBlue text-xl font-bold;
+  @apply raleway-bold  text-xl font-bold text-textBlue;
 }
 
 .heading-4-italic {
-  @apply raleway-bold-italic  text-textBlue text-xl font-bold;
+  @apply raleway-bold-italic  text-xl font-bold text-textBlue;
 }
 
 .paragraph {
-  @apply raleway-light text-textBlue text-base font-normal;
+  @apply raleway-light text-base font-normal text-textBlue;
 }
 
 .small-text {
@@ -77,6 +77,15 @@
   @apply flex items-center justify-center;
 }
 
+.currentlyAccepting {
+  @apply min-h-full max-w-lg;
+}
+/* BOX SHADOWS */
+.yellow-shadow {
+  box-shadow:
+    0 4px 8px 0 rgb(237, 226, 89, 0.1),
+    0 6px 20px 0 rgb(237, 226, 89, 0.1);
+}
 /* --- // BUTTONS // ---- */
 
 /* Primary Button */
@@ -140,7 +149,7 @@
 
 /* ORG PROFILE PAGE */
 .orgProfilePage {
-  background-color: #fbe8d1;
+  background-color: #ffffff;
 }
 .logo {
   height: 135px;
