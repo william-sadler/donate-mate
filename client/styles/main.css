@@ -10,11 +10,11 @@
 }
 
 .heading-2 {
-  @apply caveat-bold text-3xl;
+  @apply caveat-semi text-3xl;
 }
 
 .heading-3 {
-  @apply raleway-light text-2xl font-bold;
+  @apply raleway-bold text-2xl font-bold;
 }
 
 .heading-4 {
@@ -66,10 +66,24 @@
   font-style: normal;
 }
 
+.caveat-semi {
+  font-family: 'Caveat';
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
 .raleway-light {
   font-family: 'Raleway', sans-serif;
   font-optical-sizing: auto;
   font-weight: 300;
+  font-style: normal;
+}
+
+.raleway-bold {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
   font-style: normal;
 }
 
