@@ -81,7 +81,7 @@ export default function LandingPage() {
       </IfAuthenticated>
       <IfNotAuthenticated>
         <div className="mb-4 flex items-center justify-end space-x-4">
-          <span className="text-lg">Are you an org?</span>
+          <span className="heading-2-caveat mb-4">Are you an org?</span>
           <button
             className="primary_button bg-blue hover:bg-darkerTeal mb-4 flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
             onClick={handleSignIn}
@@ -95,35 +95,35 @@ export default function LandingPage() {
         <div className="mb-4 w-full max-w-lg">
           <LandingSearch onSubmit={setOrgFilter} />
         </div>
-        <div className="mb-4 flex w-full flex-col space-y-4 overflow-x-auto sm:flex-row sm:space-x-4 sm:space-y-0">
-          <div className="flex flex-shrink-0 space-x-4">
+        <div className="mb-4 w-full max-w-lg">
+          <div className="custom-grid">
             <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
               <FilterTypes setFilter={setSelectedType} history={selectedType} />
             </div>
-            <div className="heading-2-caveat paragraph flex flex-shrink-0 items-center space-x-4">
-              <section className="mx-auto max-w-3xl flex-shrink-0 p-6">
+            <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
+              <section className="mx-fit max-w-3xl pl-0">
                 <label className="mb-6 block">
                   <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
                   <select
                     disabled
-                    defaultValue="Location"
+                    value="Location"
                     className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="" disabled>
-                      Location
-                    </option>
+                    <option value="Location">Location</option>
                   </select>
                 </label>
               </section>
+            </div>
+            <section className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
               {(orgFilter.length > 0 || selectedType.length > 0) && (
                 <button
-                  className="primary_button bg-blue hover:bg-darkerTeal flex flex-shrink-0 items-center space-x-4 rounded px-4 py-2 transition duration-300"
+                  className="primary_button bg-blue hover:bg-darkerTeal mt-3 flex flex-shrink-0 items-center space-x-4 rounded px-4 py-2 transition duration-300"
                   onClick={handleResetFilters}
                 >
                   Reset Filters
                 </button>
               )}
-            </div>
+            </section>
           </div>
         </div>
         {selectedType.length > 0 && (

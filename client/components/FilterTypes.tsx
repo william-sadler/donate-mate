@@ -17,7 +17,7 @@ export default function FilterTypes({ history, setFilter }: Props) {
 
   if (isPending) {
     return (
-      <section className="mx-auto max-w-3xl p-6">
+      <section className="mx-0 max-w-3xl pl-0">
         <label className="mb-6 block">
           <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
           <select
@@ -53,13 +53,13 @@ export default function FilterTypes({ history, setFilter }: Props) {
   }
 
   return (
-    <section className="mx-auto max-w-3xl p-6">
+    <section className="mx-0 max-w-3xl pl-0">
       <label className="mb-6 block">
         <h3 className="heading-4 mb-2 font-semibold">Filter By:</h3>
         <select
           value={selectedType}
           onChange={handleChange}
-          className="block w-full max-w-xs rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="block max-w-xs rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="" disabled>
             Donation Type
