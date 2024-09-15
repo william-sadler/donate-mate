@@ -44,14 +44,14 @@ export default function LandingPage() {
           Community Organisation and Donation Centers
         </h1>
         <Link to="/org/signup">
-          <button className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal">
+          <button className="primary_button flex items-center space-x-4 rounded-full bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal">
             Sign Up!
           </button>
         </Link>
       </IfAuthenticated>
       <IfNotAuthenticated>
         <button
-          className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal"
+          className="primary_button flex items-center space-x-4 rounded-full bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal"
           onClick={handleSignIn}
         >
           Sign Up!
