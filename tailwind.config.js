@@ -6,7 +6,8 @@ export default {
       colors: {
         current: 'currentColor',
         light: '#fbe8d1',
-        brightOrange: '#faa51d',
+        yellow: '#EDE259',
+        orange: '#e74915',
         lightGreen: '#c6eb7a',
         lime: '#79b304',
         lightTeal: '#30b79e',
