@@ -9,6 +9,7 @@ import {
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 import { useAllTypes } from '../hooks/useTypes'
+import LandingSearch from '../components/LandingSearch'
 
 export default function LandingPage() {
   const { loginWithRedirect } = useAuth0()
@@ -20,6 +21,7 @@ export default function LandingPage() {
     error: typeError,
   } = useAllTypes()
   const [selectedType, setSelectedType] = useState([] as string[])
+  const [orgFilter, setOrgFilter] = useState([] as string[])
 
   const handleSignIn = () => {
     console.log('sign in')
@@ -55,8 +57,13 @@ export default function LandingPage() {
           Sign Up!
         </button>
       </IfNotAuthenticated>
-      <div className="filterTypes">
-        <FilterTypes setfilter={setSelectedType} history={selectedType} />
+      <div className="flex w-full flex-col items-center space-y-4 p-4">
+        <div className="w-full max-w-lg">
+          <LandingSearch onSubmit={setOrgFilter} />
+        </div>
+        <div className="w-full max-w-lg">
+          <FilterTypes setfilter={setSelectedType} history={selectedType} />
+        </div>
       </div>
       <div className="grid-layout">
         {data
