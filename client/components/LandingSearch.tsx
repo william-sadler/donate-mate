@@ -36,9 +36,6 @@ export default function LandingSearch({ onSubmit }: Props) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    if (!orgNames[0]) return
-
     try {
       setNewItem('')
       onSubmit(orgNames)

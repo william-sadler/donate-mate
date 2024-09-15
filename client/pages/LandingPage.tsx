@@ -41,24 +41,25 @@ export default function LandingPage() {
   if (orgIsError) return <p>Error fetching organizations: {orgError.message}</p>
   if (typeIsError) return <p>Error fetching types: {typeError.message}</p>
 
-  // Filtering logic without useMemo
+  // Filtering logic
   const filteredOrgs = orgData.filter((org) => {
-    // Check if the organization name matches any of the filters
     const matchesName =
       orgFilter.length === 0 ||
       orgFilter.some((filter) =>
         org.name.toLowerCase().includes(filter.toLowerCase()),
       )
-
-    // Check if the organization matches any selected type
     const hasMatchingType = typeData.some(
       (type) =>
         selectedType.length === 0 ||
         (selectedType.includes(type.name) && type.organisationId === org.id),
     )
-
     return matchesName && hasMatchingType
   })
+
+  const handleResetFilters = () => {
+    setOrgFilter([])
+    setSelectedType([])
+  }
 
   return (
     <div className="container">
@@ -84,19 +85,31 @@ export default function LandingPage() {
         </div>
         <div className="w-full max-w-lg">
           <FilterTypes setfilter={setSelectedType} history={selectedType} />
+          {(orgFilter.length > 0 || selectedType.length > 0) && (
+            <button
+              className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+              onClick={handleResetFilters}
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
       </div>
       <div className="grid-layout">
-        {filteredOrgs.map((organisation) => (
-          <Link to={`/org/${organisation.id}`} key={organisation.id}>
-            <LandingCard
-              name={organisation.name}
-              image={organisation.image}
-              orgId={organisation.id}
-              location={organisation.location}
-            />
-          </Link>
-        ))}
+        {filteredOrgs.length > 0 ? (
+          filteredOrgs.map((organisation) => (
+            <Link to={`/org/${organisation.id}`} key={organisation.id}>
+              <LandingCard
+                name={organisation.name}
+                image={organisation.image}
+                orgId={organisation.id}
+                location={organisation.location}
+              />
+            </Link>
+          ))
+        ) : (
+          <p>No organizations found matching your criteria.</p>
+        )}
       </div>
     </div>
   )
