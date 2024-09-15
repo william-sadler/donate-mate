@@ -5,13 +5,38 @@ import {
   MutationFunction,
   UseMutationResult,
 } from '@tanstack/react-query'
-import { getTypesById } from '../apis/apiTypes'
-import { Types } from '../../models/modelTypes'
+import { getAllDonationNames, getTypesById } from '../apis/apiTypes'
+import * as API from '../apis/apiTypes'
 
-export function useTypes(id: number) {
-  const query = useQuery<Types[]>({
+export function useTypesById(id: number) {
+  const query = useQuery({
     queryKey: ['type', id],
     queryFn: () => getTypesById(id),
+  })
+
+  return {
+    ...query,
+    patchTypesData: usePatchTypes(),
+    postTypesData: usePostTypes(),
+    deleteTypesData: useDeleteTypes(),
+  }
+}
+
+export function useAllTypes() {
+  const query = useQuery({
+    queryKey: ['types'],
+    queryFn: () => API.getAllTypes(),
+  })
+
+  return {
+    ...query,
+  }
+}
+
+export function useAllDonationNames() {
+  const query = useQuery({
+    queryKey: ['donationNames'],
+    queryFn: () => getAllDonationNames(),
   })
 
   return {
@@ -32,4 +57,16 @@ export function useTypesMutation<TData = unknown, TVariables = unknown>(
   })
 
   return mutation
+}
+
+export function usePatchTypes() {
+  return useTypesMutation(API.patchTypesById)
+}
+
+export function usePostTypes() {
+  return useTypesMutation(API.postTypes)
+}
+
+export function useDeleteTypes() {
+  return useTypesMutation(API.deleteTypesById)
 }

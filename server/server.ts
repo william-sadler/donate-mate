@@ -1,15 +1,19 @@
 import express from 'express'
 import * as Path from 'node:path'
-import routeTypes from './routes/routeTypes'
+import TypesRoute from './routes/routeTypes'
 import usersRoutes from './routes/routeUsers.ts'
 import organisationRoutes from './routes/routeOrganisations.ts'
+import allTypesRoutes from './routes/routeAllTypes.ts'
+import pendingUsersRoutes from './routes/routePendingUsers.ts'
 
 const server = express()
 
 server.use(express.json())
 
-server.use('/api/v1/types', routeTypes)
+server.use('/api/v1/alltypes', allTypesRoutes)
+server.use('/api/v1/types', TypesRoute)
 server.use('/api/v1/users', usersRoutes)
+server.use('/api/v1/pending', pendingUsersRoutes)
 server.use('/api/v1/organisations', organisationRoutes)
 
 if (process.env.NODE_ENV === 'production') {

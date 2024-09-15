@@ -4,7 +4,7 @@ interface Props {
   id: number
 }
 
-export default function CardUrgentlyStatus({ id }: Props) {
+export default function VolunteersNeeded({ id }: Props) {
   const { data, isPending, isError, error } = useOrganisationsById(id)
 
   if (isPending) {
