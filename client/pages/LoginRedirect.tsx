@@ -1,22 +1,29 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAllOrganisations } from '../hooks/useOrganisations'
 import { useUsers } from '../hooks/useUsers'
 import { User } from '../../models/modelUsers'
+import LoginDropdown from '../components/LoginDropdown'
 
 export default function LoginRedirect() {
   const navigate = useNavigate()
   const allOrgs = useAllOrganisations()
-
   const isUser = useUsers()
+
+  const handleJoinSelect = (orgId: number) => {
+    // Handle the selected organization ID here
+    navigate(`/org/${orgId}`)
+  }
 
   if (allOrgs.isPending) {
     let failures = ''
     if (allOrgs.failureCount > 0) {
       failures = ` (failed ${allOrgs.failureCount} times)`
     }
+
     if (allOrgs.failureCount > 3) {
       navigate('/')
     }
+
     return <div>Its Working!... {failures}</div>
   }
 
@@ -36,23 +43,30 @@ export default function LoginRedirect() {
 
   return (
     <div className="login-redirect-container">
-      <h2 className="heading-2-caveat">You Are Loved 💖</h2>
+      <h2 className="login-redirect-heading">You Are Loved 💖</h2>
 
       <div className="card-container">
         {/* Sign Up Card */}
         <div className="card">
-          <h3 className="heading-3-italic">Sign Up for an Organization</h3>
+          <h3 className="card-heading">Sign Up for an Organization</h3>
           <p className="card-text">Create a new organization to get started.</p>
-          <button className="custom-signup-button">Sign Up</button>
+          <Link to="/org/signup" className="custom-signup-button">
+            Sign Up
+          </Link>
         </div>
 
         {/* Join Card */}
         <div className="card">
-          <h3 className="heading-3-italic">Join an Organization</h3>
+          <h3 className="card-heading">Join an Organization</h3>
           <p className="card-text">
             Join an existing organization and get involved.
           </p>
-          <button className="custom-join-button">Join</button>
+          <LoginDropdown
+            options={
+              allOrgs.data?.map((org) => ({ id: org.id, name: org.name })) || []
+            }
+            onSelect={handleJoinSelect}
+          />
         </div>
       </div>
     </div>
