@@ -5,6 +5,8 @@ interface Props {
   orgName: string
   orgContactEmail: string | null
   orgContactNumber: string | null
+  orgLocation: string
+  orgWebsite: string
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -13,6 +15,8 @@ export default function EditCard({
   orgName,
   orgContactEmail,
   orgContactNumber,
+  orgLocation,
+  orgWebsite,
   handleChange,
 }: Props) {
   return (
@@ -50,7 +54,7 @@ export default function EditCard({
         {/* Address */}
         <div>
           <label
-            htmlFor="orgAddress"
+            htmlFor="orgLocation"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Address
@@ -59,13 +63,13 @@ export default function EditCard({
             <div className="relative">
               <input
                 type="text"
-                name="orgAddress"
-                id="orgAddress"
+                name="orgLocation"
+                id="orgLocation"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value=""
+                value={orgLocation}
                 placeholder="Address"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
-                disabled
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -74,7 +78,7 @@ export default function EditCard({
         {/* Contact Email */}
         <div>
           <label
-            htmlFor="orgContactDetails"
+            htmlFor="orgContactEmail"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Email
@@ -83,8 +87,8 @@ export default function EditCard({
             <div className="relative">
               <input
                 type="text"
-                name="orgContactDetails"
-                id="orgContactDetails"
+                name="orgContactEmail"
+                id="orgContactNumber"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgContactEmail || ''}
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
@@ -97,7 +101,7 @@ export default function EditCard({
         {/* Contact Numbere */}
         <div>
           <label
-            htmlFor="orgContactDetails"
+            htmlFor="orgContactNumber"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Phone Number
@@ -106,8 +110,8 @@ export default function EditCard({
             <div className="relative">
               <input
                 type="text"
-                name="orgContactDetails"
-                id="orgContactDetails"
+                name="orgContactNumber"
+                id="orgContactNumber"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 value={orgContactNumber || ''}
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
@@ -120,7 +124,7 @@ export default function EditCard({
         {/* Website Link */}
         <div>
           <label
-            htmlFor="orgWebsiteLink"
+            htmlFor="orgWebsite"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Website Link
@@ -129,13 +133,13 @@ export default function EditCard({
             <div className="relative">
               <input
                 type="text"
-                name="orgWebsiteLink"
-                id="orgWebsiteLink"
+                name="orgWebsite"
+                id="orgWebsite"
                 className="block w-full rounded-md border border-gray-300 py-1.5 pl-3 text-gray-900 placeholder:text-gray-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value=""
-                placeholder="Website Link"
+                value={orgWebsite}
+                placeholder="Website"
                 onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
-                disabled
+                onChange={handleChange}
               />
             </div>
           </div>

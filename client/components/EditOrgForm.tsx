@@ -252,6 +252,8 @@ export default function EditOrgForm({
             orgContactEmail={form.orgContactEmail}
             orgContactNumber={form.orgContactNumber}
             handleChange={handleChange}
+            orgLocation={form.orgLocation}
+            orgWebsite={form.orgWebsite || ''}
           />
           <button
             onClick={handleSubmit}
