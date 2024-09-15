@@ -1,17 +1,17 @@
 export interface Organisation {
   id: number
   name: string
-  contactEmail?: string
-  contactNumber?: string
+  contactEmail?: string | null
+  contactNumber?: string | null
   location: string
   about: string
-  longitude?: number
-  latitude?: number
+  longitude?: number | null
+  latitude?: number | null
   orgTypes: string
   image: string
   volunteeringNeeded: boolean
-  donationMethod?: string
-  website?: string
+  donationMethod?: string | null
+  website?: string | null
 }
 
 export interface OrganisationData {

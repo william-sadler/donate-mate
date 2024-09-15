@@ -1,10 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
 import ProfileHowToDonate from '../components/ProfileHowToDonate'
+import ProfileMap from '../components/ProfileMap'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -59,6 +60,10 @@ export default function OrgProfilePage() {
         <ProfileHowToDonate method={data.donationMethod} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
+      <ProfileMap />
+      <Link to={`/org/edit/${id}`}>
+        <button>Edit</button>
+      </Link>
     </>
   )
 }
