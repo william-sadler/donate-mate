@@ -16,14 +16,14 @@ export async function seed(knex) {
     {
       name: 'Clothes',
       accepting: true,
-      urgently_seeking: false,
+      urgently_seeking: true,
       organisation_id: 1,
       date: `${date}`,
     },
     {
       name: 'Furniture',
       accepting: true,
-      urgently_seeking: false,
+      urgently_seeking: true,
       organisation_id: 1,
       date: `${date}`,
     },
