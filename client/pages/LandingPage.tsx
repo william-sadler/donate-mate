@@ -40,7 +40,7 @@ export default function LandingPage() {
   return (
     <div className="container">
       <IfAuthenticated>
-        <h1 className=" heading-3">
+        <h1 className=" heading-3-italic ">
           Community Organisation and Donation Centers
         </h1>
         <Link to="/org/signup">
