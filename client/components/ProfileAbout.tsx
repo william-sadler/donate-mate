@@ -10,12 +10,12 @@ export default function ProfileAbout({ about }: Props) {
   return (
     <>
       <button
-        className="primary_button, paragraph"
+        className="primary_button, heading-4"
         onClick={() => setDrop(!drop)}
       >
         About Organisation
       </button>
-      {drop && <div>{about}</div>}
+      {drop && <div className="paragraph">{about}</div>}
     </>
   )
 }

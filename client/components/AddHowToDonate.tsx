@@ -1,9 +1,12 @@
 interface Props {
-  orgMethod: string
+  orgDonationMethod: string
   handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export default function AddHowToDonate({ orgMethod, handleChange }: Props) {
+export default function AddHowToDonate({
+  orgDonationMethod,
+  handleChange,
+}: Props) {
   return (
     <>
       <div className="col-span-full">
@@ -16,9 +19,9 @@ export default function AddHowToDonate({ orgMethod, handleChange }: Props) {
         <div className="mt-2">
           <textarea
             rows={3}
-            name="orgMethod"
+            name="orgDonationMethod"
             id="orgInput"
-            value={orgMethod}
+            value={orgDonationMethod}
             placeholder="How do we donate to you?"
             onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
             onChange={handleChange}

@@ -32,7 +32,7 @@ export async function patchOrganisationById({
   orgData,
 }: PatchOrgFunction): Promise<void> {
   await request
-    .get(orgURL + `/${id}`)
+    .patch(orgURL + `/${id}`)
     .set('Authorization', `Bearer ${token}`)
     .send(orgData)
 }

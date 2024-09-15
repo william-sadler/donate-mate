@@ -18,14 +18,17 @@ interface Props {
 
 type FormState = {
   orgName: string
-  orgContactDetails: string
+  orgContactEmail: string
+  orgContactNumber: string
+  orgLocation: string
   orgAbout: string
   orgLongitude: number
   orgLatitude: number
   orgTypes: string
   orgImage: string
   orgVolunteeringNeeded: boolean
-  orgMethod: string
+  orgDonationMethod: string
+  orgWebsite: string
   orgDonationTypes: Types[] | []
   orgDonationTypesDeleted: Types[] | []
 }
@@ -39,14 +42,17 @@ export default function AddOrgForm({
   const { user, getAccessTokenSilently } = useAuth0()
   const [form, setForm] = useState<FormState>({
     orgName: '',
-    orgContactDetails: '',
+    orgContactEmail: '',
+    orgContactNumber: '',
+    orgLocation: '',
     orgAbout: '',
     orgLongitude: 0,
     orgLatitude: 0,
     orgTypes: '',
     orgImage: '/images/placeholder-image.webp',
     orgVolunteeringNeeded: false,
-    orgMethod: '',
+    orgDonationMethod: '',
+    orgWebsite: '',
     orgDonationTypes: [],
     orgDonationTypesDeleted: [],
   })
@@ -107,14 +113,17 @@ export default function AddOrgForm({
         orgData: {
           id: newOrgId,
           name: form.orgName,
-          contactDetails: form.orgContactDetails,
+          contactEmail: form.orgContactEmail,
+          contactNumber: form.orgContactNumber,
+          location: form.orgLocation,
           about: form.orgAbout,
           longitude: organisation.longitude,
           latitude: organisation.latitude,
           orgTypes: form.orgTypes,
           image: form.orgImage,
           volunteeringNeeded: form.orgVolunteeringNeeded,
-          method: form.orgMethod,
+          donationMethod: form.orgDonationMethod,
+          website: form.orgWebsite,
         },
       },
       mutationOptions,
@@ -228,7 +237,10 @@ export default function AddOrgForm({
           <AddCard
             form={organisation}
             orgName={form.orgName}
-            orgContactDetails={form.orgContactDetails}
+            orgContactEmail={form.orgContactEmail}
+            orgContactNumber={form.orgContactNumber}
+            orgLocation={form.orgLocation}
+            orgWebsite={form.orgWebsite}
             handleChange={handleChange}
           />
           <button
@@ -260,7 +272,7 @@ export default function AddOrgForm({
         </section>
         <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
           <AddHowToDonate
-            orgMethod={form.orgMethod}
+            orgDonationMethod={form.orgDonationMethod}
             handleChange={handleChange}
           />
           <div className="mt-4">
@@ -270,7 +282,7 @@ export default function AddOrgForm({
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
           <div className="block md:hidden">
             <AddHowToDonate
-              orgMethod={form.orgMethod}
+              orgDonationMethod={form.orgDonationMethod}
               handleChange={handleChange}
             />
           </div>

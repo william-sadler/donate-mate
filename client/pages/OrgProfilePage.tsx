@@ -1,10 +1,13 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
 import ProfileHowToDonate from '../components/ProfileHowToDonate'
+import ProfileMap from '../components/ProfileMap'
+import { useUsers } from '../hooks/useUsers'
+import { User } from '@auth0/auth0-react'
 
 export default function OrgProfilePage() {
   const param = useParams()
@@ -13,6 +16,7 @@ export default function OrgProfilePage() {
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
   const typeData = useTypesById(id)
+  const user = useUsers()
 
   if (isPending || !data) {
     let failures = ''
@@ -44,23 +48,31 @@ export default function OrgProfilePage() {
     return <p>Failed to get Org: {typeData.error.message}</p>
   }
 
+  const userCheck = user.data as User
+
   return (
     <>
       <ProfileCard
         image={data.image}
         name={data.name}
-        contactEmail={data.contactDetails}
-        contactNumber={data.contactDetails}
-        location={data.contactDetails}
+        contactEmail={data.contactEmail || ''}
+        contactNumber={data.contactNumber || ''}
+        location={data.location}
       />
-      <h3>{data.orgTypes}</h3>
+      <h3 className="heading-4-italic">{data.orgTypes}</h3>
       <div>
         <ProfileAbout about={data.about} />
       </div>
       <div>
-        <ProfileHowToDonate method={data.method} />
+        <ProfileHowToDonate method={data.donationMethod || ''} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
+      <ProfileMap />
+      {userCheck?.orgId === id && (
+        <Link to={`/org/edit/${id}`}>
+          <button>Edit</button>
+        </Link>
+      )}
     </>
   )
 }

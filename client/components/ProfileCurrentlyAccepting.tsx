@@ -7,17 +7,17 @@ interface Props {
 export default function CurrentlyAccepting({ typeData }: Props) {
   return (
     <div className="currentlyAccepting">
-      <h2>Currently Accepting</h2>
+      <h2 className="heading-4">Currently Accepting</h2>
       <ul>
         {typeData.map((type) => (
           <li key={type.id}>
-            <p>{type.name}</p>
+            <p className="paragraph">{type.name}</p>
             {type.urgentlySeeking ? (
-              <p>Urgently Seeking</p>
+              <p className="paragraph">Urgently Seeking</p>
             ) : type.accepting ? (
-              <p>Accepting</p>
+              <p className="paragraph">Accepting</p>
             ) : (
-              <p>Not Currently Accepting</p>
+              <p className="paragraph">Not Currently Accepting</p>
             )}
           </li>
         ))}
