@@ -4,7 +4,7 @@ import NavBar from './NavBar'
 export default function Layout() {
   return (
     <>
-      <header className="flex items-center justify-between bg-lightTeal px-4 py-2">
+      <header className="from-brightTeal flex items-center justify-between bg-gradient-to-b to-lightTeal px-4 py-2">
         <NavBar />
       </header>
       <main>

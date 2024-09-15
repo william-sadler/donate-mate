@@ -5,7 +5,7 @@ export default function NavBar() {
   return (
     <>
       <Link to="/">
-        <div className="flex items-center bg-lightTeal">
+        <div className="flex items-center">
           <img
             src={'/images/iconLogo.png'}
             alt="logo for donateMate"
@@ -19,7 +19,7 @@ export default function NavBar() {
           </div>
         </div>
       </Link>
-      <div className="flex items-center justify-end space-x-2 bg-lightTeal">
+      <div className="flex items-center justify-end space-x-2">
         <Nav />
       </div>
     </>

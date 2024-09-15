@@ -10,6 +10,7 @@ export default {
         lightGreen: '#c6eb7a',
         lime: '#79b304',
         lightTeal: '#30b79e',
+        brightTeal: '#3be1c3',
         darkerTeal: '#1e756D',
         blue: '#162f50',
         textBlue: '#0b1828',
