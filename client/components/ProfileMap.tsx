@@ -1,26 +1,56 @@
-import { getOrganisationsById } from '../apis/apiOrganisations'
+import { useOrganisationsById } from '../hooks/useOrganisations'
 import { useParams } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
-import { GOOGLE_API_ACCESS_KEY } from '../env'
+import { API_HOST } from '../env.ts'
+
+const mapContainer = {
+  width: '100%',
+  height: '50vh',
+}
+
+const defaultCenter = {
+  lat: -41.28664,
+  lng: 174.77557,
+}
 
 export default function ProfileMap() {
   const params = useParams()
   const id = Number(params.id)
   const {
-    data: org,
+    data: orgData,
     error: mapFetchError,
     isPending: mapPending,
     isError: mapError,
-  } = getOrganisationsById(id)
+  } = useOrganisationsById(id)
 
-  console.log(org)
+  console.log(orgData)
+  console.log(API_HOST)
 
-  if (!org || mapPending) {
+  if (!orgData || mapPending) {
     return <p>Locating organisation...</p>
   }
   if (mapError) {
     return <p>Error: {mapFetchError.message}</p>
   }
 
-  return <p>READY TO MAP??</p>
+  const center =
+    orgData.latitude && orgData.longitude
+      ? {
+          lat: orgData.latitude,
+          lng: orgData.longitude,
+        }
+      : defaultCenter
+
+  return (
+    <>
+      <section className="map w-1/3">
+        <h3 className="heading-3">Where to find us</h3>
+        <LoadScript googleMapsApiKey={API_HOST}>
+          <GoogleMap mapContainerStyle={mapContainer} center={center} zoom={15}>
+            <Marker position={center} />
+          </GoogleMap>
+        </LoadScript>
+      </section>
+    </>
+  )
 }
