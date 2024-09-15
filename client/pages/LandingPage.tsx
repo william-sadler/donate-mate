@@ -94,7 +94,10 @@ export default function LandingPage() {
       <section className="mb-4 flex max-w-fit flex-col items-start space-y-4 p-4">
         <h2 className="heading-1-caveat mb-4">Ready to donate?</h2>
         <div className="mb-4 w-full max-w-lg">
-          <LandingSearch onSubmit={setOrgFilter} />
+          <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
+            <h2 className="mb-2 text-xl font-semibold">Search:</h2>
+            <LandingSearch onSubmit={setOrgFilter} />
+          </div>
         </div>
         <div className="mb-4 w-full max-w-lg">
           <div className="custom-grid">

@@ -79,9 +79,6 @@ export default function LandingSearch({ onSubmit }: Props) {
         onSubmit={handleSubmit}
         className="flex flex-col"
       >
-        <label htmlFor="myInput" className="mb-2 text-gray-700">
-          Organisation:
-        </label>
         <div className="relative flex items-center">
           <input
             type="text"

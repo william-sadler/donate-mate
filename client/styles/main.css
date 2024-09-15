@@ -39,27 +39,27 @@
 /* HEADING AND FONT*/
 
 .heading-1-caveat {
-  @apply caveat-bold text-5xl font-bold text-textBlue;
+  @apply caveat-bold text-textBlue text-5xl font-bold;
 }
 
 .heading-2-caveat {
-  @apply caveat-semi text-3xl text-textBlue;
+  @apply caveat-semi text-textBlue text-3xl;
 }
 
 .heading-3-italic {
-  @apply raleway-bold-italic text-2xl font-bold text-textBlue;
+  @apply raleway-bold-italic text-textBlue text-2xl font-bold;
 }
 
 .heading-4 {
-  @apply raleway-bold  text-xl font-bold text-textBlue;
+  @apply raleway-bold  text-textBlue text-xl font-bold;
 }
 
 .heading-4-italic {
-  @apply raleway-bold-italic  text-xl font-bold text-textBlue;
+  @apply raleway-bold-italic  text-textBlue text-xl font-bold;
 }
 
 .paragraph {
-  @apply raleway-light text-base font-normal text-textBlue;
+  @apply raleway-light text-textBlue text-base font-normal;
 }
 
 .small-text {
@@ -207,7 +207,7 @@
 .custom-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem;
   width: fit-content;
 }
 
@@ -222,6 +222,13 @@
   /* md breakpoint */
   .custom-grid {
     width: fit-content;
+  }
+}
+
+@media (min-width: 770px) {
+  /* lg breakpoint */
+  .custom-grid {
+    width: 50em;
   }
 }
 
