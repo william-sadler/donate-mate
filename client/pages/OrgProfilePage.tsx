@@ -51,7 +51,7 @@ export default function OrgProfilePage() {
   const userCheck = user.data as User
 
   return (
-    <>
+    <div className="orgProfilePage">
       <ProfileCard
         image={data.image}
         name={data.name}
@@ -73,6 +73,6 @@ export default function OrgProfilePage() {
           <button>Edit</button>
         </Link>
       )}
-    </>
+    </div>
   )
 }
