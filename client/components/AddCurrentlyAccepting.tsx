@@ -38,7 +38,7 @@ export default function AddCurrentlyAccepting({
       </label>
     )
   if (namesError) {
-    return <span>Error fetching nature names: {namesFetchError.message}</span>
+    return <span>Error fetching donation names: {namesFetchError.message}</span>
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

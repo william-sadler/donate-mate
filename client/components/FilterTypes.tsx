@@ -11,12 +11,34 @@ export default function FilterTypes({ setfilter, history }: Props) {
 
   const {
     data: donationType = [],
-    // isPending: typesPending,
-    // isError: typesError,
-    // error: typesFetchError,
+    isPending: typesPending,
+    isError: typesError,
+    error: typesFetchError,
   } = useAllDonationNames()
 
-  console.log(donationType)
+  if (typesPending)
+    return (
+      <section className="mx-auto max-w-3xl p-6">
+        <h1 className="mb-4 text-2xl font-bold">You ready to filter???</h1>
+        <label className="mb-6 block">
+          <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
+          <select
+            value={selectedType}
+            className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Donation Type</option>
+            {donationType.map((type) => (
+              <option key={type?.id} value={type?.name}>
+                Loading...
+              </option>
+            ))}
+          </select>
+        </label>
+      </section>
+    )
+  if (typesError) {
+    return <span>Error fetching filter names: {typesFetchError.message}</span>
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const duplicateCheck = history.find((type) => type === event.target.value)
