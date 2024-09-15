@@ -1,84 +1,84 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
-import { OrganisationData } from '../../models/modelOrganisations.ts'
+import EditCard from './EditCard.tsx'
+import { Organisation } from '../../models/modelOrganisations.ts'
 import { useOrganisationsById } from '../hooks/useOrganisations.ts'
-import AddCard from './AddCard.tsx'
-import AddHowToDonate from './AddHowToDonate.tsx'
-import AddCurrentlyAccepting from './AddCurrentlyAccepting.tsx'
-import AddAbout from './AddAbout.tsx'
+import EditHowToDonate from './EditHowToDonate.tsx'
+import EditCurrentlyAccepting from './EditCurrentlyAccepting.tsx'
+import EditAbout from './EditAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
 import { Types } from '../../models/modelTypes.ts'
 
 interface Props {
-  newOrgId: number
-  organisation: OrganisationData
+  organisation: Organisation
+  orgDonationTypes: Types[]
   onUpdate: (id: number) => void
   onClose: () => void
 }
 
 type FormState = {
   orgName: string
-  orgContactEmail: string
-  orgContactNumber: string
-  orgLocation: string
+  orgContactEmail: string | null
+  orgContactNumber: string | null
   orgAbout: string
-  orgLongitude: number
-  orgLatitude: number
+  orgLocation: string
+  orgLongitude: number | null
+  orgLatitude: number | null
   orgTypes: string
   orgImage: string
   orgVolunteeringNeeded: boolean
-  orgDonationMethod: string
-  orgWebsite: string
+  orgMethod: string
+  orgWebsite: string | null
   orgDonationTypes: Types[] | []
   orgDonationTypesDeleted: Types[] | []
 }
 
-export default function AddOrgForm({
-  newOrgId,
+export default function EditOrgForm({
+  orgDonationTypes,
   organisation,
   onUpdate,
   onClose,
 }: Props) {
-  const { user, getAccessTokenSilently } = useAuth0()
+  const { getAccessTokenSilently } = useAuth0()
   const [form, setForm] = useState<FormState>({
-    orgName: '',
-    orgContactEmail: '',
-    orgContactNumber: '',
-    orgLocation: '',
-    orgAbout: '',
-    orgLongitude: 0,
-    orgLatitude: 0,
-    orgTypes: '',
-    orgImage: '/images/placeholder-image.webp',
+    orgName: organisation.name,
+    orgContactEmail: organisation.contactEmail || null,
+    orgContactNumber: organisation.contactNumber || null,
+    orgAbout: organisation.about,
+    orgLocation: organisation.location,
+    orgLongitude: organisation.longitude || null,
+    orgLatitude: organisation.latitude || null,
+    orgTypes: organisation.orgTypes,
+    orgImage: organisation.image,
     orgVolunteeringNeeded: false,
-    orgDonationMethod: '',
-    orgWebsite: '',
-    orgDonationTypes: [],
+    orgMethod: organisation.donationMethod || '',
+    orgWebsite: organisation.website || null,
+    orgDonationTypes: orgDonationTypes,
     orgDonationTypesDeleted: [],
   })
 
   const [changed, setChanged] = useState(false)
 
-  const orgQuery = useOrganisationsById(1)
-  const donationTypes = useTypesById(1)
+  const org = useOrganisationsById(organisation.id)
+  const donationTypes = useTypesById(organisation.id)
 
   const handleMutationSuccess = () => {
-    onUpdate(newOrgId)
+    onUpdate(organisation.id)
   }
 
   const mutationOptions = {
     onSuccess: handleMutationSuccess,
   }
 
-  if (orgQuery.isPending || donationTypes.isPending) {
+  if (org.isPending || donationTypes.isPending) {
     return <p>You are loved 💖...</p>
   }
 
-  if (orgQuery.isError || donationTypes.isError) {
+  if (org.isError || donationTypes.isError) {
     return (
       <p>
         uh oh, something went wrong...{' '}
-        {orgQuery.error?.message || donationTypes.error?.message}
+        {org.error?.message || donationTypes.error?.message}
       </p>
     )
   }
@@ -92,7 +92,6 @@ export default function AddOrgForm({
       console.error('Login Required')
       return 'undefined'
     })
-
     if (event) {
       event.preventDefault()
       if (!changed) {
@@ -106,12 +105,33 @@ export default function AddOrgForm({
       return setChanged(true)
     }
 
-    orgQuery.postOrgData.mutate(
+    if (form.orgDonationTypes) {
+      donationTypes.patchTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypes,
+      })
+    }
+    if (form.orgDonationTypes) {
+      donationTypes.postTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypes,
+      })
+    }
+    if (form.orgDonationTypesDeleted) {
+      donationTypes.deleteTypesData.mutate({
+        id: organisation.id,
+        token: token,
+        typeData: form.orgDonationTypesDeleted,
+      })
+    }
+    org.patchOrgData.mutate(
       {
-        userData: { name: user?.name || '', email: user?.email || '' },
+        id: organisation.id,
         token: token,
         orgData: {
-          id: newOrgId,
+          id: organisation.id,
           name: form.orgName,
           contactEmail: form.orgContactEmail,
           contactNumber: form.orgContactNumber,
@@ -122,22 +142,12 @@ export default function AddOrgForm({
           orgTypes: form.orgTypes,
           image: form.orgImage,
           volunteeringNeeded: form.orgVolunteeringNeeded,
-          donationMethod: form.orgDonationMethod,
+          donationMethod: form.orgMethod,
           website: form.orgWebsite,
         },
       },
       mutationOptions,
     )
-    if (form.orgDonationTypes) {
-      donationTypes.postTypesData.mutate(
-        {
-          id: newOrgId,
-          token: token,
-          typeData: form.orgDonationTypes,
-        },
-        mutationOptions,
-      )
-    }
   }
 
   const handleChange = (
@@ -152,10 +162,12 @@ export default function AddOrgForm({
     })
   }
 
-  const handleTypeChange = (typeData: Types[]) => {
+  const handleTypeChange = (typeData: Types[], deletedData?: Types[]) => {
     setForm({
       ...form,
       orgDonationTypes: typeData,
+      orgDonationTypesDeleted:
+        deletedData === undefined ? form.orgDonationTypesDeleted : deletedData,
     })
   }
 
@@ -234,14 +246,14 @@ export default function AddOrgForm({
         className={`mx-auto max-w-7xl px-4 py-24 sm:px-1 sm:py-32 lg:px-4 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
       >
         <section className="col-span-1 md:col-span-1 lg:col-span-1">
-          <AddCard
+          <EditCard
             form={organisation}
             orgName={form.orgName}
             orgContactEmail={form.orgContactEmail}
             orgContactNumber={form.orgContactNumber}
-            orgLocation={form.orgLocation}
-            orgWebsite={form.orgWebsite}
             handleChange={handleChange}
+            orgLocation={form.orgLocation}
+            orgWebsite={form.orgWebsite || ''}
           />
           <button
             onClick={handleSubmit}
@@ -261,18 +273,18 @@ export default function AddOrgForm({
         </section>
         <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
           <div className="flex flex-col gap-4">
-            <AddAbout orgAbout={form.orgAbout} handleChange={handleChange} />
-            <AddCurrentlyAccepting
-              orgId={newOrgId}
+            <EditAbout orgAbout={form.orgAbout} handleChange={handleChange} />
+            <EditCurrentlyAccepting
+              orgId={organisation.id}
               form={form.orgDonationTypes}
-              orgDonationTypes={donationTypes.data}
+              deleted={form.orgDonationTypesDeleted}
               handleUpdate={handleTypeChange}
             />
           </div>
         </section>
         <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
-          <AddHowToDonate
-            orgDonationMethod={form.orgDonationMethod}
+          <EditHowToDonate
+            orgHowToDonate={form.orgMethod}
             handleChange={handleChange}
           />
           <div className="mt-4">
@@ -281,8 +293,8 @@ export default function AddOrgForm({
         </section>
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
           <div className="block md:hidden">
-            <AddHowToDonate
-              orgDonationMethod={form.orgDonationMethod}
+            <EditHowToDonate
+              orgHowToDonate={form.orgMethod}
               handleChange={handleChange}
             />
           </div>

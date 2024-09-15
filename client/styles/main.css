@@ -2,23 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- !! TAILWIND CSS !! ---- */
+/* Grid Layout */
+.grid-layout {
+  @apply grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3;
+}
 
-/* --- // HEADINGS // ---- */
-.heading-1 {
+/* Image Card Styles */
+.image-card {
+  @apply flex h-full transform flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl;
+}
+
+.image {
+  @apply h-48 w-full object-cover;
+}
+
+.card-content {
+  @apply flex flex-grow flex-col p-4;
+}
+
+.card-title {
+  @apply mb-2 text-left text-xl font-semibold;
+}
+
+.card-location {
+  @apply mt-2 text-left text-gray-700;
+}
+
+.card-tags {
+  @apply mt-1 flex flex-wrap gap-2;
+}
+
+.name {
+  @apply py-2 text-center text-lg font-bold;
+}
+
+/* HEADING AND FONT*/
+
+.heading-1-caveat {
   @apply caveat-bold text-4xl font-bold;
 }
 
-.heading-2 {
-  @apply caveat-bold text-3xl;
+.heading-2-caveat {
+  @apply caveat-semi text-3xl;
 }
 
-.heading-3 {
-  @apply raleway-light text-2xl font-bold;
+.heading-3-italic {
+  @apply raleway-bold-italic text-2xl font-bold;
 }
 
 .heading-4 {
-  @apply text-xl font-bold;
+  @apply raleway-bold  text-xl font-bold;
+}
+
+.heading-4-italic {
+  @apply raleway-bold-italic  text-xl font-bold;
 }
 
 .paragraph {
@@ -66,8 +103,8 @@
   font-style: normal;
 }
 
-.raleway-bold {
-  font-family: 'Raleway', sans-serif;
+.caveat-semi {
+  font-family: 'Caveat';
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
@@ -76,8 +113,22 @@
 .raleway-light {
   font-family: 'Raleway', sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 400;
   font-style: normal;
+}
+
+.raleway-bold {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: normal;
+}
+
+.raleway-bold-italic {
+  font-family: 'Raleway', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 450;
+  font-style: italic;
 }
 
 /* Default Browser styling override */
@@ -150,5 +201,8 @@
   .custom-button {
     margin-left: 0.75rem;
     width: auto;
+  }
+  .image-card {
+    @apply text-center; /* Center content on smaller screens */
   }
 }
