@@ -5,8 +5,9 @@ export default {
     extend: {
       colors: {
         current: 'currentColor',
-        light: '#fcefdf',
-        brightOrange: '#faa51d',
+        light: '#fbe8d1',
+        yellow: '#EDE259',
+        orange: '#e74915',
         lightGreen: '#c6eb7a',
         lime: '#79b304',
         lightTeal: '#30b79e',
