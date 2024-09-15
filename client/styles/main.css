@@ -14,7 +14,7 @@
 }
 
 .heading-3 {
-  @apply text-2xl font-bold;
+  @apply raleway-light text-2xl font-bold;
 }
 
 .heading-4 {
