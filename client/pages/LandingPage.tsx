@@ -71,9 +71,11 @@ export default function LandingPage() {
     <div className="container">
       <IfAuthenticated>
         <div className="mb-4 flex items-center justify-end space-x-4">
-          <span className="text-lg">Are you an org?</span>
+          <h1 className=" heading-3-italic ">
+            Community Organisation and Donation Centers
+          </h1>
           <Link to="/org/signup">
-            <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
+            <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300">
               Sign Up!
             </button>
           </Link>
@@ -81,9 +83,8 @@ export default function LandingPage() {
       </IfAuthenticated>
       <IfNotAuthenticated>
         <div className="mb-4 flex items-center justify-end space-x-4">
-          <span className="heading-2-caveat mb-4">Are you an org?</span>
           <button
-            className="primary_button bg-blue hover:bg-darkerTeal mb-4 flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+            className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300"
             onClick={handleSignIn}
           >
             Sign Up!
@@ -97,27 +98,27 @@ export default function LandingPage() {
         </div>
         <div className="mb-4 w-full max-w-lg">
           <div className="custom-grid">
+            <h2 className="mb-2 text-xl font-semibold">Filter:</h2>
             <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
               <FilterTypes setFilter={setSelectedType} history={selectedType} />
             </div>
             <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
               <section className="mx-fit max-w-3xl pl-0">
-                <label className="mb-6 block">
-                  <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
+                <div className="mb-6 block">
                   <select
                     disabled
                     value="Location"
-                    className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="Location">Location</option>
                   </select>
-                </label>
+                </div>
               </section>
             </div>
-            <section className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
+            <section className="mx-fit max-w-3xl pl-0">
               {(orgFilter.length > 0 || selectedType.length > 0) && (
                 <button
-                  className="primary_button bg-blue hover:bg-darkerTeal mt-3 flex flex-shrink-0 items-center space-x-4 rounded px-4 py-2 transition duration-300"
+                  className="primary_button bg-blue hover:bg-darkerTeal mb-4 flex flex-shrink-0 items-center space-x-4 rounded px-4 py-1.5 transition duration-300"
                   onClick={handleResetFilters}
                 >
                   Reset Filters

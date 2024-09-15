@@ -55,6 +55,8 @@ export default function OrgProfilePage() {
       <ProfileCard
         image={data.image}
         name={data.name}
+        contactEmail={data.contactEmail || ''}
+        contactNumber={data.contactNumber || ''}
         location={data.location}
       />
       <h3 className="heading-4-italic">{data.orgTypes}</h3>
