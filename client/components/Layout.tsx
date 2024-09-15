@@ -7,7 +7,7 @@ export default function Layout() {
       <header className="from-brightTeal flex items-center justify-between bg-gradient-to-b to-lightTeal px-4 py-2">
         <NavBar />
       </header>
-      <main>
+      <main className="bg-light">
         <Outlet />
       </main>
       <footer></footer>
