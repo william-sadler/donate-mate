@@ -3,15 +3,36 @@ import { useAllOrganisations } from '../hooks/useOrganisations'
 import { useUsers } from '../hooks/useUsers'
 import { User } from '../../models/modelUsers'
 import LoginDropdown from '../components/LoginDropdown'
+import { usePendingUsersById } from '../hooks/usePendingUsers'
+import { useAuth0 } from '@auth0/auth0-react'
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 export default function LoginRedirect() {
+  const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
   const allOrgs = useAllOrganisations()
   const isUser = useUsers()
+  const pendingUser = usePendingUsersById(0)
 
-  const handleJoinSelect = (orgId: number) => {
-    // Handle the selected organization ID here
-    navigate(`/org/${orgId}`)
+  const handleJoinSelect = async (orgId: number) => {
+    const token = await getAccessTokenSilently().catch(() => {
+      console.error('Login Required')
+      return 'undefined'
+    })
+
+    pendingUser.add.mutate({
+      newUser: {
+        name: user?.name || '',
+        email: user?.email || '',
+        orgId: orgId,
+      },
+      token: token,
+    })
+
+    await sleep(500)
+    navigate('/')
   }
 
   if (allOrgs.isPending) {

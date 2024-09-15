@@ -50,9 +50,7 @@ export default function LoginDropdown({ options, onSelect }: Props) {
   return (
     <div className="relative" ref={containerRef}>
       <button className="custom-join-button" onClick={handleToggle}>
-        {selectedOption
-          ? `Selected: ${options.find((option) => option.id === selectedOption)?.name}`
-          : 'Join'}
+        {selectedOption ? `Request Sent` : 'Join'}
       </button>
       {isOpen && (
         <div className="absolute z-10 mt-2 w-full rounded-lg border border-gray-300 bg-white shadow-lg">

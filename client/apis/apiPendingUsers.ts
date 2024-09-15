@@ -1,8 +1,8 @@
 import request from 'superagent'
 import { logError } from './utils.ts'
-import { User, UserData } from '../../models/modelUsers.ts'
+import { User, UserData, UserDBData } from '../../models/modelUsers.ts'
 
-const rootUrl = '/api/v1/pendingusers'
+const rootUrl = '/api/v1/pending'
 
 interface GetUsersFunction {
   id: number
@@ -21,7 +21,7 @@ export async function getPendingUsers({
 }
 
 interface AddUserFunction {
-  newUser: UserData
+  newUser: UserDBData
   token: string
 }
 

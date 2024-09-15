@@ -7,7 +7,15 @@ export async function getUserPendingById(
 ): Promise<User[]> {
   const userCheck = await connection('users').where('auth0Id', auth0Id).first()
 
-  if (userCheck.org_id === orgId && userCheck.is_owner) {
+  if (!userCheck) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!(userCheck.org_id === orgId)) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!userCheck.is_owner) {
     throw new Error('User does not have permission')
   }
 
@@ -22,7 +30,6 @@ export async function postPendingUser(
 ): Promise<void> {
   const userCheck = await connection('pending_users')
     .where('auth0Id', auth0Id)
-    .andWhere('org_id', userData.orgId)
     .first()
 
   if (userCheck) {
@@ -34,6 +41,5 @@ export async function postPendingUser(
     name: userData.name,
     email: userData.email,
     org_id: userData.orgId,
-    is_owner: false,
   })
 }
