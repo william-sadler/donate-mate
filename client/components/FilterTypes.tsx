@@ -19,7 +19,6 @@ export default function FilterTypes({ setfilter, history }: Props) {
   if (typesPending)
     return (
       <section className="mx-auto max-w-3xl p-6">
-        <h2 className="heading-2 mb-4">Ready to donate?</h2>
         <label className="mb-6 block">
           <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
           <select
@@ -58,7 +57,6 @@ export default function FilterTypes({ setfilter, history }: Props) {
 
   return (
     <section className="mx-auto max-w-3xl p-6">
-      <h2 className="heading-2-caveat mb-4">Ready to donate?</h2>
       <label className="mb-6 block">
         <h3 className="heading-4 mb-2 font-semibold">Filter By:</h3>
         <select

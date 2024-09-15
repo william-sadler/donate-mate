@@ -81,7 +81,8 @@ export default function LandingPage() {
           Sign Up!
         </button>
       </IfNotAuthenticated>
-      <div className="flex w-full flex-col items-center space-y-4 p-4">
+      <section className="flex w-full flex-col items-center space-y-4 p-4">
+        <h2 className="heading-1-caveat mb-4">Ready to donate?</h2>
         <div className="w-full max-w-lg">
           <LandingSearch onSubmit={setOrgFilter} />
         </div>
@@ -96,7 +97,7 @@ export default function LandingPage() {
             </button>
           )}
         </div>
-      </div>
+      </section>
       <div className="grid-layout">
         {filteredOrgs.length > 0 ? (
           filteredOrgs.map((organisation) => (
