@@ -59,13 +59,7 @@
 }
 
 .paragraph {
-<<<<<<< HEAD
-  @apply raleway-bold text-base font-normal;
-||||||| e2b7c02
-  @apply raleway-light text-base font-normal;
-=======
   @apply raleway-light text-base font-normal text-textBlue;
->>>>>>> c116a7cfbd5441f5db07f8d3762398d9d27f84c7
 }
 
 .small-text {
