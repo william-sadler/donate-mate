@@ -58,7 +58,7 @@ export default function LoginDropdown({ options, onSelect }: Props) {
         <div className="absolute z-10 mt-2 w-full rounded-lg border border-gray-300 bg-white shadow-lg">
           <input
             type="text"
-            placeholder="Search organizations..."
+            placeholder="Search organisations..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full border-b border-gray-300 px-4 py-2 focus:outline-none"

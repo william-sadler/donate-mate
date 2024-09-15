@@ -48,8 +48,8 @@ export default function LoginRedirect() {
       <div className="card-container">
         {/* Sign Up Card */}
         <div className="card">
-          <h3 className="card-heading">Sign Up for an Organization</h3>
-          <p className="card-text">Create a new organization to get started.</p>
+          <h3 className="card-heading">Sign Up for an Organisation</h3>
+          <p className="card-text">Create a new organisation to get started.</p>
           <Link to="/org/signup" className="custom-signup-button">
             Sign Up
           </Link>
@@ -57,9 +57,9 @@ export default function LoginRedirect() {
 
         {/* Join Card */}
         <div className="card">
-          <h3 className="card-heading">Join an Organization</h3>
+          <h3 className="card-heading">Join an Organisation</h3>
           <p className="card-text">
-            Join an existing organization and get involved.
+            Join an existing organisation and get involved.
           </p>
           <LoginDropdown
             options={
