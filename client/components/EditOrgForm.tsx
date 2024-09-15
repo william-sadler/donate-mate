@@ -18,14 +18,17 @@ interface Props {
 
 type FormState = {
   orgName: string
-  orgContactDetails: string
+  orgContactEmail: string | null
+  orgContactNumber: string | null
   orgAbout: string
-  orgLongitude: number
-  orgLatitude: number
+  orgLocation: string
+  orgLongitude: number | null
+  orgLatitude: number | null
   orgTypes: string
   orgImage: string
   orgVolunteeringNeeded: boolean
   orgMethod: string
+  orgWebsite: string | null
   orgDonationTypes: Types[] | []
   orgDonationTypesDeleted: Types[] | []
 }
@@ -39,14 +42,17 @@ export default function EditOrgForm({
   const { getAccessTokenSilently } = useAuth0()
   const [form, setForm] = useState<FormState>({
     orgName: organisation.name,
-    orgContactDetails: organisation.contactDetails,
+    orgContactEmail: organisation.contactEmail || null,
+    orgContactNumber: organisation.contactNumber || null,
     orgAbout: organisation.about,
-    orgLongitude: organisation.longitude,
-    orgLatitude: organisation.latitude,
+    orgLocation: organisation.location,
+    orgLongitude: organisation.longitude || null,
+    orgLatitude: organisation.latitude || null,
     orgTypes: organisation.orgTypes,
     orgImage: organisation.image,
     orgVolunteeringNeeded: false,
-    orgMethod: organisation.method || '',
+    orgMethod: organisation.donationMethod || '',
+    orgWebsite: organisation.website || null,
     orgDonationTypes: orgDonationTypes,
     orgDonationTypesDeleted: [],
   })
@@ -127,14 +133,17 @@ export default function EditOrgForm({
         orgData: {
           id: organisation.id,
           name: form.orgName,
-          contactDetails: form.orgContactDetails,
+          contactEmail: form.orgContactEmail,
+          contactNumber: form.orgContactNumber,
+          location: form.orgLocation,
           about: form.orgAbout,
           longitude: organisation.longitude,
           latitude: organisation.latitude,
           orgTypes: form.orgTypes,
           image: form.orgImage,
           volunteeringNeeded: form.orgVolunteeringNeeded,
-          method: form.orgMethod,
+          donationMethod: form.orgMethod,
+          website: form.orgWebsite,
         },
       },
       mutationOptions,
@@ -240,8 +249,11 @@ export default function EditOrgForm({
           <EditCard
             form={organisation}
             orgName={form.orgName}
-            orgContactDetails={form.orgContactDetails}
+            orgContactEmail={form.orgContactEmail}
+            orgContactNumber={form.orgContactNumber}
             handleChange={handleChange}
+            orgLocation={form.orgLocation}
+            orgWebsite={form.orgWebsite || ''}
           />
           <button
             onClick={handleSubmit}
