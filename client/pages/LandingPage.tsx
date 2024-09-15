@@ -10,6 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { useState } from 'react'
 import { useAllTypes } from '../hooks/useTypes'
 import LandingSearch from '../components/LandingSearch'
+import FilterTag from '../components/FilterTag'
 
 export default function LandingPage() {
   const { loginWithRedirect } = useAuth0()
@@ -61,42 +62,81 @@ export default function LandingPage() {
     setSelectedType([])
   }
 
+  const handleDeleteFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const type = event.currentTarget.name
+    setSelectedType((prev) => prev.filter((t) => t !== type))
+  }
+
   return (
     <div className="container">
       <IfAuthenticated>
-        <h1 className=" heading-3-italic ">
-          Community Organisation and Donation Centers
-        </h1>
-        <Link to="/org/signup">
-          <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
-            Sign Up!
-          </button>
-        </Link>
+        <div className="mb-4 flex items-center justify-end space-x-4">
+          <span className="text-lg">Are you an org?</span>
+          <Link to="/org/signup">
+            <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
+              Sign Up!
+            </button>
+          </Link>
+        </div>
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <button
-          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
-          onClick={handleSignIn}
-        >
-          Sign Up!
-        </button>
+        <div className="mb-4 flex items-center justify-end space-x-4">
+          <span className="text-lg">Are you an org?</span>
+          <button
+            className="primary_button bg-blue hover:bg-darkerTeal mb-4 flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
+            onClick={handleSignIn}
+          >
+            Sign Up!
+          </button>
+        </div>
       </IfNotAuthenticated>
-      <section className="flex w-full flex-col items-center space-y-4 p-4">
+      <section className="mb-4 flex flex-col items-start space-y-4 p-4">
         <h2 className="heading-1-caveat mb-4">Ready to donate?</h2>
-        <div className="w-full max-w-lg">
+        <div className="mb-4 w-full max-w-lg">
           <LandingSearch onSubmit={setOrgFilter} />
         </div>
-        <div className="filterTypes paragraph w-full max-w-lg">
-          <FilterTypes setfilter={setSelectedType} history={selectedType} />
-          {(orgFilter.length > 0 || selectedType.length > 0) && (
-            <button
-              className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300"
-              onClick={handleResetFilters}
-            >
-              Reset Filters
-            </button>
-          )}
+        <div className="mb-4 flex w-full flex-col space-y-4 overflow-x-auto sm:flex-row sm:space-x-4 sm:space-y-0">
+          <div className="flex flex-shrink-0 space-x-4">
+            <div className="filterTypes paragraph flex max-w-full flex-wrap items-center space-x-4">
+              <FilterTypes setFilter={setSelectedType} history={selectedType} />
+            </div>
+            <div className="heading-2-caveat paragraph flex flex-shrink-0 items-center space-x-4">
+              <section className="mx-auto max-w-3xl flex-shrink-0 p-6">
+                <label className="mb-6 block">
+                  <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
+                  <select
+                    disabled
+                    defaultValue="Location"
+                    className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    <option value="" disabled>
+                      Location
+                    </option>
+                  </select>
+                </label>
+              </section>
+              {(orgFilter.length > 0 || selectedType.length > 0) && (
+                <button
+                  className="primary_button bg-blue hover:bg-darkerTeal flex flex-shrink-0 items-center space-x-4 rounded px-4 py-2 transition duration-300"
+                  onClick={handleResetFilters}
+                >
+                  Reset Filters
+                </button>
+              )}
+            </div>
+          </div>
         </div>
+        {selectedType.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {selectedType.map((filtered, i) => (
+              <FilterTag
+                key={i}
+                filtered={filtered}
+                onDelete={handleDeleteFilter}
+              />
+            ))}
+          </div>
+        )}
       </section>
       <div className="grid-layout">
         {filteredOrgs.length > 0 ? (

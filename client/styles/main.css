@@ -70,7 +70,7 @@
 
 /* This will help get you left/right margins to center your content */
 .container {
-  @apply mx-auto px-4;
+  @apply mx-auto p-6;
 }
 
 .custom_flex {
