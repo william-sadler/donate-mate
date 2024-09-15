@@ -57,7 +57,7 @@ export default function OrgProfilePage() {
         name={data.name}
         location={data.location}
       />
-      <h3>{data.orgTypes}</h3>
+      <h3 className="heading-4-italic">{data.orgTypes}</h3>
       <div>
         <ProfileAbout about={data.about} />
       </div>

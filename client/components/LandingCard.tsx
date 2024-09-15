@@ -14,9 +14,9 @@ export default function LandingCard({ name, image, orgId, location }: Props) {
       <CardUrgentlyStatus id={orgId} />
       <img className="image" src={image} alt={name} />
       <div className="card-content">
-        <div className="card-title">{name}</div>
+        <div className="card-title heading-2-caveat">{name}</div>
         <CardTypes id={orgId} />
-        <div className="card-location">{location}</div>
+        <div className="card-location heading-4">{location}</div>
       </div>
     </div>
   )
