@@ -222,18 +222,18 @@ export default function AddressSearch() {
         </div>
         <form
           onSubmit={handleSubmit}
-          className="absolute left-1/2 top-4 -translate-x-1/2 transform rounded-md bg-white p-2 shadow-md"
+          className="absolute -top-4 left-1/2 -translate-x-1/2 transform rounded-md bg-white p-2 shadow-md"
         >
           <input
             id="autocomplete"
             ref={autocompleteRef}
-            className="w-full rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-96 rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text"
             placeholder="Enter address"
           />
           <button
             type="submit"
-            className="mt-2 w-full rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="bg-blue hover:bg-blue mt-2 w-full rounded-md p-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Submit
           </button>
