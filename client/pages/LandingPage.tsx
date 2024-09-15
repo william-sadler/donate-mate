@@ -64,9 +64,8 @@ export default function LandingPage() {
             (org) =>
               typeData.filter(
                 (type) =>
-                  selectedType.find(
-                    (selection: string) => type.name === selection,
-                  ) && type.organisationId === org.id,
+                  selectedType.find((selection) => type.name === selection) &&
+                  type.organisationId === org.id,
               ).length === 1 || selectedType.length === 0,
           )
           .map((organisation, i) => (
