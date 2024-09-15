@@ -1,7 +1,5 @@
 import { useTypesById } from '../hooks/useTypes'
 
-import { Types } from '../../models/modelTypes'
-
 interface Props {
   id: number
 }
@@ -17,14 +15,15 @@ export default function CardTypes({ id }: Props) {
   }
 
   return (
-    <>
-      <ul>
-        {data?.map((type: Types) => (
-          <li key={type.id}>
-            <h2>{type.name}</h2>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="card-tags">
+      {data?.map((type) => (
+        <li
+          key={type.id}
+          className="rounded-full border border-blue-300 bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800"
+        >
+          {type.name}
+        </li>
+      ))}
+    </ul>
   )
 }

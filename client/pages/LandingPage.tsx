@@ -60,24 +60,23 @@ export default function LandingPage() {
       <div className="filterTypes">
         <FilterTypes setfilter={setSelectedType} history={selectedType} />
       </div>
-      <div className="image-grid">
+      <div className="grid-layout">
         {data
           .filter(
             (org) =>
               typeData.filter(
                 (type) =>
-                  selectedType.find(
-                    (selection: string) => type.name === selection,
-                  ) && type.organisationId === org.id,
+                  selectedType.find((selection) => type.name === selection) &&
+                  type.organisationId === org.id,
               ).length === 1 || selectedType.length === 0,
           )
           .map((organisation, i) => (
             <Link to={`/org/${organisation.id}`} key={i}>
               <LandingCard
                 name={organisation.name}
-                src={organisation.image}
-                alt={organisation.name}
+                image={organisation.image}
                 orgId={organisation.id}
+                location={organisation.location}
               />
             </Link>
           ))}
