@@ -1,66 +1,78 @@
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
-import { useTypes } from '../hooks/useTypes'
+import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
-import CardUrgentlyStatus from '../components/VolunteersNeeded'
+import ProfileHowToDonate from '../components/ProfileHowToDonate'
+import ProfileMap from '../components/ProfileMap'
+import { useUsers } from '../hooks/useUsers'
+import { User } from '@auth0/auth0-react'
 
 export default function OrgProfilePage() {
-  const { id } = useParams<{ id: string }>()
+  const param = useParams()
   const navigate = useNavigate()
-  const numericId = Number(id)
-
+  const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
-    useOrganisationsById(numericId)
-  const {
-    data: typeData,
-    isPending: isTypePending,
-    isError: isTypeError,
-    failureCount: typeFailureCount,
-  } = useTypes(numericId)
+    useOrganisationsById(id)
+  const typeData = useTypesById(id)
+  const user = useUsers()
 
-  if (isPending || isTypePending) {
-    const failures = failureCount > 0 ? ` (failed ${failureCount} times)` : ''
-    const typeFailures =
-      typeFailureCount > 0 ? ` (failed ${typeFailureCount} times)` : ''
-    if (failureCount > 3 || typeFailureCount > 3) {
-      navigate('/')
-      return null
+  if (isPending || !data) {
+    let failures = ''
+    if (failureCount > 0) {
+      failures = ` (failed ${failureCount} times)`
     }
-    return (
-      <div>
-        Loading...{failures}
-        {typeFailures}
-      </div>
-    )
+    if (failureCount > 3) {
+      navigate('/')
+    }
+    return <div>Loading... {failures}</div>
   }
 
-  if (isError || isTypeError) {
-    return <p>Failed to get Org: {error?.message || 'Unknown error'}</p>
+  if (isError) {
+    return <p>Failed to get Org: {error.message}</p>
   }
 
-  if (!data || !typeData) {
-    return <p>No data available</p>
+  if (typeData.isPending || !typeData.data) {
+    let failures = ''
+    if (typeData.failureCount > 0) {
+      failures = ` (failed ${typeData.failureCount} times)`
+    }
+    if (typeData.failureCount > 3) {
+      navigate('/')
+    }
+    return <div>Loading... {failures}</div>
   }
+
+  if (typeData.isError) {
+    return <p>Failed to get Org: {typeData.error.message}</p>
+  }
+
+  const userCheck = user.data as User
 
   return (
-    <>
+    <div className="orgProfilePage">
       <ProfileCard
         image={data.image}
         name={data.name}
-        contactDetails={data.contactDetails}
+        contactEmail={data.contactEmail || ''}
+        contactNumber={data.contactNumber || ''}
+        location={data.location}
       />
-
-      <h3>{data.orgTypes}</h3>
-      <p>{data.contactDetails}</p>
-      <p>{data.method}</p>
+      <h3 className="heading-4-italic">{data.orgTypes}</h3>
       <div>
         <ProfileAbout about={data.about} />
       </div>
-
-      <CurrentlyAccepting typeData={typeData} />
-      <CardUrgentlyStatus id={numericId} />
-    </>
+      <div>
+        <ProfileHowToDonate method={data.donationMethod || ''} />
+      </div>
+      <CurrentlyAccepting typeData={typeData.data} />
+      <ProfileMap />
+      {userCheck?.orgId === id && (
+        <Link to={`/org/edit/${id}`}>
+          <button>Edit</button>
+        </Link>
+      )}
+    </div>
   )
 }

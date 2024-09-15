@@ -1,13 +1,11 @@
-import { useTypes } from '../hooks/useTypes'
-
-import { Types } from '../../models/modelTypes'
+import { useTypesById } from '../hooks/useTypes'
 
 interface Props {
   id: number
 }
 
 export default function CardTypes({ id }: Props) {
-  const { data, isLoading, isError, error } = useTypes(id)
+  const { data, isLoading, isError, error } = useTypesById(id)
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -17,14 +15,15 @@ export default function CardTypes({ id }: Props) {
   }
 
   return (
-    <>
-      <ul>
-        {data?.map((type: Types) => (
-          <li key={type.id}>
-            <h2>{type.name}</h2>
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul className="card-tags">
+      {data?.map((type) => (
+        <li
+          key={type.id}
+          className="paragraph border-blue-300 bg-blue-100 text-blue-800 rounded-lg border px-3 py-1 text-sm font-medium"
+        >
+          {type.name}
+        </li>
+      ))}
+    </ul>
   )
 }

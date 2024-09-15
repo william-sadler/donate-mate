@@ -3,8 +3,11 @@ import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/dbTypes.ts'
+import { Types } from '../../models/modelTypes.ts'
 
 const router = Router()
+
+export default router
 
 router.get('/:id', async (req, res, next) => {
   const id = Number(req.params.id)
@@ -19,6 +22,15 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+router.get('/', async (req, res, next) => {
+  try {
+    const DonationNames = await db.getAllDonationNames()
+    res.json(DonationNames)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   if (!req.auth?.sub) {
     res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -26,21 +38,47 @@ router.post('/', checkJwt, async (req: JwtRequest, res, next) => {
   }
 
   try {
-    const { name, accepting, urgentlySeeking, organisationId, date } = req.body
-    const id = await db.addType({
-      name,
-      accepting,
-      urgentlySeeking,
-      organisationId,
-      date,
-      id: 0,
-    })
-    res
-      .setHeader('Location', `${req.baseUrl}/${id}`)
-      .sendStatus(StatusCodes.CREATED)
+    const data = req.body
+    await db.addType(data)
+    res.sendStatus(StatusCodes.CREATED)
   } catch (err) {
     next(err)
   }
 })
 
-export default router
+router.delete('/', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    res.sendStatus(StatusCodes.UNAUTHORIZED)
+    return
+  }
+
+  const typeData = req.body as Types[]
+
+  if (!typeData[0]) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    await db.deleteType(typeData)
+    res.sendStatus(StatusCodes.OK)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.patch('/', checkJwt, async (req: JwtRequest, res, next) => {
+  if (!req.auth?.sub) {
+    return res.sendStatus(StatusCodes.UNAUTHORIZED)
+  }
+  const typeData = req.body as Types[]
+
+  if (!typeData[0]) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+  try {
+    await db.updateType(typeData)
+    res.sendStatus(StatusCodes.OK)
+  } catch (err) {
+    next(err)
+  }
+})
