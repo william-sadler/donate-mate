@@ -70,7 +70,7 @@
 
 /* This will help get you left/right margins to center your content */
 .container {
-  @apply mx-auto p-6;
+  @apply mx-auto rounded px-4 shadow-sm;
 }
 
 .custom_flex {
@@ -138,6 +138,10 @@
   box-sizing: border-box;
 }
 
+/* ORG PROFILE PAGE */
+.orgProfilePage {
+  background-color: #fbe8d1;
+}
 .logo {
   height: 135px;
 }

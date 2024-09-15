@@ -32,8 +32,8 @@ function Nav() {
           </div>
         )}
         <button
-          className="primary_button flex items-center space-x-4 rounded-full bg-blue
-           transition duration-300 hover:bg-darkerTeal"
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4
+           rounded-full transition duration-300"
           onClick={handleSignOut}
         >
           Log out
@@ -41,7 +41,8 @@ function Nav() {
       </IfAuthenticated>
       <IfNotAuthenticated>
         <button
-          className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal"
+          className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4
+           rounded-full transition duration-300"
           onClick={handleSignIn}
         >
           Login

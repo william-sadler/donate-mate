@@ -72,8 +72,10 @@ export default function LandingPage() {
       <IfAuthenticated>
         <div className="mb-4 flex items-center justify-end space-x-4">
           <h1 className=" heading-3-italic ">
-            Community Organisation and Donation Centers
+            Are you a community organisation?
           </h1>
+        </div>
+        <div className="mb-4 flex items-center justify-end space-x-4">
           <Link to="/org/signup">
             <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300">
               Sign Up!
@@ -82,13 +84,18 @@ export default function LandingPage() {
         </div>
       </IfAuthenticated>
       <IfNotAuthenticated>
-        <div className="mb-4 flex items-center justify-end space-x-4">
-          <button
-            className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300"
-            onClick={handleSignIn}
-          >
-            Sign Up!
-          </button>
+        <div className="mb-4 flex w-fit flex-col items-end justify-center space-x-4 p-6">
+          <div className="mb-4 flex w-fit flex-col items-center justify-center space-x-4">
+            <h1 className=" heading-3-italic ">
+              Are you a community organisation?
+            </h1>
+            <button
+              className="primary_button bg-blue hover:bg-darkerTeal m-4 flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300"
+              onClick={handleSignIn}
+            >
+              Sign Up!
+            </button>
+          </div>
         </div>
       </IfNotAuthenticated>
       <section className="mb-4 flex max-w-fit flex-col items-start space-y-4 p-4">
