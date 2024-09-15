@@ -54,6 +54,10 @@
   @apply raleway-bold  text-xl font-bold;
 }
 
+.heading-4-italic {
+  @apply raleway-bold-italic  text-xl font-bold;
+}
+
 .paragraph {
   @apply raleway-light text-base font-normal;
 }

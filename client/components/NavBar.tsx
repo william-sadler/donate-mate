@@ -11,10 +11,12 @@ export default function NavBar() {
             alt="logo for donateMate"
             className="logo"
           />
-
-          <h1 className="heading-1-caveat caveat-bold -translate-y-1/8 ml-1 text-textBlue">
-            DonateMate
-          </h1>
+          <div>
+            <h1 className="heading-1-caveat caveat-bold -translate-y-1/8 ml-1 text-textBlue">
+              DonateMate
+            </h1>
+            <p className="caveat-semi">Donate Smart, Support Local</p>
+          </div>
         </div>
       </Link>
       <div className="flex items-center justify-end space-x-2 bg-lightTeal">
