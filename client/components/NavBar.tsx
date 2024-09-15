@@ -12,10 +12,10 @@ export default function NavBar() {
             className="logo"
           />
           <div>
-            <h1 className="heading-1-caveat caveat-bold -translate-y-1/8 ml-1 text-textBlue">
+            <h1 className="heading-1-caveat caveat-bold -translate-y-1/5 ml-1 text-textBlue">
               DonateMate
             </h1>
-            <p className="caveat-semi">Donate Smart, Support Local</p>
+            <p className="caveat-semi text-2xl">Donate Smart, Support Local</p>
           </div>
         </div>
       </Link>
