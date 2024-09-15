@@ -90,7 +90,7 @@ export default function LandingPage() {
           </button>
         </div>
       </IfNotAuthenticated>
-      <section className="mb-4 flex flex-col items-start space-y-4 p-4">
+      <section className="mb-4 flex max-w-fit flex-col items-start space-y-4 p-4">
         <h2 className="heading-1-caveat mb-4">Ready to donate?</h2>
         <div className="mb-4 w-full max-w-lg">
           <LandingSearch onSubmit={setOrgFilter} />
@@ -127,14 +127,16 @@ export default function LandingPage() {
           </div>
         </div>
         {selectedType.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {selectedType.map((filtered, i) => (
-              <FilterTag
-                key={i}
-                filtered={filtered}
-                onDelete={handleDeleteFilter}
-              />
-            ))}
+          <div className="w-full overflow-x-auto">
+            <div className="custom-grid">
+              {selectedType.map((filtered, i) => (
+                <FilterTag
+                  key={i}
+                  filtered={filtered}
+                  onDelete={handleDeleteFilter}
+                />
+              ))}
+            </div>
           </div>
         )}
       </section>
