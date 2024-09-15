@@ -57,7 +57,7 @@ export async function seed(knex) {
       contact_email: 'koha@missionsocialservices.org',
       contact_number: null,
       location:
-        'Wellington City Mission Supermarket, 19 Gordon Pl, Newtown, Wellington 6021',
+        'Wellington City Mission Supermarket, 19 Gordon Pl, Newtown, Wellington',
       about:
         'A charitable initiative that collects and distributes goods for people in need.',
       longitude: null,
@@ -74,7 +74,7 @@ export async function seed(knex) {
       name: 'Dress for Success Wellington',
       contact_email: 'wellington@dressforsuccess.org',
       contact_number: '04 499 4590',
-      location: '29 Broderick Rd, Johnsonville, Wellington 6037',
+      location: '29 Broderick Rd, Johnsonville, Wellington',
       about:
         'Helping women get back into the workforce by providing professional attire and development tools.',
       longitude: null,
@@ -90,7 +90,7 @@ export async function seed(knex) {
       name: 'Wellington SPCA',
       contact_email: null,
       contact_number: '04 389 8044',
-      location: '140 Alexandra Rd, Newtown, Wellington 6021',
+      location: '140 Alexandra Rd, Newtown, Wellington',
       about:
         'Helping animals in need and promoting animal welfare in Wellington.',
       longitude: null,
@@ -107,7 +107,7 @@ export async function seed(knex) {
       name: 'Salvation Army Wellington',
       contact_email: 'enquiries@salvationarmy.org.nz',
       contact_number: '04 389 0594',
-      location: '204 Cuba St, Te Aro, Wellington 6011',
+      location: '204 Cuba St, Te Aro, Wellington',
       about:
         'Providing community support and social services for those in need.',
       longitude: null,
@@ -123,7 +123,7 @@ export async function seed(knex) {
       name: 'Wellington City Mission',
       contact_email: null,
       contact_number: '04 245 0900',
-      location: '19 Gordon Pl, Newtown, Wellington 6021',
+      location: '19 Gordon Pl, Newtown, Wellington',
       about:
         'Providing assistance to individuals and families in need throughout Wellington.',
       longitude: null,
@@ -139,7 +139,7 @@ export async function seed(knex) {
       name: 'Vinnies Wellington',
       contact_email: 'vinnies@stvincents.co.nz',
       contact_number: '04 389 7122',
-      location: '207 Riddiford St, Newtown, Wellington 6021',
+      location: '207 Riddiford St, Newtown, Wellington',
       about:
         'Helping people in need through various outreach and charity services.',
       longitude: null,
@@ -155,7 +155,7 @@ export async function seed(knex) {
       name: "Wellington Women's Refuge",
       contact_email: null,
       contact_number: '04 473 6280',
-      location: 'Confidential address in Wellington',
+      location: '44 Wigan Street, Te Aro, Wellington',
       about:
         'Supporting women and children in escaping domestic violence and offering safe housing and services.',
       longitude: null,
@@ -171,7 +171,7 @@ export async function seed(knex) {
       name: 'Newtown Community & Cultural Centre',
       contact_email: 'newtowncentre@paradise.net.nz',
       contact_number: '04 389 4786',
-      location: 'Corner of Rintoul and Colombo St, Newtown, Wellington 6021',
+      location: 'Corner of Rintoul and Colombo St, Newtown, Wellington',
       about:
         'Providing community events, workshops, and support services for residents of Newtown.',
       longitude: null,
@@ -187,7 +187,7 @@ export async function seed(knex) {
       name: 'Kaibosh Wellington',
       contact_email: 'info@kaibosh.org.nz',
       contact_number: '04 385 0825',
-      location: 'Wellington Central, Wellington 6011',
+      location: 'Wellington Central, Wellington',
       about:
         'Wellington-based food rescue service, redistributing surplus food to people in need.',
       longitude: null,
@@ -203,7 +203,7 @@ export async function seed(knex) {
       name: 'The Free Store',
       contact_email: 'freestore@wellington.org.nz',
       contact_number: '04 387 8087',
-      location: '211 Willis St, Te Aro, Wellington 6011',
+      location: '211 Willis St, Te Aro, Wellington',
       about:
         'Redistributing surplus food from local cafes and bakeries to people in need in Wellington.',
       longitude: null,
@@ -219,7 +219,7 @@ export async function seed(knex) {
       name: 'Wellington Night Shelter',
       contact_email: null,
       contact_number: '04 385 9546',
-      location: '304 Taranaki St, Mt Cook, Wellington 6011',
+      location: '304 Taranaki St, Mt Cook, Wellington',
       about:
         'Providing emergency and temporary housing for men in need in Wellington.',
       longitude: null,
@@ -235,7 +235,7 @@ export async function seed(knex) {
       name: 'Soup Kitchen Wellington',
       contact_email: 'soupkitchen@compassion.org.nz',
       contact_number: '04 385 9299',
-      location: '132 Tory St, Te Aro, Wellington 6011',
+      location: '132 Tory St, Te Aro, Wellington',
       about:
         'Providing meals and support services to vulnerable members of the Wellington community.',
       longitude: null,
@@ -251,7 +251,7 @@ export async function seed(knex) {
       name: 'Free Coffee for Coders Wellington',
       contact_email: 'donatemate4@gmail.com',
       contact_number: '04 300 500',
-      location: '275 Cuba Street, Te Aro, Wellington 6023',
+      location: '275 Cuba Street, Te Aro, Wellington',
       about:
         'Providing free coffee for hard-working students and facilitators, one cohort at a time',
       longitude: -41.28795621507406,
