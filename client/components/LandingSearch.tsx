@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, SetStateAction } from 'react'
 import { useAllOrganisations } from '../hooks/useOrganisations'
 
 interface Props {
-  onSubmit: (orgName: string[]) => void
+  onSubmit: (orgName: SetStateAction<string[]>) => void
 }
 
 export default function LandingSearch({ onSubmit }: Props) {

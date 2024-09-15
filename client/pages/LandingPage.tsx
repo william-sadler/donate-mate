@@ -13,18 +13,23 @@ import LandingSearch from '../components/LandingSearch'
 
 export default function LandingPage() {
   const { loginWithRedirect } = useAuth0()
-  const { data, isPending, isError, error } = useAllOrganisations()
+  const {
+    data: orgData,
+    isPending: orgIsPending,
+    isError: orgIsError,
+    error: orgError,
+  } = useAllOrganisations()
   const {
     data: typeData,
     isPending: typeIsPending,
     isError: typeIsError,
     error: typeError,
   } = useAllTypes()
-  const [selectedType, setSelectedType] = useState([] as string[])
-  const [orgFilter, setOrgFilter] = useState([] as string[])
+
+  const [selectedType, setSelectedType] = useState<string[]>([])
+  const [orgFilter, setOrgFilter] = useState<string[]>([])
 
   const handleSignIn = () => {
-    console.log('sign in')
     loginWithRedirect({
       authorizationParams: {
         redirect_uri: `${window.location.origin}/register`,
@@ -32,12 +37,28 @@ export default function LandingPage() {
     })
   }
 
-  if (isPending) return <p>Yoo hold up brother!</p>
-  if (isError) return <p>Naa bao, it aint working: {error.message}</p>
+  if (orgIsPending || typeIsPending) return <p>Loading...</p>
+  if (orgIsError) return <p>Error fetching organizations: {orgError.message}</p>
+  if (typeIsError) return <p>Error fetching types: {typeError.message}</p>
 
-  if (typeIsPending) return <p>Gathering resources...</p>
-  if (typeIsError)
-    return <p>Oops! Cannot find the donation type: {typeError.message}</p>
+  // Filtering logic without useMemo
+  const filteredOrgs = orgData.filter((org) => {
+    // Check if the organization name matches any of the filters
+    const matchesName =
+      orgFilter.length === 0 ||
+      orgFilter.some((filter) =>
+        org.name.toLowerCase().includes(filter.toLowerCase()),
+      )
+
+    // Check if the organization matches any selected type
+    const hasMatchingType = typeData.some(
+      (type) =>
+        selectedType.length === 0 ||
+        (selectedType.includes(type.name) && type.organisationId === org.id),
+    )
+
+    return matchesName && hasMatchingType
+  })
 
   return (
     <div className="container">
@@ -66,25 +87,16 @@ export default function LandingPage() {
         </div>
       </div>
       <div className="grid-layout">
-        {data
-          .filter(
-            (org) =>
-              typeData.filter(
-                (type) =>
-                  selectedType.find((selection) => type.name === selection) &&
-                  type.organisationId === org.id,
-              ).length === 1 || selectedType.length === 0,
-          )
-          .map((organisation, i) => (
-            <Link to={`/org/${organisation.id}`} key={i}>
-              <LandingCard
-                name={organisation.name}
-                image={organisation.image}
-                orgId={organisation.id}
-                location={organisation.location}
-              />
-            </Link>
-          ))}
+        {filteredOrgs.map((organisation) => (
+          <Link to={`/org/${organisation.id}`} key={organisation.id}>
+            <LandingCard
+              name={organisation.name}
+              image={organisation.image}
+              orgId={organisation.id}
+              location={organisation.location}
+            />
+          </Link>
+        ))}
       </div>
     </div>
   )
