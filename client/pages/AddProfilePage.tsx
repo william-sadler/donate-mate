@@ -114,7 +114,9 @@ export default function AddProfilePage() {
   if (
     allOrgs.data?.find((org) => org.id === (userCheck ? userCheck.orgId : null))
   ) {
-    navigate('/')
+    navigate(
+      `/org/${allOrgs.data?.find((org) => org.id === (userCheck ? userCheck.orgId : null))?.id}`,
+    )
   }
 
   return (
