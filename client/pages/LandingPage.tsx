@@ -63,8 +63,10 @@ export default function LandingPage() {
 
   return (
     <div className="container">
-      <h1 className="text-3xl font-bold">DonateMate</h1>
       <IfAuthenticated>
+        <h1 className=" heading-3-italic ">
+          Community Organisation and Donation Centers
+        </h1>
         <Link to="/org/signup">
           <button className="primary_button bg-blue hover:bg-darkerTeal flex items-center space-x-4 rounded px-4 py-2 transition duration-300">
             Sign Up!
@@ -83,7 +85,7 @@ export default function LandingPage() {
         <div className="w-full max-w-lg">
           <LandingSearch onSubmit={setOrgFilter} />
         </div>
-        <div className="w-full max-w-lg">
+        <div className="filterTypes paragraph w-full max-w-lg">
           <FilterTypes setfilter={setSelectedType} history={selectedType} />
           {(orgFilter.length > 0 || selectedType.length > 0) && (
             <button
