@@ -19,14 +19,14 @@ export default function FilterTypes({ setfilter, history }: Props) {
   if (typesPending)
     return (
       <section className="mx-auto max-w-3xl p-6">
-        <h1 className="mb-4 text-2xl font-bold">You ready to filter???</h1>
+        <h2 className="heading-2 mb-4">Ready to donate?</h2>
         <label className="mb-6 block">
           <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
           <select
-            value={selectedType}
-            className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            defaultValue={selectedType}
+            className="focus:ring-blue-500 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
           >
-            <option value="">Donation Type</option>
+            <option>Donation Type</option>
             {donationType.map((type) => (
               <option key={type?.id} value={type?.name}>
                 Loading...
@@ -56,15 +56,15 @@ export default function FilterTypes({ setfilter, history }: Props) {
 
   return (
     <section className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-4 text-2xl font-bold">You ready to filter???</h1>
+      <h2 className="heading-2 mb-4">Ready to donate?</h2>
       <label className="mb-6 block">
-        <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
+        <h3 className="heading-4 mb-2 font-semibold">Filter By:</h3>
         <select
           value={selectedType}
           onChange={handleChange}
-          className="block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="focus:ring-blue-500 block w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
         >
-          <option value="">Donation Type</option>
+          <option>Donation Type</option>
           {donationType.map((type) => (
             <option key={type.id} value={type.name}>
               {type.name}

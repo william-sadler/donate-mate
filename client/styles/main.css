@@ -36,6 +36,8 @@
   @apply py-2 text-center text-lg font-bold;
 }
 
+/* HEADING AND FONT*/
+
 .heading-1 {
   @apply caveat-bold text-4xl font-bold;
 }
@@ -49,7 +51,7 @@
 }
 
 .heading-4 {
-  @apply text-xl font-bold;
+  @apply raleway-bold  text-xl font-bold;
 }
 
 .paragraph {
@@ -115,7 +117,7 @@
   font-family: 'Raleway', sans-serif;
   font-optical-sizing: auto;
   font-weight: 450;
-  font-style: normal;
+  font-style: italic;
 }
 
 /* Default Browser styling override */

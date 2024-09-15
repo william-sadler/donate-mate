@@ -40,9 +40,9 @@ export default function LandingPage() {
   return (
     <div className="container">
       <IfAuthenticated>
-        <h3 className=" heading-3">
+        <h1 className=" heading-3">
           Community Organisation and Donation Centers
-        </h3>
+        </h1>
         <Link to="/org/signup">
           <button className="primary_button flex items-center space-x-4 rounded bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal">
             Sign Up!
@@ -57,7 +57,7 @@ export default function LandingPage() {
           Sign Up!
         </button>
       </IfNotAuthenticated>
-      <div className="filterTypes">
+      <div className="filterTypes paragraph">
         <FilterTypes setfilter={setSelectedType} history={selectedType} />
       </div>
       <div className="grid-layout">
