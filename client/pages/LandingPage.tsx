@@ -76,7 +76,7 @@ export default function LandingPage() {
               Are you a community organisation?
             </h1>
             <Link to="/org/signup">
-              <button className="primary_button bg-blue hover:bg-darkerTeal m-2 flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300">
+              <button className="primary_button m-2 flex items-center space-x-4 rounded-full bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal">
                 Sign Up!
               </button>
             </Link>
@@ -90,7 +90,7 @@ export default function LandingPage() {
               Are you a community organisation?
             </h1>
             <button
-              className="primary_button bg-blue hover:bg-darkerTeal m-2 flex items-center space-x-4 rounded-full px-4 py-2 transition duration-300"
+              className="primary_button m-2 flex items-center space-x-4 rounded-full bg-blue px-4 py-2 transition duration-300 hover:bg-darkerTeal"
               onClick={handleSignIn}
             >
               Sign Up!
@@ -118,7 +118,7 @@ export default function LandingPage() {
                   <select
                     disabled
                     value="Location"
-                    className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="focus:ring-blue-500 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
                   >
                     <option value="Location">Location</option>
                   </select>
@@ -128,7 +128,7 @@ export default function LandingPage() {
             <section className="mx-fit max-w-3xl pl-0">
               {(orgFilter.length > 0 || selectedType.length > 0) && (
                 <button
-                  className="primary_button bg-blue hover:bg-darkerTeal mb-4 flex flex-shrink-0 items-center space-x-4 rounded px-4 py-1.5 transition duration-300"
+                  className="primary_button mb-4 flex flex-shrink-0 items-center space-x-4 rounded bg-blue px-4 py-1.5 transition duration-300 hover:bg-darkerTeal"
                   onClick={handleResetFilters}
                 >
                   Reset Filters
@@ -160,6 +160,7 @@ export default function LandingPage() {
                 image={organisation.image}
                 orgId={organisation.id}
                 location={organisation.location}
+                orgTypes={organisation.orgTypes}
               />
             </Link>
           ))

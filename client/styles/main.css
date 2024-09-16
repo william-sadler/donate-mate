@@ -4,26 +4,25 @@
 
 /* Grid Layout */
 .grid-layout {
-  @apply grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3;
+  @apply grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4;
 }
 
 /* Image Card Styles */
 .image-card {
-  @apply flex h-full transform flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl ;
+  @apply flex h-full transform flex-col overflow-hidden rounded-lg bg-white shadow-lg transition-transform hover:scale-105 hover:shadow-xl;
 }
 
 .image {
   @apply max-h-96
-   w-auto object-fill flex-shrink-0 ;
+   w-auto flex-shrink-0 object-fill;
 }
 
 .card-content {
-  @apply flex flex-grow flex-col 
-  ;
+  @apply flex flex-grow flex-col;
 }
 
 .card-title {
-  @apply mb-2 text-left text-xl font-semibold
+  @apply mb-2 text-left text-xl font-semibold;
 }
 
 .card-location {
