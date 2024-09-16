@@ -78,7 +78,7 @@
 }
 
 .currentlyAccepting {
-  @apply min-h-full max-w-lg;
+  @apply min-h-fit max-w-lg;
 }
 /* BOX SHADOWS */
 .yellow-shadow {
@@ -153,6 +153,10 @@
 }
 .logo {
   height: 135px;
+}
+
+.profile-image-card {
+  @apply flex h-full transform flex-col items-center justify-center overflow-hidden rounded-lg;
 }
 
 /*Hover urgently Status*/

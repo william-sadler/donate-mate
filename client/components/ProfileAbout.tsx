@@ -8,7 +8,7 @@ export default function ProfileAbout({ about }: Props) {
   const [drop, setDrop] = useState(false)
 
   return (
-    <>
+    <section className="m-8 px-4">
       <button
         className="primary_button, heading-4"
         onClick={() => setDrop(!drop)}
@@ -16,6 +16,6 @@ export default function ProfileAbout({ about }: Props) {
         About Organisation
       </button>
       {drop && <div className="paragraph">{about}</div>}
-    </>
+    </section>
   )
 }

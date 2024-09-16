@@ -6,7 +6,7 @@ interface Props {
 
 export default function CurrentlyAccepting({ typeData }: Props) {
   return (
-    <div className="currentlyAccepting border-yellow yellow-shadow container border p-4 shadow-lg">
+    <div className="currentlyAccepting border-yellow yellow-shadow container mt-10 border p-4 shadow-lg">
       <h2 className="heading-4 p-2 pb-3">How you can help us:</h2>
       <ul className="grid grid-cols-1 gap-4">
         {typeData.map((type) => (

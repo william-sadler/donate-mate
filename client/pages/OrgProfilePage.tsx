@@ -51,23 +51,40 @@ export default function OrgProfilePage() {
   const userCheck = user.data as User
 
   return (
-    <div className="orgProfilePage">
-      <ProfileCard
-        image={data.image}
-        name={data.name}
-        contactEmail={data.contactEmail || ''}
-        contactNumber={data.contactNumber || ''}
-        location={data.location}
-      />
-      <h3 className="heading-4-italic">{data.orgTypes}</h3>
-      <div>
+    <div className="orgProfilePage mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-24 sm:px-1 sm:py-32 md:grid-cols-3 lg:grid-cols-4 lg:px-4">
+      <section className=" col-span-1 md:col-span-1 lg:col-span-1">
+        <ProfileCard
+          image={data.image}
+          name={data.name}
+          contactEmail={data.contactEmail || ''}
+          contactNumber={data.contactNumber || ''}
+          location={data.location}
+          orgType={data.orgTypes}
+        />
+      </section>
+      <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
         <ProfileAbout about={data.about} />
-      </div>
-      <div>
+        <CurrentlyAccepting typeData={typeData.data} />
+      </section>
+      <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
         <ProfileHowToDonate method={data.donationMethod || ''} />
-      </div>
-      <CurrentlyAccepting typeData={typeData.data} />
-      <ProfileMap />
+        <div className="mt-4">
+          <section className="hidden md:block ">
+            <ProfileMap />
+          </section>
+        </div>
+      </section>
+      <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
+        <div className="block md:hidden">
+          <ProfileHowToDonate method={data.donationMethod || ''} />
+        </div>
+        <div className="mt-4">
+          <section className="block md:hidden">
+            <ProfileMap />
+          </section>
+        </div>
+      </section>
+
       {userCheck?.orgId === id && (
         <Link to={`/org/edit/${id}`}>
           <button>Edit</button>
