@@ -194,10 +194,8 @@ export default function UserProfilePage() {
         {isOwner && (
           <div className="rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
             <UserPendingRequests
-              orgId={orgId}
               handle={handleRequest}
               acceptedUsers={acceptedUsers}
-              isOwner={isOwner}
             />
           </div>
         )}
