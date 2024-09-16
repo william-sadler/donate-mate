@@ -20,10 +20,29 @@ interface AddUserFunction {
   newUser: UserData
   token: string
 }
+
 export async function addUser({
   newUser,
   token,
 }: AddUserFunction): Promise<UserData> {
+  return request
+    .post(`${rootUrl}/users`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(newUser)
+    .then((res) => res.body.users)
+    .catch(logError)
+}
+
+interface AddRequestFunction {
+  admin: UserData
+  newUser: User
+  token: string
+}
+
+export async function acceptingUserRequest({
+  newUser,
+  token,
+}: AddRequestFunction): Promise<UserData> {
   return request
     .post(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
