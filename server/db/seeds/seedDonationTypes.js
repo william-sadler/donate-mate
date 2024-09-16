@@ -47,12 +47,12 @@ export async function seed(knex) {
     },
 
     // id: 3
-    // name: 'Aro Valley Opshop'
+    // name: 'Whiskers & Wonders'
 
     {
-      name: 'Clothes',
+      name: 'Pet care',
       accepting: true,
-      urgently_seeking: false,
+      urgently_seeking: true,
       organisation_id: 3,
       date: `${date}`,
     },
@@ -63,9 +63,16 @@ export async function seed(knex) {
       organisation_id: 3,
       date: `${date}`,
     },
+    {
+      name: 'Clothes',
+      accepting: false,
+      urgently_seeking: false,
+      organisation_id: 3,
+      date: `${date}`,
+    },
 
     // id: 4
-    // name: 'The Koha Shed Wellington'
+    // name: 'Aro Valley Opshop'
 
     {
       name: 'Clothes',
@@ -75,14 +82,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Furniture',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 4,
-      date: `${date}`,
-    },
-    {
-      name: 'Food',
+      name: 'Household goods',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 4,
@@ -90,7 +90,7 @@ export async function seed(knex) {
     },
 
     // id: 5
-    // name: 'Dress for Success Wellington'
+    // name: 'The Koha Shed Wellington'
 
     {
       name: 'Clothes',
@@ -100,7 +100,14 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Accessories',
+      name: 'Furniture',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 5,
+      date: `${date}`,
+    },
+    {
+      name: 'Food',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 5,
@@ -108,24 +115,17 @@ export async function seed(knex) {
     },
 
     // id: 6
-    // name: 'Wellington SPCA'
+    // name: 'Dress for Success Wellington'
 
     {
-      name: 'Pet care',
+      name: 'Clothes',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 6,
       date: `${date}`,
     },
     {
-      name: 'Food',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 6,
-      date: `${date}`,
-    },
-    {
-      name: 'Appliances',
+      name: 'Accessories',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 6,
@@ -133,10 +133,10 @@ export async function seed(knex) {
     },
 
     // id: 7
-    // name: 'Salvation Army Wellington'
+    // name: 'Wellington SPCA'
 
     {
-      name: 'Clothes',
+      name: 'Pet care',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 7,
@@ -150,7 +150,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Furniture',
+      name: 'Appliances',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 7,
@@ -158,8 +158,15 @@ export async function seed(knex) {
     },
 
     // id: 8
-    // name: 'Wellington City Mission'
+    // name: 'Salvation Army Wellington'
 
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 8,
+      date: `${date}`,
+    },
     {
       name: 'Food',
       accepting: true,
@@ -168,7 +175,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Clothes',
+      name: 'Furniture',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 8,
@@ -176,22 +183,8 @@ export async function seed(knex) {
     },
 
     // id: 9
-    // name: 'Vinnies Wellington'
+    // name: 'Wellington City Mission'
 
-    {
-      name: 'Clothes',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 9,
-      date: `${date}`,
-    },
-    {
-      name: 'Furniture',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 9,
-      date: `${date}`,
-    },
     {
       name: 'Food',
       accepting: true,
@@ -200,7 +193,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Household goods',
+      name: 'Clothes',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 9,
@@ -208,10 +201,17 @@ export async function seed(knex) {
     },
 
     // id: 10
-    // name: "Wellington Women's Refuge"
+    // name: 'Vinnies Wellington'
 
     {
       name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 10,
+      date: `${date}`,
+    },
+    {
+      name: 'Furniture',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 10,
@@ -225,7 +225,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Toiletries',
+      name: 'Household goods',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 10,
@@ -233,8 +233,15 @@ export async function seed(knex) {
     },
 
     // id: 11
-    // name: 'Newtown Community & Cultural Centre'
+    // name: "Wellington Women's Refuge"
 
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 11,
+      date: `${date}`,
+    },
     {
       name: 'Food',
       accepting: true,
@@ -243,7 +250,7 @@ export async function seed(knex) {
       date: `${date}`,
     },
     {
-      name: 'Clothes',
+      name: 'Toiletries',
       accepting: true,
       urgently_seeking: false,
       organisation_id: 11,
@@ -251,7 +258,7 @@ export async function seed(knex) {
     },
 
     // id: 12
-    // name: 'Kaibosh Wellington'
+    // name: 'Newtown Community & Cultural Centre'
 
     {
       name: 'Food',
@@ -260,9 +267,16 @@ export async function seed(knex) {
       organisation_id: 12,
       date: `${date}`,
     },
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 12,
+      date: `${date}`,
+    },
 
     // id: 13
-    // name: 'The Free Store'
+    // name: 'Kaibosh Wellington'
 
     {
       name: 'Food',
@@ -273,22 +287,8 @@ export async function seed(knex) {
     },
 
     // id: 14
-    // name: 'Wellington Night Shelter'
+    // name: 'The Free Store'
 
-    {
-      name: 'Clothes',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 14,
-      date: `${date}`,
-    },
-    {
-      name: 'Linen & Bedding',
-      accepting: true,
-      urgently_seeking: false,
-      organisation_id: 14,
-      date: `${date}`,
-    },
     {
       name: 'Food',
       accepting: true,
@@ -298,13 +298,49 @@ export async function seed(knex) {
     },
 
     // id: 15
+    // name: 'Wellington Night Shelter'
+
+    {
+      name: 'Clothes',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 15,
+      date: `${date}`,
+    },
+    {
+      name: 'Linen & Bedding',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 15,
+      date: `${date}`,
+    },
+    {
+      name: 'Food',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 15,
+      date: `${date}`,
+    },
+
+    // id: 16
     // name: 'Soup Kitchen Wellington'
 
     {
       name: 'Food',
       accepting: true,
       urgently_seeking: false,
-      organisation_id: 15,
+      organisation_id: 16,
+      date: `${date}`,
+    },
+
+    // id: 17
+    // name: 'Soup Kitchen Wellington'
+
+    {
+      name: 'Food',
+      accepting: true,
+      urgently_seeking: false,
+      organisation_id: 17,
       date: `${date}`,
     },
   ])

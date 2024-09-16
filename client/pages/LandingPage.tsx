@@ -154,7 +154,11 @@ export default function LandingPage() {
       <div className="grid-layout">
         {filteredOrgs.length > 0 ? (
           filteredOrgs.map((organisation) => (
-            <Link to={`/org/${organisation.id}`} key={organisation.id}>
+            <Link
+              to={`/org/${organisation.id}`}
+              key={organisation.id}
+              aria-label={organisation.name}
+            >
               <LandingCard
                 name={organisation.name}
                 image={organisation.image}

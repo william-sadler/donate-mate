@@ -22,7 +22,8 @@ export default function FilterTypes({ history, setFilter }: Props) {
           <h2 className="mb-2 text-xl font-semibold">Filter By:</h2>
           <select
             defaultValue={selectedType}
-            className="block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="focus:ring-blue-500 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
+            aria-label="typeselect"
           >
             <option value="" disabled>
               Donation Type
@@ -58,13 +59,14 @@ export default function FilterTypes({ history, setFilter }: Props) {
         <select
           value={selectedType}
           onChange={handleChange}
-          className="block max-w-xs rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="focus:ring-blue-500 block max-w-xs rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
+          aria-label="typeselect"
         >
           <option value="" disabled>
             Donation Type
           </option>
           {donationType.map((type) => (
-            <option key={type.id} value={type.name}>
+            <option key={type.id} value={type.name} aria-label={type.name}>
               {type.name}
             </option>
           ))}

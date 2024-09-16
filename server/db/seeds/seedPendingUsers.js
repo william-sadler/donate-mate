@@ -24,25 +24,25 @@ export async function seed(knex) {
       auth0Id: 'auth0|999',
       name: 'Jatin',
       email: 'devacademy@gmail.co.nz',
-      org_id: 17,
+      org_id: 18,
     },
     {
       auth0Id: 'auth0|888',
       name: 'David',
       email: 'devacademy@gmail.co.nz',
-      org_id: 17,
+      org_id: 18,
     },
     {
       auth0Id: 'auth0|777',
       name: 'Gaby',
       email: 'devacademy@gmail.co.nz',
-      org_id: 17,
+      org_id: 18,
     },
     {
       auth0Id: 'auth0|666',
       name: 'Corina',
       email: 'devacademy@gmail.co.nz',
-      org_id: 17,
+      org_id: 18,
     },
   ])
 }

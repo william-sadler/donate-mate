@@ -55,6 +55,22 @@ export async function seed(knex) {
     },
     {
       id: 4,
+      name: 'Aro Valley Opshop',
+      contact_email: null,
+      contact_number: null,
+      location: '109 Aro Street, Aro Valley, Wellington 6021',
+      about:
+        'Helping people in need through various outreach and charity services.',
+      longitude: 174.7659307,
+      latitude: -41.295422,
+      org_types: 'Charity',
+      image: '/images/svdpkilbirnie.webp',
+      volunteering_needed: true,
+      donation_method: 'Email',
+      website: 'https://www.svdp.org.nz/',
+    },
+    {
+      id: 5,
       name: 'The Koha Shed Wellington',
       contact_email: 'koha@missionsocialservices.org',
       contact_number: null,
@@ -72,7 +88,7 @@ export async function seed(knex) {
       website: 'https://www.wellingtoncitymission.org.nz/koha-shed',
     },
     {
-      id: 5,
+      id: 6,
       name: 'Dress for Success Wellington',
       contact_email: 'wellington@dressforsuccess.org',
       contact_number: '04 499 4590',
@@ -88,7 +104,7 @@ export async function seed(knex) {
       website: 'https://wellington.dressforsuccess.org/',
     },
     {
-      id: 6,
+      id: 7,
       name: 'Wellington SPCA',
       contact_email: null,
       contact_number: '04 389 8044',
@@ -105,7 +121,7 @@ export async function seed(knex) {
       website: 'https://www.spca.nz/centre/wellington-centre',
     },
     {
-      id: 7,
+      id: 8,
       name: 'Salvation Army Wellington',
       contact_email: 'enquiries@salvationarmy.org.nz',
       contact_number: '04 389 0594',
@@ -121,7 +137,7 @@ export async function seed(knex) {
       website: 'https://www.salvationarmy.org.nz/centre/wellington-city',
     },
     {
-      id: 8,
+      id: 9,
       name: 'Wellington City Mission',
       contact_email: null,
       contact_number: '04 245 0900',
@@ -137,7 +153,7 @@ export async function seed(knex) {
       website: 'https://www.wellingtoncitymission.org.nz/',
     },
     {
-      id: 9,
+      id: 10,
       name: 'Vinnies Wellington',
       contact_email: 'vinnies@stvincents.co.nz',
       contact_number: '04 389 7122',
@@ -153,7 +169,7 @@ export async function seed(knex) {
       website: 'https://www.vinnies-wellington.org.nz/',
     },
     {
-      id: 10,
+      id: 11,
       name: "Wellington Women's Refuge",
       contact_email: null,
       contact_number: '04 473 6280',
@@ -169,7 +185,7 @@ export async function seed(knex) {
       website: 'https://womensrefuge.org.nz/',
     },
     {
-      id: 11,
+      id: 12,
       name: 'Newtown Community & Cultural Centre',
       contact_email: 'newtowncentre@paradise.net.nz',
       contact_number: '04 389 4786',
@@ -185,7 +201,7 @@ export async function seed(knex) {
       website: 'http://www.newtowncommunity.org.nz/',
     },
     {
-      id: 12,
+      id: 13,
       name: 'Kaibosh Wellington',
       contact_email: 'info@kaibosh.org.nz',
       contact_number: '04 385 0825',
@@ -201,7 +217,7 @@ export async function seed(knex) {
       website: 'https://www.kaibosh.org.nz/',
     },
     {
-      id: 13,
+      id: 14,
       name: 'The Free Store',
       contact_email: 'freestore@wellington.org.nz',
       contact_number: '04 387 8087',
@@ -217,7 +233,7 @@ export async function seed(knex) {
       website: 'https://www.thefreestore.org.nz/',
     },
     {
-      id: 14,
+      id: 15,
       name: 'Wellington Night Shelter',
       contact_email: null,
       contact_number: '04 385 9546',
@@ -233,7 +249,7 @@ export async function seed(knex) {
       website: 'https://wellingtonnightshelter.org.nz/',
     },
     {
-      id: 15,
+      id: 16,
       name: 'Soup Kitchen Wellington',
       contact_email: 'soupkitchen@compassion.org.nz',
       contact_number: '04 385 9299',
@@ -249,7 +265,7 @@ export async function seed(knex) {
       website: 'https://soupkitchen.org.nz/',
     },
     {
-      id: 16,
+      id: 17,
       name: 'Free Coffee for Coders Wellington',
       contact_email: 'donatemate4@gmail.com',
       contact_number: '04 300 500',
