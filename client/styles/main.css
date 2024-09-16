@@ -66,42 +66,6 @@
   @apply text-sm font-normal;
 }
 
-/* FOOTER */
-
-footer {
-  background-color: black;
-  color: white;
-  bottom: 0;
-  width: 100vw;
-  font-size: 16px;
-}
-footer * {
-  box-sizing: border-box;
-  border: none;
-  outline: none;
-}
-
-.copyright {
-  padding: 0.3em 1em;
-}
-.footer-menu {
-  float: left;
-  margin-top: 10px;
-}
-.footer-menu a {
-  color: #cfd2d6;
-  padding: 6px;
-  text-decoration: none;
-}
-.footer-menu a:hover,
-.social i:hover {
-  color: #c7940a;
-}
-.copyright p {
-  font-size: 0.9em;
-  text-align: right;
-}
-
 /* --- // LAYOUT // ---- */
 
 /* This will help get you left/right margins to center your content */
@@ -111,6 +75,12 @@ footer * {
 
 .custom_flex {
   @apply flex items-center justify-center;
+}
+
+@media screen and (max-width: 850px) {
+  .row.primary {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* --- // BUTTONS // ---- */
