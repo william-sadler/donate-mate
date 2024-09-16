@@ -96,9 +96,9 @@ export async function deleteUserByDeny(
   auth0Id: string,
   userData: User,
 ): Promise<void> {
-  const userCheck = await connection('users')
-    .where('org_id', userData.orgId)
-    .andWhere('auth0Id', userData.auth0Id)
+  const userCheck = await connection('pending_users')
+    .where('auth0Id', userData.auth0Id)
+    .andWhere('org_id', userData.orgId)
     .first()
 
   const adminCheck = await connection('users')
