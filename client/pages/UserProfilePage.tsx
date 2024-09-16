@@ -21,7 +21,7 @@ export default function UserProfilePage() {
 
   const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
   const allOrgs = useAllOrganisations()
-  const pendingUser = usePendingUsersById(0)
+  const pendingUser = usePendingUsersById()
   const isUser = useUsers()
 
   useEffect(() => {
@@ -196,6 +196,7 @@ export default function UserProfilePage() {
             <UserPendingRequests
               handle={handleRequest}
               acceptedUsers={acceptedUsers}
+              orgId={orgId}
             />
           </div>
         )}

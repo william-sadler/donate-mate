@@ -5,16 +5,15 @@ import { PendingUser, User, UserData } from '../../models/modelUsers.ts'
 const rootUrl = '/api/v1/pending'
 
 interface GetUsersFunction {
-  id: number
+  id?: number
   token: string
 }
 
 export async function getPendingUsers({
-  id,
   token,
 }: GetUsersFunction): Promise<User[]> {
   return await request
-    .get(`${rootUrl}/${id}`)
+    .get(`${rootUrl}`)
     .set('Authorization', `Bearer ${token}`)
     .then((res) => (res.body ? res.body : []))
     .catch(logError)

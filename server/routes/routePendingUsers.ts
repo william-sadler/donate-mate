@@ -4,13 +4,14 @@ import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/dbPendingUsers.ts'
 import { User } from '../../models/modelUsers.ts'
+import { getUserByToken } from '../db/dbUsers.ts'
 
 const router = Router()
 export default router
 
 // GET user
 
-router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+router.get('/', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
 
   if (!auth0Id || auth0Id === 'undefined') {
@@ -18,7 +19,7 @@ router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
     return res.status(401).send('unauthorised')
   }
 
-  const orgId = Number(req.params.id)
+  const { orgId } = await getUserByToken(auth0Id)
 
   if (!orgId || orgId < 1) {
     return res.sendStatus(StatusCodes.NOT_FOUND)
@@ -52,7 +53,12 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postPendingUser(auth0Id, { name, email, orgId })
+    await db.postPendingUser(auth0Id, {
+      name,
+      email,
+      orgId,
+      isOwner: false,
+    })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)
@@ -76,7 +82,12 @@ router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postPendingUser(auth0Id, { name, email, orgId })
+    await db.postPendingUser(auth0Id, {
+      name,
+      email,
+      orgId,
+      isOwner: false,
+    })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)

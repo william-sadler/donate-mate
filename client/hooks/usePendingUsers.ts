@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import * as API from '../apis/apiPendingUsers'
 import { useAuth0 } from '@auth0/auth0-react'
 
-export function usePendingUsersById(id: number) {
+export function usePendingUsersById() {
   const { user, getAccessTokenSilently } = useAuth0()
 
   const query = useQuery({
@@ -15,7 +15,7 @@ export function usePendingUsersById(id: number) {
         return 'undefined'
       })
       if (token === 'undefined') return []
-      return API.getPendingUsers({ token, id })
+      return API.getPendingUsers({ token })
     },
     enabled: !!user,
   })

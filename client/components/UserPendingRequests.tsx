@@ -2,29 +2,26 @@ import { useNavigate } from 'react-router-dom'
 import { usePendingUsersById } from '../hooks/usePendingUsers'
 import { User } from '../../models/modelUsers'
 import { useUsers } from '../hooks/useUsers'
-import { useEffect, useState } from 'react'
 
 interface Props {
   handle: (employee: User) => void
   acceptedUsers: string[]
+  orgId: number | null
 }
 
-export default function UserPendingRequests({ handle, acceptedUsers }: Props) {
+export default function UserPendingRequests({
+  handle,
+  acceptedUsers,
+  orgId,
+}: Props) {
   const navigate = useNavigate()
-  const [orgId, setOrgId] = useState<number | null>(null)
-  const [isOwner, setIsOwner] = useState(false)
-  const pendingUsers = usePendingUsersById(orgId || 0)
   const isUser = useUsers()
 
-  useEffect(() => {
-    if (isUser.data) {
-      const userCheck = isUser.data as User
-      setOrgId(userCheck.orgId || null)
-      setIsOwner(userCheck.isOwner || false)
-    }
-  }, [isUser.data])
+  // Fetch pending users only if orgId is valid
+  const pendingUsers = usePendingUsersById()
 
-  if (isUser.isPending || !pendingUsers) {
+  // Handle loading and errors
+  if (isUser.isPending || pendingUsers.isPending) {
     let failures = ''
     if (isUser.failureCount > 0) {
       failures = ` (failed ${isUser.failureCount} times)`
@@ -43,13 +40,21 @@ export default function UserPendingRequests({ handle, acceptedUsers }: Props) {
     )
   }
 
+  if (pendingUsers.error instanceof Error) {
+    return (
+      <div className="text-red-500">
+        Failed to load pending users: {pendingUsers.error.message}
+      </div>
+    )
+  }
+
   const requests = pendingUsers.data
 
+  // Handle cases where orgId or requests might be invalid
   return (
-    isOwner &&
+    orgId !== null &&
     requests &&
-    requests.length > 0 &&
-    orgId && (
+    requests.length > 0 && (
       <div className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <div className="mx-auto max-w-3xl">
           <h4 className="mb-6 text-2xl font-bold tracking-tight text-gray-900">
