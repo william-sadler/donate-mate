@@ -100,7 +100,7 @@ export default function UserProfilePage() {
                 <span className="text-gray-700">{pendingUser.name}</span>
                 <button
                   onClick={() => handleRequest(pendingUser.auth0Id)}
-                  className="bg-blue-500 hover:bg-blue-600 rounded px-4 py-2 text-white"
+                  className="custom-signup-button"
                 >
                   Request
                 </button>
