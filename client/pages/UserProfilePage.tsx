@@ -7,10 +7,11 @@ import { usePendingUsersById } from '../hooks/usePendingUsers'
 import { User } from '../../models/modelUsers'
 
 export default function UserProfilePage() {
+  const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
   const [orgId, setOrgId] = useState<number | null>(null)
   const [isOwner, setIsOwner] = useState(false)
-  const { user } = useAuth0()
+  const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
   const isUser = useUsers()
   const pendingUsers = usePendingUsersById(orgId ?? 0)
   const org = useOrganisationsById(orgId ?? 0)
@@ -50,8 +51,21 @@ export default function UserProfilePage() {
   const organisation = org.data
   const requests = pendingUsers.data
 
-  const handleRequest = (pendingUserId: string) => {
+  const handleRequest = async (pendingUserId: string) => {
+    const token = await getAccessTokenSilently().catch(() => {
+      console.error('Login Required')
+      return 'undefined'
+    })
     console.log(`Request for user: ${pendingUserId}`)
+    const employee = requests?.find((item) => item.auth0Id === pendingUserId)
+    if (employee) {
+      setAcceptedUsers([...acceptedUsers, employee.name])
+      isUser.accept.mutate({
+        admin: userCheck,
+        newUser: employee,
+        token: token,
+      })
+    }
   }
 
   return (
@@ -92,20 +106,24 @@ export default function UserProfilePage() {
         <div>
           <h4 className="mb-2 text-lg font-semibold">Pending User Requests</h4>
           <ul className="mb-6 list-inside list-disc">
-            {requests.map((pendingUser) => (
-              <li
-                key={pendingUser.auth0Id}
-                className="mb-2 flex items-center justify-between"
-              >
-                <span className="text-gray-700">{pendingUser.name}</span>
-                <button
-                  onClick={() => handleRequest(pendingUser.auth0Id)}
-                  className="custom-signup-button"
+            {requests
+              .filter((item) =>
+                acceptedUsers.find((value) => item.name === value),
+              )
+              .map((pendingUser) => (
+                <li
+                  key={pendingUser.auth0Id}
+                  className="mb-2 flex items-center justify-between"
                 >
-                  Request
-                </button>
-              </li>
-            ))}
+                  <span className="text-gray-700">{pendingUser.name}</span>
+                  <button
+                    onClick={() => handleRequest(pendingUser.auth0Id)}
+                    className="custom-signup-button"
+                  >
+                    Request
+                  </button>
+                </li>
+              ))}
           </ul>
         </div>
       )}

@@ -40,13 +40,16 @@ interface AddRequestFunction {
 }
 
 export async function acceptingUserRequest({
+  admin,
   newUser,
   token,
 }: AddRequestFunction): Promise<UserData> {
+  const userPackage = { admin, newUser }
+
   return request
-    .post(`${rootUrl}/users`)
+    .post(`${rootUrl}/users/accept`)
     .set('Authorization', `Bearer ${token}`)
-    .send(newUser)
+    .send(userPackage)
     .then((res) => res.body.users)
     .catch(logError)
 }

@@ -23,6 +23,7 @@ export function useUsers() {
   return {
     ...query,
     add: useAddUser(),
+    accept: useAcceptRequest(),
   }
 }
 
@@ -43,4 +44,8 @@ export function useUserMutation<TData = unknown, TVariables = unknown>(
 
 export function useAddUser() {
   return useUserMutation(API.addUser)
+}
+
+export function useAcceptRequest() {
+  return useUserMutation(API.acceptingUserRequest)
 }
