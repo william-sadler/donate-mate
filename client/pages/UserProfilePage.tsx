@@ -41,7 +41,7 @@ export default function UserProfilePage() {
       }
     }
     fetchOrgId()
-  }, [])
+  }, [getAccessTokenSilently])
 
   if (isUser.isPending) {
     let failures = ''
