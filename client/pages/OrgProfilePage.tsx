@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
@@ -9,10 +9,15 @@ import ProfileHowToDonate from '../components/ProfileHowToDonate'
 import ProfileMap from '../components/ProfileMap'
 import { useUsers } from '../hooks/useUsers'
 import { User } from '@auth0/auth0-react'
+import { useState } from 'react'
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 export default function OrgProfilePage() {
   const param = useParams()
   const navigate = useNavigate()
+  const [hideMap, setHideMap] = useState(false)
   const id = Number(param.id)
   const { data, isPending, isError, error, failureCount } =
     useOrganisationsById(id)
@@ -51,6 +56,15 @@ export default function OrgProfilePage() {
 
   const userCheck = user.data as User
 
+  const handleEdit = async () => {
+    setHideMap(true)
+
+    await sleep(100)
+    navigate(`/org/edit/${id}`)
+  }
+
+  console.log({ lat: data.latitude, lng: data.longitude })
+
   return (
     <div className="orgProfilePage">
       <ProfileCard
@@ -69,12 +83,15 @@ export default function OrgProfilePage() {
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
       <VolunteersNeeded id={id} />
-      <ProfileMap />
-      {userCheck?.orgId === id && (
-        <Link to={`/org/edit/${id}`}>
-          <button>Edit</button>
-        </Link>
+      {!hideMap && (
+        <ProfileMap
+          initial={{
+            lat: data.latitude || -41.28869,
+            lng: data.longitude || 174.7772,
+          }}
+        />
       )}
+      {userCheck?.orgId === id && <button onClick={handleEdit}>Edit</button>}
     </div>
   )
 }
