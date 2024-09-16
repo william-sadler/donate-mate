@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import { API_HOST } from '../env.ts'
 
 const mapContainer = {
-  width: '25rem',
+  width: '24rem',
   height: '20rem',
 }
 

@@ -17,7 +17,7 @@ export default function ProfileCard({
   orgType,
 }: Props) {
   return (
-    <div className="profile-image-card ml-0 px-4 py-2">
+    <div className="profile-image-card teal-shadow ml-0 border border-darkerTeal border-opacity-25 px-4 py-2">
       <img className="image" src={image} alt={name} />
       <h2 className="heading-2-caveat name">{name}</h2>
       <h3 className="heading-4-italic">{orgType}</h3>

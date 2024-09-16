@@ -68,7 +68,7 @@ export default function OrgProfilePage() {
         <CurrentlyAccepting typeData={typeData.data} />
         <VolunteersNeeded id={id} />
       </section>
-      <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
+      <section className="flex hidden flex-col gap-4 pb-1 md:block lg:col-span-1">
         <ProfileHowToDonate method={data.donationMethod || ''} />
         <div className="mt-4">
           <section className="hidden md:block ">
