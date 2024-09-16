@@ -47,7 +47,7 @@ export async function seed(knex) {
       longitude: 174.7668,
       latitude: -41.2973,
       org_types: 'Charity',
-      image: '/images/placeholder-image.webp',
+      image: '/images/Whiskers-and-Wonders',
       volunteering_needed: true,
       donation_method:
         'Drop off pet food, supplies and toys during business hours. Mon-Fri: 9am -5pm',
