@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom'
-import { usePendingUsersById } from '../hooks/usePendingUsers'
+import { usePendingUsers } from '../hooks/usePendingUsers'
 import { User } from '../../models/modelUsers'
 import { useUsers } from '../hooks/useUsers'
 
 interface Props {
-  handle: (employee: User) => void
+  handle: (employee: User, name: string) => void
   acceptedUsers: string[]
   orgId: number | null
 }
@@ -18,7 +18,7 @@ export default function UserPendingRequests({
   const isUser = useUsers()
 
   // Fetch pending users only if orgId is valid
-  const pendingUsers = usePendingUsersById()
+  const pendingUsers = usePendingUsers()
 
   // Handle loading and errors
   if (isUser.isPending || pendingUsers.isPending) {
@@ -90,13 +90,19 @@ export default function UserPendingRequests({
                   </div>
                   <div className="flex gap-x-2">
                     <button
-                      onClick={() => handle(pendingUser)}
+                      name="accept"
+                      onClick={(event) =>
+                        handle(pendingUser, event.currentTarget.name)
+                      }
                       className="inline-flex items-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                     >
                       Accept
                     </button>
                     <button
-                      onClick={() => handle(pendingUser)}
+                      name="deny"
+                      onClick={(event) =>
+                        handle(pendingUser, event.currentTarget.name)
+                      }
                       className="inline-flex items-center rounded-md border border-transparent bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     >
                       Decline

@@ -65,3 +65,18 @@ export async function acceptingUserRequest({
     .then((res) => res.body.users)
     .catch(logError)
 }
+
+export async function denyingUserRequest({
+  admin,
+  newUser,
+  token,
+}: AddRequestFunction): Promise<UserData> {
+  const userPackage = { admin, newUser }
+
+  return request
+    .delete(`${rootUrl}/users`)
+    .set('Authorization', `Bearer ${token}`)
+    .send(userPackage)
+    .then((res) => res.body.users)
+    .catch(logError)
+}

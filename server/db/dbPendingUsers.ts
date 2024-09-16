@@ -21,7 +21,7 @@ export async function getUserPendingById(
 
   return await connection('pending_users')
     .where('org_id', orgId)
-    .select('*', 'org_id as orgId')
+    .select('*', 'org_id as orgId', 'is_owner as isOwner')
 }
 
 export async function postPendingUser(

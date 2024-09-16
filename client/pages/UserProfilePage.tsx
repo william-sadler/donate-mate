@@ -8,7 +8,7 @@ import UserStaffList from '../components/UserStaffList'
 import UserOrgCard from '../components/UserOrgCard'
 import LoginDropdown from '../components/LoginDropdown'
 import { useAllOrganisations } from '../hooks/useOrganisations'
-import { usePendingUsersById } from '../hooks/usePendingUsers'
+import { usePendingUsers } from '../hooks/usePendingUsers'
 import { getUsers } from '../apis/apiUsers'
 
 export const sleep = (ms: number) =>
@@ -22,7 +22,7 @@ export default function UserProfilePage() {
 
   const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
   const allOrgs = useAllOrganisations()
-  const pendingUser = usePendingUsersById()
+  const pendingUser = usePendingUsers()
   const isUser = useUsers()
 
   useEffect(() => {
@@ -85,15 +85,23 @@ export default function UserProfilePage() {
 
   const userCheck = isUser.data as User
 
-  const handleRequest = async (employee: User) => {
+  const handleRequest = async (employee: User, name: string) => {
     const token = await getAccessTokenSilently().catch(() => {
       console.error('Login Required')
       return 'undefined'
     })
     console.log(`Request for user: ${employee}`)
-    if (employee) {
+    if (employee && name === 'accept') {
       setAcceptedUsers([...acceptedUsers, employee.name])
       isUser.accept.mutate({
+        admin: userCheck,
+        newUser: employee,
+        token: token,
+      })
+    }
+    if (employee && name === 'deny') {
+      setAcceptedUsers([...acceptedUsers, employee.name])
+      isUser.deny.mutate({
         admin: userCheck,
         newUser: employee,
         token: token,

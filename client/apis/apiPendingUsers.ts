@@ -10,13 +10,22 @@ interface GetUsersFunction {
 }
 
 export async function getPendingUsers({
+  id,
   token,
 }: GetUsersFunction): Promise<User[]> {
-  return await request
-    .get(`${rootUrl}`)
-    .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : []))
-    .catch(logError)
+  if (!id) {
+    return await request
+      .get(`${rootUrl}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((res) => (res.body ? res.body : []))
+      .catch(logError)
+  } else {
+    return await request
+      .get(`${rootUrl}/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((res) => (res.body ? res.body : []))
+      .catch(logError)
+  }
 }
 
 interface AddUserFunction {

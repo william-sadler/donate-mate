@@ -19,7 +19,32 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
     return res.status(401).send('unauthorised')
   }
 
-  const { orgId } = await getUserByToken(auth0Id)
+  const data = await getUserByToken(auth0Id)
+
+  if (!data?.orgId || data?.orgId < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    const users = await db.getUserPendingById(auth0Id, data.orgId)
+    res.json(users as User[])
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'something went wrong' })
+  }
+})
+
+// GET user By Id
+
+router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+
+  if (!auth0Id || auth0Id === 'undefined') {
+    console.error('No auth0id')
+    return res.status(401).send('unauthorised')
+  }
+
+  const orgId = Number(req.params.id)
 
   if (!orgId || orgId < 1) {
     return res.sendStatus(StatusCodes.NOT_FOUND)

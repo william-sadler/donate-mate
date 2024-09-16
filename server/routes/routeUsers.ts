@@ -76,6 +76,33 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+// DELETE newUser
+
+router.delete('/', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+  const { admin, newUser } = req.body as { admin: UserData; newUser: User }
+
+  if (!auth0Id) {
+    return res.sendStatus(StatusCodes.UNAUTHORIZED)
+  }
+
+  if (!admin) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  if (!newUser) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    await db.deleteUserByDeny(auth0Id, newUser)
+    res.sendStatus(StatusCodes.CREATED)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('failed to add new user')
+  }
+})
+
 // POST newUser by Org Id
 
 router.post('/:id', checkJwt, async (req: JwtRequest, res) => {

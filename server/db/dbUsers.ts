@@ -61,6 +61,23 @@ export async function postUserByAccept(
     throw new Error('User already added')
   }
 
+  const adminCheck = await connection('users')
+    .where('org_id', userData.orgId)
+    .andWhere('auth0Id', auth0Id)
+    .first()
+
+  if (!adminCheck) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!(adminCheck.org_id === userData.orgId)) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!adminCheck.is_owner) {
+    throw new Error('User does not have permission')
+  }
+
   await connection('pending_users')
     .where('auth0Id', userData.auth0Id)
     .andWhere('org_id', userData.orgId)
@@ -73,4 +90,40 @@ export async function postUserByAccept(
     org_id: userData.orgId,
     is_owner: false,
   })
+}
+
+export async function deleteUserByDeny(
+  auth0Id: string,
+  userData: User,
+): Promise<void> {
+  const userCheck = await connection('users')
+    .where('org_id', userData.orgId)
+    .andWhere('auth0Id', userData.auth0Id)
+    .first()
+
+  const adminCheck = await connection('users')
+    .where('org_id', userData.orgId)
+    .andWhere('auth0Id', auth0Id)
+    .first()
+
+  if (!adminCheck) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!(adminCheck.org_id === userData.orgId)) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!adminCheck.is_owner) {
+    throw new Error('User does not have permission')
+  }
+
+  if (!userCheck) {
+    throw new Error('User already deleted')
+  }
+
+  await connection('pending_users')
+    .where('auth0Id', userData.auth0Id)
+    .andWhere('org_id', userData.orgId)
+    .delete()
 }
