@@ -44,7 +44,7 @@ export default function ProfileMap() {
   return (
     <>
       <section className="map w-1/3">
-        <h3 className="heading-3">Where to find us</h3>
+        <h3 className="heading-4">Where to find us</h3>
         <LoadScript googleMapsApiKey={API_HOST}>
           <GoogleMap mapContainerStyle={mapContainer} center={center} zoom={15}>
             <Marker position={center} />

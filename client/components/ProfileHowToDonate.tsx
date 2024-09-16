@@ -10,12 +10,12 @@ export default function ProfileHowToDonate({ method }: Props) {
   return (
     <>
       <button
-        className="primary_button, paragraph"
+        className="primary_button, heading-4"
         onClick={() => setDrop(!drop)}
       >
         How to Donate
       </button>
-      {drop && <div>{method}</div>}
+      {drop && <div className="paragraph">{method}</div>}
     </>
   )
 }

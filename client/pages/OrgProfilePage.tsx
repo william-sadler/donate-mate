@@ -4,6 +4,7 @@ import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
+import VolunteersNeeded from '../components/VolunteersNeeded'
 import ProfileHowToDonate from '../components/ProfileHowToDonate'
 import ProfileMap from '../components/ProfileMap'
 import { useUsers } from '../hooks/useUsers'
@@ -51,13 +52,15 @@ export default function OrgProfilePage() {
   const userCheck = user.data as User
 
   return (
-    <>
+    <div className="orgProfilePage">
       <ProfileCard
         image={data.image}
         name={data.name}
+        contactEmail={data.contactEmail || ''}
+        contactNumber={data.contactNumber || ''}
         location={data.location}
       />
-      <h3>{data.orgTypes}</h3>
+      <h3 className="heading-4-italic">{data.orgTypes}</h3>
       <div>
         <ProfileAbout about={data.about} />
       </div>
@@ -65,12 +68,13 @@ export default function OrgProfilePage() {
         <ProfileHowToDonate method={data.donationMethod || ''} />
       </div>
       <CurrentlyAccepting typeData={typeData.data} />
+      <VolunteersNeeded id={id} />
       <ProfileMap />
       {userCheck?.orgId === id && (
         <Link to={`/org/edit/${id}`}>
           <button>Edit</button>
         </Link>
       )}
-    </>
+    </div>
   )
 }
