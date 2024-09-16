@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom'
 import { useUsers } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
-import { useOrganisationsById } from '../hooks/useOrganisations'
 import { useState, useEffect } from 'react'
 import { User } from '../../models/modelUsers'
 import UserPendingRequests from '../components/UserPendingRequests'
 import UserStaffList from '../components/UserStaffList'
+import UserOrgCard from '../components/UserOrgCard'
 
 export default function UserProfilePage() {
   const { user, getAccessTokenSilently } = useAuth0()
@@ -14,7 +14,6 @@ export default function UserProfilePage() {
   const [isOwner, setIsOwner] = useState(false)
   const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
   const isUser = useUsers()
-  const org = useOrganisationsById(orgId ?? 0)
 
   useEffect(() => {
     if (isUser.data) {
@@ -48,7 +47,6 @@ export default function UserProfilePage() {
   }
 
   const userCheck = isUser.data as User
-  const organisation = org.data
 
   const handleRequest = async (employee: User) => {
     const token = await getAccessTokenSilently().catch(() => {
@@ -86,22 +84,7 @@ export default function UserProfilePage() {
       </div>
 
       {/* Organization Information Card */}
-      {orgId && organisation && (
-        <button
-          onClick={() => navigate(`/org/${orgId}`)}
-          className="bg-blue-100 border-blue-200 hover:bg-blue-200 mb-6 cursor-pointer rounded-lg border p-4"
-        >
-          <img
-            src={organisation.image || 'https://via.placeholder.com/512'}
-            alt={organisation.name}
-            className="h-24 w-24"
-          />
-          <h4 className="text-lg font-semibold">
-            Organization: {organisation.name}
-          </h4>
-          <p className="text-gray-700">{organisation.about}</p>
-        </button>
-      )}
+      <UserOrgCard orgId={orgId} />
 
       {/* Staff List */}
       <UserStaffList orgId={orgId} />
