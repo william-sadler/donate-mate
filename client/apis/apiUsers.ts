@@ -12,7 +12,7 @@ export async function getUsers({ token }: GetUsersFunction): Promise<User> {
   return await request
     .get(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : null))
+    .then((res) => (res.body ? res.body : []))
     .catch(logError)
 }
 
