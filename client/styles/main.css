@@ -83,6 +83,22 @@
   }
 }
 
+.currentlyAccepting {
+  @apply min-h-fit max-w-lg;
+}
+/* BOX SHADOWS */
+.yellow-shadow {
+  box-shadow:
+    0 4px 8px 0 rgb(237, 226, 89, 0.1),
+    0 6px 20px 0 rgb(237, 226, 89, 0.1);
+}
+
+.teal-shadow {
+  box-shadow:
+    0 4px 8px 0 rgba(30, 117, 109, 0.2),
+    0 6px 20px 0 rgb(30, 117, 109, 0.2);
+}
+
 /* --- // BUTTONS // ---- */
 
 /* Primary Button */
@@ -146,10 +162,14 @@
 
 /* ORG PROFILE PAGE */
 .orgProfilePage {
-  background-color: #fbe8d1;
+  background-color: #ffffff;
 }
 .logo {
   height: 135px;
+}
+
+.profile-image-card {
+  @apply flex h-full transform flex-col items-center justify-center overflow-hidden rounded-lg;
 }
 
 /*Hover urgently Status*/
@@ -170,11 +190,46 @@
   margin-left: 10px;
 }
 
+.circle-container {
+  display: flex;
+  justify-content: flex-end; /* Align to the left */
+  padding: 5px;
+}
+
 .circle {
-  width: 15px;
-  height: 15px;
-  background-color: red;
-  border-radius: 50%;
+  width: 100%;
+  height: 25px;
+  background-color: #f46161; /* Offred color */
+  border-radius: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.circle:hover {
+  background-color: #fab4b4;
+  border: 2px solid rgb(237, 68, 68);
+  border-radius: 10px;
+  height: 40px; /* Adjust as needed */
+}
+
+.circle::after {
+  content: 'Urgently Seeking';
+  color: #000000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s ease;
+}
+
+.circle:hover::after {
+  opacity: 1;
 }
 
 /* Custom Button Class */
@@ -283,7 +338,7 @@
 }
 
 .signalNeeded {
-  width: 150px;
+  width: 200px;
   height: 50px;
   border-radius: 5px;
   display: flex;

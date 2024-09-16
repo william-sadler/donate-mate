@@ -16,8 +16,8 @@ export default function CarUrgentlyStatus({ id }: Props) {
 
   return (
     data.find((type) => type.urgentlySeeking) && (
-      <div className="red-cycle">
-        <div className="circle"></div>
+      <div className="circle-container">
+        <div className="circle heading-3"></div>
       </div>
     )
   )

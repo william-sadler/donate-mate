@@ -66,31 +66,41 @@ export default function OrgProfilePage() {
   console.log({ lat: data.latitude, lng: data.longitude })
 
   return (
-    <div className="orgProfilePage">
-      <ProfileCard
-        image={data.image}
-        name={data.name}
-        contactEmail={data.contactEmail || ''}
-        contactNumber={data.contactNumber || ''}
-        location={data.location}
-      />
-      <h3 className="heading-4-italic">{data.orgTypes}</h3>
-      <div>
-        <ProfileAbout about={data.about} />
-      </div>
-      <div>
-        <ProfileHowToDonate method={data.donationMethod || ''} />
-      </div>
-      <CurrentlyAccepting typeData={typeData.data} />
-      <VolunteersNeeded id={id} />
-      {!hideMap && (
-        <ProfileMap
-          initial={{
-            lat: data.latitude || -41.28869,
-            lng: data.longitude || 174.7772,
-          }}
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-1 py-10 sm:py-10 md:grid-cols-3 lg:ml-20 lg:mt-0 lg:grid-cols-4 lg:px-1">
+      <section className=" col-span-1 md:col-span-1 lg:col-span-1">
+        <ProfileCard
+          image={data.image}
+          name={data.name}
+          contactEmail={data.contactEmail || ''}
+          contactNumber={data.contactNumber || ''}
+          location={data.location}
+          orgType={data.orgTypes}
         />
-      )}
+      </section>
+      <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
+        <ProfileAbout about={data.about} />
+        <CurrentlyAccepting typeData={typeData.data} />
+        <VolunteersNeeded id={id} />
+      </section>
+
+      <section className="flex hidden flex-col gap-4 pb-1 md:block lg:col-span-1">
+        <div className="block md:hidden">
+          <ProfileHowToDonate method={data.donationMethod || ''} />
+        </div>
+        <div className="mt-4">
+          <section className="block md:hidden">
+            {!hideMap && (
+              <ProfileMap
+                initial={{
+                  lat: data.latitude || -41.28869,
+                  lng: data.longitude || 174.7772,
+                }}
+              />
+            )}
+          </section>
+        </div>
+      </section>
+
       {userCheck?.orgId === id && <button onClick={handleEdit}>Edit</button>}
     </div>
   )
