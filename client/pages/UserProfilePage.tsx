@@ -9,6 +9,7 @@ import UserOrgCard from '../components/UserOrgCard'
 import LoginDropdown from '../components/LoginDropdown'
 import { useAllOrganisations } from '../hooks/useOrganisations'
 import { usePendingUsersById } from '../hooks/usePendingUsers'
+import { getUsers } from '../apis/apiUsers'
 
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms))
@@ -25,12 +26,22 @@ export default function UserProfilePage() {
   const isUser = useUsers()
 
   useEffect(() => {
-    if (isUser.data) {
-      const userCheck = isUser.data as User
-      setOrgId(userCheck.orgId || null)
-      setIsOwner(userCheck.isOwner || false)
+    const fetchOrgId = async () => {
+      const token = await getAccessTokenSilently().catch(() => {
+        console.error('Login Required')
+        return 'undefined'
+      })
+      if (token === 'undefined') return null
+      try {
+        const { orgId, isOwner } = await getUsers({ token })
+        setOrgId(orgId)
+        setIsOwner(isOwner)
+      } catch (err) {
+        return
+      }
     }
-  }, [isUser.data])
+    fetchOrgId()
+  }, [])
 
   if (isUser.isPending) {
     let failures = ''
@@ -181,25 +192,28 @@ export default function UserProfilePage() {
           </div>
         )}
       </div>
-
-      {/* Grid Layout for Staff List and Pending Requests */}
-      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-        {/* Staff List */}
-        {userCheck?.name && (
-          <div className="transition-transform duration-300 hover:scale-105">
-            <UserStaffList orgId={orgId} />
-          </div>
-        )}
-        {/* Pending Users List */}
-        {isOwner && (
-          <div className="rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
-            <UserPendingRequests
-              handle={handleRequest}
-              acceptedUsers={acceptedUsers}
-              orgId={orgId}
-            />
-          </div>
-        )}
+      <div className="mb-8 flex flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
+        {/* Grid Layout for Staff List and Pending Requests */}
+        <div
+          className={`${isOwner && pendingUser.data?.find((data) => data?.name) ? 'custom-user-grid' : 'flex w-full flex-col'}`}
+        >
+          {/* Staff List */}
+          {userCheck?.name && (
+            <div className="rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
+              <UserStaffList orgId={orgId} />
+            </div>
+          )}
+          {/* Pending Users List */}
+          {isOwner && pendingUser.data?.find((data) => data?.name) && (
+            <div className="rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
+              <UserPendingRequests
+                handle={handleRequest}
+                acceptedUsers={acceptedUsers}
+                orgId={orgId}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

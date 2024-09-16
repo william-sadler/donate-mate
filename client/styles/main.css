@@ -259,6 +259,10 @@
   width: fit-content;
 }
 
+.custom-user-grid {
+  @apply mb-8 grid grid-cols-1 gap-6 md:grid-cols-2;
+}
+
 /* Container for centering content */
 .login-redirect-container {
   @apply flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4;
