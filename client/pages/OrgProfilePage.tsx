@@ -4,6 +4,7 @@ import CurrentlyAccepting from '../components/ProfileCurrentlyAccepting'
 import { useTypesById } from '../hooks/useTypes'
 import ProfileAbout from '../components/ProfileAbout'
 import ProfileCard from '../components/ProfileCard'
+import VolunteersNeeded from '../components/VolunteersNeeded'
 import ProfileHowToDonate from '../components/ProfileHowToDonate'
 import ProfileMap from '../components/ProfileMap'
 import { useUsers } from '../hooks/useUsers'
@@ -51,7 +52,7 @@ export default function OrgProfilePage() {
   const userCheck = user.data as User
 
   return (
-    <div className="orgProfilePage ml-20 grid max-w-7xl grid-cols-1 gap-4 px-4 py-24 sm:px-1 sm:py-32 md:grid-cols-3 lg:grid-cols-4 lg:px-4">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-1 py-10 sm:py-10 md:grid-cols-3 lg:ml-20 lg:mt-0 lg:grid-cols-4 lg:px-1">
       <section className=" col-span-1 md:col-span-1 lg:col-span-1">
         <ProfileCard
           image={data.image}
@@ -65,6 +66,7 @@ export default function OrgProfilePage() {
       <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
         <ProfileAbout about={data.about} />
         <CurrentlyAccepting typeData={typeData.data} />
+        <VolunteersNeeded id={id} />
       </section>
       <section className="flex hidden flex-col gap-4 md:block lg:col-span-1">
         <ProfileHowToDonate method={data.donationMethod || ''} />
