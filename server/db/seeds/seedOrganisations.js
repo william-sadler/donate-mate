@@ -257,7 +257,7 @@ export async function seed(knex) {
       longitude: -41.28795621507406,
       latitude: 174.7886706700347,
       org_types: 'Community Centre',
-      image: '/images/coffee.webp',
+      image: '/images/Coffee.webp',
       volunteering_needed: true,
       donation_method: 'Drop-in between 8.30am and 5pm!',
       website: 'https://devacademy.co.nz/',
