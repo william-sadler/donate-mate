@@ -166,7 +166,8 @@ export default function AddOrgForm({
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    const { name, value, type, files } = event.target
+    const { name, value, type, files } = event.target as HTMLInputElement &
+      HTMLTextAreaElement
     if (type === 'file') {
       if (files && files[0]) {
         setForm({
