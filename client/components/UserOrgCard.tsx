@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useOrganisationsById } from '../hooks/useOrganisations'
+import CardUrgentlyStatus from './CardUrgentlyStatus'
+import CardTypes from './CardTypes'
 
 interface Props {
   orgId: number | null
@@ -28,25 +30,27 @@ export default function UserOrgCard({ orgId }: Props) {
     )
   }
 
-  const organisation = org.data
+  if (!org.data) {
+    return null
+  }
+
+  const { image, name, location } = org.data
 
   return (
     orgId &&
-    organisation && (
-      <button
-        onClick={() => navigate(`/org/${orgId}`)}
-        className="bg-blue-100 border-blue-200 hover:bg-blue-200 mb-6 cursor-pointer rounded-lg border p-4"
-      >
-        <img
-          src={organisation.image || 'https://via.placeholder.com/512'}
-          alt={organisation.name}
-          className="h-24 w-24"
-        />
-        <h4 className="text-lg font-semibold">
-          Organization: {organisation.name}
-        </h4>
-        <p className="text-gray-700">{organisation.about}</p>
-      </button>
+    org.data && (
+      <div className="h-90 m-auto w-60 cursor-pointer overflow-hidden rounded-lg shadow-lg md:w-80">
+        <img src={image} alt={name} className="max-h-40 w-full object-cover" />
+        <div className="w-full bg-white p-4">
+          <p className="text-md font-medium text-indigo-500">Organization</p>
+          <p className="mb-2 text-xl font-medium text-gray-800">{name}</p>
+          <p className="text-md font-light text-gray-400">{location}</p>
+          <div className="mt-4 flex flex-wrap items-center justify-start">
+            <CardTypes id={orgId} />
+          </div>
+          <CardUrgentlyStatus id={orgId} />
+        </div>
+      </div>
     )
   )
 }

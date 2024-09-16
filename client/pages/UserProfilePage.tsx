@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useUsers } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useState, useEffect } from 'react'
@@ -6,13 +6,22 @@ import { User } from '../../models/modelUsers'
 import UserPendingRequests from '../components/UserPendingRequests'
 import UserStaffList from '../components/UserStaffList'
 import UserOrgCard from '../components/UserOrgCard'
+import LoginDropdown from '../components/LoginDropdown'
+import { useAllOrganisations } from '../hooks/useOrganisations'
+import { usePendingUsersById } from '../hooks/usePendingUsers'
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms))
 
 export default function UserProfilePage() {
   const { user, getAccessTokenSilently } = useAuth0()
   const navigate = useNavigate()
   const [orgId, setOrgId] = useState<number | null>(null)
   const [isOwner, setIsOwner] = useState(false)
+
   const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
+  const allOrgs = useAllOrganisations()
+  const pendingUser = usePendingUsersById(0)
   const isUser = useUsers()
 
   useEffect(() => {
@@ -46,6 +55,23 @@ export default function UserProfilePage() {
     navigate('/')
   }
 
+  if (allOrgs.isPending) {
+    let failures = ''
+    if (allOrgs.failureCount > 0) {
+      failures = ` (failed ${allOrgs.failureCount} times)`
+    }
+
+    if (allOrgs.failureCount > 3) {
+      navigate('/')
+    }
+
+    return <div>Its Working!... {failures}</div>
+  }
+
+  if (allOrgs.error instanceof Error) {
+    return <div>Failed to load organisations: {allOrgs.error.message}</div>
+  }
+
   const userCheck = isUser.data as User
 
   const handleRequest = async (employee: User) => {
@@ -64,40 +90,118 @@ export default function UserProfilePage() {
     }
   }
 
+  const handleJoinSelect = async (orgId: number) => {
+    const token = await getAccessTokenSilently().catch(() => {
+      console.error('Login Required')
+      return 'undefined'
+    })
+
+    pendingUser.add.mutate({
+      newUser: {
+        name: user?.name || '',
+        email: user?.email || '',
+        orgId: orgId,
+      },
+      token: token,
+    })
+
+    await sleep(500)
+    navigate('/')
+  }
+
   return (
-    <div className="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
-      <h2 className="mb-4 text-2xl font-bold">You are Amazing! ⚡</h2>
+    <div className="mx-auto max-w-4xl rounded-lg bg-gray-50 p-6 shadow-lg">
+      <h2 className="mb-6 text-3xl font-bold text-gray-800">
+        You are Amazing! <span className="text-blue-500">⚡</span>
+      </h2>
 
       {/* User Profile Section */}
-      <div className="mb-6 flex items-center">
+      <div className="mb-8 flex flex-col items-center gap-6 rounded-lg bg-white p-6 shadow-md transition-shadow duration-300 hover:shadow-lg">
         <img
           src={user?.picture || 'https://via.placeholder.com/150'}
           alt={userCheck.name || user?.name}
-          className="mr-4 h-24 w-24 rounded-full"
+          className="border-blue-300 h-32 w-32 rounded-full border-2 object-cover transition-transform duration-300 hover:scale-105"
         />
-        <div>
-          <h3 className="text-xl font-semibold">
+        <div className="text-center">
+          <h3 className="text-2xl font-semibold text-gray-900">
             {userCheck.name || user?.name}
           </h3>
-          <p className="text-gray-600">{userCheck.email || user?.email}</p>
+          <p className="mb-2 text-gray-700">{userCheck.email || user?.email}</p>
+          <p className="text-gray-600">
+            {userCheck.isOwner ? (
+              <span className="bg-blue-100 text-blue-600 rounded-full px-3 py-1 text-sm">
+                Store Manager
+              </span>
+            ) : (
+              userCheck.name && (
+                <span className="rounded-full bg-green-100 px-3 py-1 text-sm text-green-600">
+                  Volunteer
+                </span>
+              )
+            )}
+          </p>
         </div>
+
+        {/* Organization Information Card */}
+        {orgId ? (
+          <div className="w-full max-w-xs flex-shrink-0 transition-transform duration-300 hover:scale-105">
+            <Link to={`/org/${orgId}`}>
+              <UserOrgCard orgId={orgId} />
+            </Link>
+          </div>
+        ) : (
+          <div className="card-container">
+            {/* Sign Up Card */}
+            <div className="card">
+              <h3 className="card-heading">Sign Up for an Organisation</h3>
+              <p className="card-text">
+                Create a new organisation to get started.
+              </p>
+              <Link to="/org/signup" className="custom-signup-button">
+                Sign Up
+              </Link>
+            </div>
+
+            {/* Join Card */}
+            <div className="card">
+              <h3 className="card-heading">Join an Organisation</h3>
+              <p className="card-text">
+                Join an existing organisation and get involved.
+              </p>
+              <LoginDropdown
+                options={
+                  allOrgs.data?.map((org) => ({
+                    id: org.id,
+                    name: org.name,
+                  })) || []
+                }
+                onSelect={handleJoinSelect}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Organization Information Card */}
-      <UserOrgCard orgId={orgId} />
-
-      {/* Staff List */}
-      <UserStaffList orgId={orgId} />
-
-      {/* Pending Users List */}
-      {isOwner && (
-        <UserPendingRequests
-          orgId={orgId}
-          handle={handleRequest}
-          acceptedUsers={acceptedUsers}
-          isOwner={isOwner}
-        />
-      )}
+      {/* Grid Layout for Staff List and Pending Requests */}
+      <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Staff List */}
+        {userCheck?.name && (
+          <div className="transition-transform duration-300 hover:scale-105">
+            <UserStaffList orgId={orgId} />
+          </div>
+        )}
+        {/* Pending Users List */}
+        {isOwner && (
+          <div className="rounded-lg bg-white p-4 shadow-md transition-shadow duration-300 hover:shadow-lg">
+            <UserPendingRequests
+              orgId={orgId}
+              handle={handleRequest}
+              acceptedUsers={acceptedUsers}
+              isOwner={isOwner}
+            />
+          </div>
+        )}
+      </div>
     </div>
   )
 }

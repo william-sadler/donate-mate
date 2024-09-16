@@ -17,12 +17,16 @@ export default function UserStaffList({ orgId }: Props) {
     if (pendingUsers.failureCount > 3) {
       navigate('/')
     }
-    return <div className="text-red-500">Hmmm, suspicious... {failures}</div>
+    return (
+      <div className="text-center text-red-500">
+        Hmmm, suspicious... {failures}
+      </div>
+    )
   }
 
   if (pendingUsers.error instanceof Error) {
     return (
-      <div className="text-red-500">
+      <div className="text-center text-red-500">
         Failed to load user: {pendingUsers.error.message}
       </div>
     )
@@ -32,34 +36,35 @@ export default function UserStaffList({ orgId }: Props) {
   return (
     staffList &&
     staffList.length > 0 && (
-      <div>
-        <h4 className="mb-2 text-lg font-semibold">Staff List</h4>
-        <ul className="mb-6 list-inside list-disc">
-          {staffList.map((pendingUser, i) => {
-            if (pendingUser.isOwner) {
-              return (
-                <li
-                  key={(pendingUser.name, i)}
-                  className="mb-2 flex items-center justify-between"
-                >
-                  <span className="text-black">{pendingUser.name}</span>
-                  <span className="text-gray-700">Store Manager</span>
-                </li>
-              )
-            } else {
-              return (
-                <li
-                  key={(pendingUser.name, i)}
-                  className="mb-2 flex items-center justify-between"
-                >
-                  <span className="text-black">{pendingUser.name}</span>
-                  <span className="text-gray-700">{pendingUser.email}</span>
-                  <span className="text-gray-700">Volunteer</span>
-                </li>
-              )
-            }
-          })}
-        </ul>
+      <div className="bg-white px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="mb-6 text-2xl font-bold tracking-tight text-gray-900">
+            Staff List
+          </h2>
+          <ul className="space-y-4">
+            {staffList.map((pendingUser, i) => (
+              <li
+                key={i}
+                className="flex items-center gap-x-4 rounded-lg border border-gray-200 p-4 shadow-sm"
+              >
+                <img
+                  className="h-12 w-12 rounded-full object-cover"
+                  src={'https://via.placeholder.com/150'}
+                  alt={pendingUser.name}
+                />
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    {pendingUser.name}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    {pendingUser.isOwner ? 'Store Manager' : 'Volunteer'}
+                  </p>
+                  <p className="text-sm text-gray-500">{pendingUser.email}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     )
   )
