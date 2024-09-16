@@ -2,7 +2,21 @@ import db from './connection.ts'
 import { Organisation } from '../../models/modelOrganisations.ts'
 
 export async function getAllOrganisations() {
-  const organisations = await db('organisations').select()
+  const organisations = await db('organisations').select(
+    'id',
+    'name',
+    'contact_email as contactEmail',
+    'contact_number as contactNumber',
+    'location',
+    'about',
+    'longitude',
+    'latitude',
+    'org_types as orgTypes',
+    'image',
+    'volunteering_needed as volunteeringNeeded',
+    'donation_method as donationMethod',
+    'website',
+  )
   return organisations as Organisation[]
 }
 
