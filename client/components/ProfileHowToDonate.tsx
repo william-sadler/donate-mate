@@ -5,12 +5,12 @@ interface Props {
 }
 
 export default function ProfileHowToDonate({ method }: Props) {
-  const [drop, setDrop] = useState(false)
+  const [drop, setDrop] = useState(true)
 
   return (
-    <section className="teal-shadow border-1 m2 container  mb-10 w-96 border border-darkerTeal border-opacity-25 px-8 py-7">
+    <section className="teal-shadow border-1 container m-2 -mt-2 mb-16 w-96 max-w-lg border border-darkerTeal border-opacity-25 px-8 py-6">
       <button
-        className="primary_button, heading-4 "
+        className="primary_button, heading-4 mb-2"
         onClick={() => setDrop(!drop)}
         style={{
           display: 'flex',
@@ -27,7 +27,7 @@ export default function ProfileHowToDonate({ method }: Props) {
           style={{
             marginLeft: '8px',
             transition: 'transform 0.3s',
-            transform: drop ? 'rotate(180deg)' : 'rotate(0deg)',
+            transform: drop ? 'rotate(0deg)' : 'rotate(180deg)',
           }}
         >
           <path
