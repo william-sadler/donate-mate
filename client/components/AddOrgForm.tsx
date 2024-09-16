@@ -8,6 +8,7 @@ import AddCurrentlyAccepting from './AddCurrentlyAccepting.tsx'
 import AddAbout from './AddAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
 import { Types } from '../../models/modelTypes.ts'
+import AddressSearch, { addressState } from './AddressSearch.tsx'
 
 interface Props {
   newOrgId: number
@@ -46,8 +47,8 @@ export default function AddOrgForm({
     orgContactNumber: '',
     orgLocation: '',
     orgAbout: '',
-    orgLongitude: 0,
-    orgLatitude: 0,
+    orgLongitude: 174.7772,
+    orgLatitude: -41.28869,
     orgTypes: '',
     orgImage: '/images/placeholder-image.webp',
     orgVolunteeringNeeded: false,
@@ -117,8 +118,8 @@ export default function AddOrgForm({
           contactNumber: form.orgContactNumber,
           location: form.orgLocation,
           about: form.orgAbout,
-          longitude: organisation.longitude,
-          latitude: organisation.latitude,
+          longitude: form.orgLongitude,
+          latitude: form.orgLatitude,
           orgTypes: form.orgTypes,
           image: form.orgImage,
           volunteeringNeeded: form.orgVolunteeringNeeded,
@@ -156,6 +157,15 @@ export default function AddOrgForm({
     setForm({
       ...form,
       orgDonationTypes: typeData,
+    })
+  }
+
+  const handleMapData = (addresss: addressState) => {
+    setForm({
+      ...form,
+      orgLocation: addresss.name,
+      orgLatitude: addresss.lat,
+      orgLongitude: addresss.lng,
     })
   }
 
@@ -231,7 +241,7 @@ export default function AddOrgForm({
       )}
       <form
         onSubmit={handleSubmit}
-        className={`mx-auto max-w-7xl px-4 py-24 sm:px-1 sm:py-32 lg:px-4 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
+        className={`mx-auto max-w-7xl px-1 py-10 sm:py-10 lg:ml-20 lg:mt-0 lg:px-1 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
       >
         <section className="col-span-1 md:col-span-1 lg:col-span-1">
           <AddCard
@@ -276,7 +286,12 @@ export default function AddOrgForm({
             handleChange={handleChange}
           />
           <div className="mt-4">
-            <section className="hidden md:block ">PlaceHolder: Map</section>
+            <section className="hidden md:block ">
+              <AddressSearch
+                intitial={{ lat: form.orgLatitude, lng: form.orgLongitude }}
+                onUpdate={handleMapData}
+              />
+            </section>
           </div>
         </section>
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
@@ -287,7 +302,12 @@ export default function AddOrgForm({
             />
           </div>
           <div className="mt-4">
-            <section className="block md:hidden">PlaceHolder: Map</section>
+            <section className="block md:hidden">
+              <AddressSearch
+                intitial={{ lat: form.orgLatitude, lng: form.orgLongitude }}
+                onUpdate={handleMapData}
+              />
+            </section>
           </div>
         </section>
       </form>

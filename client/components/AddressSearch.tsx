@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import { API_HOST } from '../env.ts'
 
@@ -12,12 +12,23 @@ const containerStyle = {
   height: '400px',
 }
 
-const initialCenter: LatLng = {
-  lat: -41.28869,
-  lng: 174.7772,
+export interface addressState {
+  name: string
+  street_address: string
+  city: string
+  state: string
+  zip_code: string
+  googleMapLink: string
+  lat: number
+  lng: number
 }
 
-export default function AddressSearch() {
+interface Props {
+  intitial: LatLng
+  onUpdate: (address: addressState) => void
+}
+
+export default function AddressSearch({ intitial, onUpdate }: Props) {
   const [formData, setFormData] = useState({
     name: '',
     street_address: '',
@@ -25,10 +36,12 @@ export default function AddressSearch() {
     state: '',
     zip_code: '',
     googleMapLink: '',
+    lat: intitial.lat,
+    lng: intitial.lng,
   })
 
-  const [mapCenter, setMapCenter] = useState<LatLng>(initialCenter)
-  const [markerPosition, setMarkerPosition] = useState<LatLng>(initialCenter)
+  const [mapCenter, setMapCenter] = useState<LatLng>(intitial)
+  const [markerPosition, setMarkerPosition] = useState<LatLng>(intitial)
   const autocompleteRef = useRef<HTMLInputElement>(null)
   const geocoder = useRef<google.maps.Geocoder | null>(null)
   const placeId = useRef<string | null>(null)
@@ -73,6 +86,9 @@ export default function AddressSearch() {
           // Save place ID for Place Details API request
           placeId.current = place.place_id || ''
 
+          // Update map center and marker position
+          const location = place.geometry.location as google.maps.LatLng
+
           // Update form data
           setFormData({
             name: place.name || '',
@@ -81,10 +97,10 @@ export default function AddressSearch() {
             state: addressComponents.state || '',
             zip_code: addressComponents.zip_code || '',
             googleMapLink: '', // Will be updated after fetching place details
+            lat: location.lat(),
+            lng: location.lng(),
           })
 
-          // Update map center and marker position
-          const location = place.geometry.location as google.maps.LatLng
           setMapCenter({
             lat: location.lat(),
             lng: location.lng(),
@@ -169,7 +185,7 @@ export default function AddressSearch() {
               },
               {},
             )
-
+            const location = place.geometry.location as google.maps.LatLng
             const formattedAddress = place.formatted_address || ''
             const googleMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(formattedAddress)}`
 
@@ -180,6 +196,8 @@ export default function AddressSearch() {
               state: addressData.state || '',
               zip_code: addressData.zip_code || '',
               googleMapLink: googleMapLink,
+              lat: location.lat(),
+              lng: location.lng(),
             })
           } else {
             console.error('Geocoder failed due to:', status)
@@ -189,11 +207,11 @@ export default function AddressSearch() {
     }
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     console.log('Form submitted:', formData)
-    // Example of what you might want to do on submit
-    // dispatch(addParlor(formData)) // Uncomment and adjust as necessary
+    onUpdate(formData)
+
     // Clear form data after submission
     setFormData({
       name: '',
@@ -202,11 +220,13 @@ export default function AddressSearch() {
       state: '',
       zip_code: '',
       googleMapLink: '',
+      lat: intitial.lat,
+      lng: intitial.lng,
     })
   }
 
   return (
-    <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow-lg">
+    <div className="mx-auto w-96 overflow-hidden rounded-lg bg-white shadow-lg">
       <div className="relative">
         <div className="m-6">
           <LoadScript googleMapsApiKey={API_HOST} libraries={['places']}>
@@ -220,24 +240,22 @@ export default function AddressSearch() {
             </GoogleMap>
           </LoadScript>
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="absolute -top-4 left-1/2 -translate-x-1/2 transform rounded-md bg-white p-2 shadow-md"
-        >
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 transform rounded-md bg-white p-2 shadow-md">
           <input
             id="autocomplete"
             ref={autocompleteRef}
-            className="w-96 rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="focus:ring-blue-500 w-80 rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2"
             type="text"
+            onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()}
             placeholder="Enter address"
           />
           <button
-            type="submit"
-            className="bg-blue hover:bg-blue mt-2 w-full rounded-md p-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onClick={handleSubmit}
+            className="focus:ring-blue-500 mt-2 w-full rounded-md bg-blue p-2 text-white hover:bg-blue focus:outline-none focus:ring-2"
           >
             Submit
           </button>
-        </form>
+        </div>
         {formData.googleMapLink && (
           <div className="mt-4">
             <a
