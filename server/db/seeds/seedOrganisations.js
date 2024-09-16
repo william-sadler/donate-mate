@@ -254,8 +254,8 @@ export async function seed(knex) {
       location: '275 Cuba Street, Te Aro, Wellington',
       about:
         'Providing free coffee for hard-working students and facilitators, one cohort at a time',
-      longitude: -41.28795621507406,
-      latitude: 174.7886706700347,
+      longitude: 174.7886706700347,
+      latitude: -41.28795621507406,
       org_types: 'Community Centre',
       image: '/images/soup_kitchen.webp',
       volunteering_needed: true,
