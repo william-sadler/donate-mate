@@ -24,7 +24,11 @@ export default function ProfileAbout({ about }: Props) {
           height="16"
           fill="currentColor"
           viewBox="0 0 16 16"
-          style={{ marginLeft: '8px' }}
+          style={{
+            marginLeft: '8px',
+            transition: 'transform 0.3s',
+            transform: drop ? 'rotate(180deg)' : 'rotate(0deg)',
+          }}
         >
           <path
             fillRule="evenodd"
