@@ -165,10 +165,10 @@
 }
 
 .circle {
-  width: 15px;
-  height: 15px;
+  width: 1000px;
+  height: 40px;
   background-color: red;
-  border-radius: 50%;
+  border-radius: 5%;
 }
 
 /* Custom Button Class */
