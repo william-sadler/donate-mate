@@ -4,7 +4,7 @@ import { User, UserDBData } from '../../models/modelUsers.ts'
 export async function getUserByToken(auth0Id: string): Promise<User> {
   return await connection('users')
     .where('auth0Id', auth0Id)
-    .first('*', 'org_id as orgId')
+    .first('*', 'org_id as orgId', 'is_owner as isOwner')
 }
 
 export async function postUser(
@@ -22,5 +22,6 @@ export async function postUser(
     name: userData.name,
     email: userData.email,
     org_id: userData.orgId,
+    is_owner: userData.isOwner,
   })
 }

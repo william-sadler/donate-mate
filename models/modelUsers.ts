@@ -3,6 +3,7 @@ export interface User {
   name: string
   email: string
   orgId: number
+  isOwner: boolean
 }
 
 export interface UserData {
@@ -11,6 +12,13 @@ export interface UserData {
 }
 
 export interface UserDBData {
+  name: string
+  email: string
+  orgId: number
+  isOwner: boolean
+}
+
+export interface PendingUser {
   name: string
   email: string
   orgId: number

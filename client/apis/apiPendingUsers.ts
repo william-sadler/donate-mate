@@ -1,6 +1,6 @@
 import request from 'superagent'
 import { logError } from './utils.ts'
-import { User, UserData, UserDBData } from '../../models/modelUsers.ts'
+import { PendingUser, User, UserData } from '../../models/modelUsers.ts'
 
 const rootUrl = '/api/v1/pending'
 
@@ -12,7 +12,7 @@ interface GetUsersFunction {
 export async function getPendingUsers({
   id,
   token,
-}: GetUsersFunction): Promise<User> {
+}: GetUsersFunction): Promise<User[]> {
   return await request
     .get(`${rootUrl}/${id}`)
     .set('Authorization', `Bearer ${token}`)
@@ -21,7 +21,7 @@ export async function getPendingUsers({
 }
 
 interface AddUserFunction {
-  newUser: UserDBData
+  newUser: PendingUser
   token: string
 }
 
