@@ -51,7 +51,7 @@ export default function OrgProfilePage() {
   const userCheck = user.data as User
 
   return (
-    <div className="orgProfilePage mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 py-24 sm:px-1 sm:py-32 md:grid-cols-3 lg:grid-cols-4 lg:px-4">
+    <div className="orgProfilePage ml-20 grid max-w-7xl grid-cols-1 gap-4 px-4 py-24 sm:px-1 sm:py-32 md:grid-cols-3 lg:grid-cols-4 lg:px-4">
       <section className=" col-span-1 md:col-span-1 lg:col-span-1">
         <ProfileCard
           image={data.image}
