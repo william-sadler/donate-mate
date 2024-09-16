@@ -20,7 +20,7 @@ export async function getUsers({ token }: GetUsersFunction): Promise<User> {
 export async function getAllUsersById({
   id,
   token,
-}: GetUsersFunction): Promise<User> {
+}: GetUsersFunction): Promise<UserData[]> {
   return await request
     .get(`${rootUrl}/users/${id}`)
     .set('Authorization', `Bearer ${token}`)

@@ -27,6 +27,28 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
   }
 })
 
+router.get('/:id', checkJwt, async (req: JwtRequest, res) => {
+  const auth0Id = req.auth?.sub
+  const orgId = Number(req.params.id)
+
+  if (!auth0Id || auth0Id === 'undefined') {
+    console.error('No auth0id')
+    return res.status(401).send('unauthorised')
+  }
+
+  if (!orgId || orgId < 1) {
+    return res.sendStatus(StatusCodes.NOT_FOUND)
+  }
+
+  try {
+    const users = await db.getAllUsersByToken(auth0Id, orgId)
+    res.json(users as UserData[])
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'something went wrong' })
+  }
+})
+
 // POST newUser
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {

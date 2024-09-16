@@ -93,7 +93,11 @@ export default function UserProfilePage() {
           onClick={() => navigate(`/org/${orgId}`)}
           className="bg-blue-100 border-blue-200 hover:bg-blue-200 mb-6 cursor-pointer rounded-lg border p-4"
         >
-          <img src={organisation.image} alt={organisation.name} />
+          <img
+            src={organisation.image || 'https://via.placeholder.com/512'}
+            alt={organisation.name}
+            className="h-24 w-24"
+          />
           <h4 className="text-lg font-semibold">
             Organization: {organisation.name}
           </h4>

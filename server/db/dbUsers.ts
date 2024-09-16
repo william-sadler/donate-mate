@@ -1,5 +1,5 @@
 import connection from './connection.js'
-import { User, UserDBData } from '../../models/modelUsers.ts'
+import { User, UserData, UserDBData } from '../../models/modelUsers.ts'
 
 export async function getUserByToken(auth0Id: string): Promise<User> {
   return await connection('users')
@@ -10,7 +10,7 @@ export async function getUserByToken(auth0Id: string): Promise<User> {
 export async function getAllUsersByToken(
   auth0Id: string,
   orgId: number,
-): Promise<User> {
+): Promise<UserData[]> {
   const userCheck = await connection('users')
     .where('org_id', orgId)
     .andWhere('auth0Id', auth0Id)
