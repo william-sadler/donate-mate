@@ -77,6 +77,12 @@
   @apply flex items-center justify-center;
 }
 
+@media screen and (max-width: 850px) {
+  .row.primary {
+    grid-template-columns: 1fr;
+  }
+}
+
 .currentlyAccepting {
   @apply min-h-fit max-w-lg;
 }
