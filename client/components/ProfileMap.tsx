@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import { API_HOST } from '../env.ts'
 
 const mapContainer = {
-  width: '24rem',
+  width: '22rem',
   height: '20rem',
 }
 
@@ -43,7 +43,7 @@ export default function ProfileMap() {
 
   return (
     <>
-      <section className="map w-1/7">
+      <section className="map  teal-shadow border-1 container m-2 mb-10 w-96 border border-darkerTeal border-opacity-25 px-8 py-6">
         <h3 className="heading-4">Where to find us</h3>
         <LoadScript googleMapsApiKey={API_HOST}>
           <GoogleMap mapContainerStyle={mapContainer} center={center} zoom={15}>
