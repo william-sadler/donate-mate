@@ -17,7 +17,10 @@ export default function LandingCard({
   orgTypes,
 }: Props) {
   return (
-    <div className="teal-shadow hover:teal-shadow m-auto flex h-full w-60 transform cursor-pointer flex-col overflow-hidden overflow-hidden rounded-lg border border-darkerTeal border-opacity-25 shadow-lg shadow-lg transition-transform hover:scale-105 md:w-80">
+    <div
+      className="teal-shadow hover:teal-shadow m-auto flex h-full w-60 transform cursor-pointer flex-col overflow-hidden overflow-hidden rounded-lg border border-darkerTeal border-opacity-25
+     shadow-lg transition-transform hover:scale-105 md:w-80"
+    >
       <img src={image} alt={name} className="h-40 w-full object-cover" />
       <div className="max-h-50 w-full bg-white p-4">
         <p className="text-md font-medium text-indigo-500">
