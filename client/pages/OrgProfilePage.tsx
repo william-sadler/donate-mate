@@ -109,7 +109,22 @@ export default function OrgProfilePage() {
         </div>
       </section>
 
-      {userCheck?.orgId === id && <button onClick={handleEdit}>Edit</button>}
+      {userCheck?.orgId === id && (
+        <button
+          onClick={handleEdit}
+          style={{
+            backgroundColor: '#007bff',
+            color: '#ffffff',
+            border: '1px solid #0056b3',
+            padding: '8px 16px',
+            borderRadius: '4px',
+            transition: 'background-color 0.3s ease, transform 0.2s ease',
+          }}
+          className="hover:bg-blue-800 focus:ring-blue-300 focus:outline-none focus:ring-2 active:scale-95"
+        >
+          Edit
+        </button>
+      )}
     </div>
   )
 }
