@@ -38,17 +38,19 @@ export async function seed(knex) {
     },
     {
       id: 3,
-      name: 'Aro Valley Opshop',
+      name: 'Whiskers & Wonders',
       contact_email: null,
       contact_number: null,
-      location: 'Aro St, Wellington',
-      about: 'Affordable goods and support for the local community.',
+      location: 'Furr Lane, Wellington',
+      about:
+        'Whiskers & Wonders is dedicated to improving the lives of pets across the globe with innovative, heartwarming solutions. Our programs focus on delivering high-quality toys, engaging activities, and educational resources to pet owners, ensuring that every furry friend can experience a life full of happiness and adventure.',
       longitude: 174.7668,
       latitude: -41.2973,
       org_types: 'Charity',
-      image: '/images/op-shop-guide-frankie-6.webp',
+      image: '/images/Whiskers-and-Wonders.webp',
       volunteering_needed: true,
-      donation_method: 'In-Person',
+      donation_method:
+        'Drop off pet food, supplies and toys during business hours. Mon-Fri: 9am -5pm',
       website: null,
     },
     {

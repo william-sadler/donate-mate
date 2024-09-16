@@ -79,6 +79,28 @@
   @apply flex items-center justify-center;
 }
 
+@media screen and (max-width: 850px) {
+  .row.primary {
+    grid-template-columns: 1fr;
+  }
+}
+
+.currentlyAccepting {
+  @apply min-h-fit max-w-lg;
+}
+/* BOX SHADOWS */
+.yellow-shadow {
+  box-shadow:
+    0 4px 8px 0 rgb(237, 226, 89, 0.1),
+    0 6px 20px 0 rgb(237, 226, 89, 0.1);
+}
+
+.teal-shadow {
+  box-shadow:
+    0 4px 8px 0 rgba(30, 117, 109, 0.2),
+    0 6px 20px 0 rgb(30, 117, 109, 0.2);
+}
+
 /* --- // BUTTONS // ---- */
 
 /* Primary Button */
@@ -142,10 +164,14 @@
 
 /* ORG PROFILE PAGE */
 .orgProfilePage {
-  background-color: #fbe8d1;
+  background-color: #ffffff;
 }
 .logo {
   height: 135px;
+}
+
+.profile-image-card {
+  @apply flex h-full transform flex-col items-center justify-center overflow-hidden rounded-lg;
 }
 
 /*Hover urgently Status*/
@@ -314,7 +340,7 @@
 }
 
 .signalNeeded {
-  width: 150px;
+  width: 200px;
   height: 50px;
   border-radius: 5px;
   display: flex;

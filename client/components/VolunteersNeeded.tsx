@@ -20,12 +20,12 @@ export default function VolunteersNeeded({ id }: Props) {
   return (
     <div className="volunteersNeeded">
       <div
-        className="signalNeeded"
+        className="signalNeeded raleway-bold p-1"
         style={{
-          backgroundColor: isVolunteeringNeeded ? 'green' : 'gray',
+          backgroundColor: isVolunteeringNeeded ? '#43A047' : 'white',
         }}
       >
-        {isVolunteeringNeeded ? 'Need' : 'No Need'}
+        {isVolunteeringNeeded ? 'Volunteers Needed' : ''}
       </div>
     </div>
   )
