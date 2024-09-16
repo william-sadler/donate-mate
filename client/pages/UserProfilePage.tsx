@@ -107,8 +107,8 @@ export default function UserProfilePage() {
           <h4 className="mb-2 text-lg font-semibold">Pending User Requests</h4>
           <ul className="mb-6 list-inside list-disc">
             {requests
-              .filter((item) =>
-                acceptedUsers.find((value) => item.name === value),
+              .filter(
+                (item) => !acceptedUsers.find((value) => item.name === value),
               )
               .map((pendingUser) => (
                 <li

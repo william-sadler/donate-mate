@@ -5,12 +5,24 @@ import { User, UserData } from '../../models/modelUsers'
 const rootUrl = '/api/v1'
 
 interface GetUsersFunction {
+  id?: number
   token: string
 }
 
 export async function getUsers({ token }: GetUsersFunction): Promise<User> {
   return await request
     .get(`${rootUrl}/users`)
+    .set('Authorization', `Bearer ${token}`)
+    .then((res) => (res.body ? res.body : []))
+    .catch(logError)
+}
+
+export async function getAllUsersById({
+  id,
+  token,
+}: GetUsersFunction): Promise<User> {
+  return await request
+    .get(`${rootUrl}/users/${id}`)
     .set('Authorization', `Bearer ${token}`)
     .then((res) => (res.body ? res.body : []))
     .catch(logError)
@@ -47,7 +59,7 @@ export async function acceptingUserRequest({
   const userPackage = { admin, newUser }
 
   return request
-    .post(`${rootUrl}/users/accept`)
+    .post(`${rootUrl}/users`)
     .set('Authorization', `Bearer ${token}`)
     .send(userPackage)
     .then((res) => res.body.users)

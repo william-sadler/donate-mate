@@ -3,7 +3,7 @@ import checkJwt, { JwtRequest } from '../auth0.ts'
 import { StatusCodes } from 'http-status-codes'
 
 import * as db from '../db/dbUsers.ts'
-import { User } from '../../models/modelUsers.ts'
+import { User, UserData } from '../../models/modelUsers.ts'
 
 const router = Router()
 export default router
@@ -31,22 +31,22 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
-  const { name, email, orgId, isOwner } = req.body
+  const { admin, newUser } = req.body as { admin: UserData; newUser: User }
 
   if (!auth0Id) {
     return res.sendStatus(StatusCodes.UNAUTHORIZED)
   }
 
-  if (!name) {
+  if (!admin) {
     return res.sendStatus(StatusCodes.NOT_FOUND)
   }
 
-  if (!email) {
+  if (!newUser) {
     return res.sendStatus(StatusCodes.NOT_FOUND)
   }
 
   try {
-    await db.postUser(auth0Id, { name, email, orgId, isOwner })
+    await db.postUserByAccept(auth0Id, newUser)
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)

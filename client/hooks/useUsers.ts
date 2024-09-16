@@ -27,6 +27,27 @@ export function useUsers() {
   }
 }
 
+export function useAllUsersById(orgId: number) {
+  const { user, getAccessTokenSilently } = useAuth0()
+
+  const query = useQuery({
+    queryKey: ['users', orgId],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently().catch(() => {
+        console.error('Login Required')
+        return 'undefined'
+      })
+      if (token === 'undefined') return []
+      return API.getAllUsersById({ id: orgId, token })
+    },
+    enabled: !!user,
+  })
+
+  return {
+    ...query,
+  }
+}
+
 export function useUserMutation<TData = unknown, TVariables = unknown>(
   mutationFn: MutationFunction<TData, TVariables>,
 ) {
