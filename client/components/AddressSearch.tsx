@@ -211,18 +211,6 @@ export default function AddressSearch({ intitial, onUpdate }: Props) {
     event.preventDefault()
     console.log('Form submitted:', formData)
     onUpdate(formData)
-
-    // Clear form data after submission
-    setFormData({
-      name: '',
-      street_address: '',
-      city: '',
-      state: '',
-      zip_code: '',
-      googleMapLink: '',
-      lat: intitial.lat,
-      lng: intitial.lng,
-    })
   }
 
   return (

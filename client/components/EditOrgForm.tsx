@@ -8,6 +8,7 @@ import EditCurrentlyAccepting from './EditCurrentlyAccepting.tsx'
 import EditAbout from './EditAbout.tsx'
 import { useTypesById } from '../hooks/useTypes.ts'
 import { Types } from '../../models/modelTypes.ts'
+import AddressSearch, { addressState } from './AddressSearch.tsx'
 
 interface Props {
   organisation: Organisation
@@ -46,8 +47,8 @@ export default function EditOrgForm({
     orgContactNumber: organisation.contactNumber || null,
     orgAbout: organisation.about,
     orgLocation: organisation.location,
-    orgLongitude: organisation.longitude || null,
-    orgLatitude: organisation.latitude || null,
+    orgLongitude: organisation.longitude || 174.77557,
+    orgLatitude: organisation.latitude || -41.28664,
     orgTypes: organisation.orgTypes,
     orgImage: organisation.image,
     orgVolunteeringNeeded: false,
@@ -137,8 +138,8 @@ export default function EditOrgForm({
           contactNumber: form.orgContactNumber,
           location: form.orgLocation,
           about: form.orgAbout,
-          longitude: organisation.longitude,
-          latitude: organisation.latitude,
+          longitude: form.orgLongitude,
+          latitude: form.orgLatitude,
           orgTypes: form.orgTypes,
           image: form.orgImage,
           volunteeringNeeded: form.orgVolunteeringNeeded,
@@ -168,6 +169,15 @@ export default function EditOrgForm({
       orgDonationTypes: typeData,
       orgDonationTypesDeleted:
         deletedData === undefined ? form.orgDonationTypesDeleted : deletedData,
+    })
+  }
+
+  const handleMapData = (addresss: addressState) => {
+    setForm({
+      ...form,
+      orgLocation: addresss.name,
+      orgLatitude: addresss.lat,
+      orgLongitude: addresss.lng,
     })
   }
 
@@ -243,7 +253,7 @@ export default function EditOrgForm({
       )}
       <form
         onSubmit={handleSubmit}
-        className={`mx-auto max-w-7xl px-4 py-24 sm:px-1 sm:py-32 lg:px-4 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
+        className={`mx-auto max-w-7xl px-1 py-10 sm:py-10 lg:ml-20 lg:mt-0 lg:px-1 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
       >
         <section className="col-span-1 md:col-span-1 lg:col-span-1">
           <EditCard
@@ -288,7 +298,15 @@ export default function EditOrgForm({
             handleChange={handleChange}
           />
           <div className="mt-4">
-            <section className="hidden md:block ">PlaceHolder: Map</section>
+            <section className="hidden md:block ">
+              <AddressSearch
+                intitial={{
+                  lat: form.orgLatitude || -41.28664,
+                  lng: form.orgLongitude || 174.77557,
+                }}
+                onUpdate={handleMapData}
+              />
+            </section>
           </div>
         </section>
         <section className="col-span-1 flex flex-col gap-4 md:col-span-2 lg:col-span-1">
@@ -299,7 +317,15 @@ export default function EditOrgForm({
             />
           </div>
           <div className="mt-4">
-            <section className="block md:hidden">PlaceHolder: Map</section>
+            <section className="block md:hidden">
+              <AddressSearch
+                intitial={{
+                  lat: form.orgLatitude || -41.28664,
+                  lng: form.orgLongitude || 174.77557,
+                }}
+                onUpdate={handleMapData}
+              />
+            </section>
           </div>
         </section>
       </form>
