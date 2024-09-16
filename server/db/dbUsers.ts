@@ -22,6 +22,6 @@ export async function postUser(
     name: userData.name,
     email: userData.email,
     org_id: userData.orgId,
-    is_owner: userData.isOwner,
+    is_owner: userData.isOwner || false,
   })
 }

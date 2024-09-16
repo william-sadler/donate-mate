@@ -10,20 +10,20 @@ export async function getAllOrganisations(): Promise<Organisation[]> {
 }
 
 export async function getOrganisationsById(id: number): Promise<Organisation> {
-  const res = await request.get(orgURL + `/${id}`)
+  const res = await request.get(`${orgURL}/${id}`)
   return res.body
 }
 
 interface PatchOrgFunction {
   id: number
   token: string
-  orgData: Organisation
+  orgData: FormData
 }
 
 interface PostOrgFunction {
   userData: UserData
   token: string
-  orgData: Organisation
+  formData: FormData
 }
 
 export async function patchOrganisationById({
@@ -32,7 +32,7 @@ export async function patchOrganisationById({
   orgData,
 }: PatchOrgFunction): Promise<void> {
   await request
-    .patch(orgURL + `/${id}`)
+    .patch(`${orgURL}/${id}`)
     .set('Authorization', `Bearer ${token}`)
     .send(orgData)
 }
@@ -40,16 +40,26 @@ export async function patchOrganisationById({
 export async function postOrganisation({
   userData,
   token,
-  orgData,
+  formData,
 }: PostOrgFunction): Promise<void> {
   console.log('Org Added')
-  const id = await request
-    .post(orgURL)
-    .set('Authorization', `Bearer ${token}`)
-    .send(orgData)
 
-  await request
-    .post(`/api/v1/users/${id.body}`)
-    .set('Authorization', `Bearer ${token}`)
-    .send(userData)
+  try {
+    // Perform the POST request with FormData
+    const res = await request
+      .post(orgURL)
+      .set('Authorization', `Bearer ${token}`)
+      .send(formData) // Send the FormData
+
+    const createdOrgId = res.body.id // Assuming the API returns the ID of the created organisation
+
+    console.log(userData)
+    await request
+      .post(`/api/v1/users/${createdOrgId}`)
+      .set('Authorization', `Bearer ${token}`)
+      .send(userData)
+  } catch (error) {
+    console.error('Error posting organisation:', error)
+    throw error
+  }
 }

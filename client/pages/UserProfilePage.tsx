@@ -1,29 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 import { useUsers } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
-import { User } from '../../models/modelUsers'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import { useState, useEffect } from 'react'
 import { usePendingUsersById } from '../hooks/usePendingUsers'
+import { User } from '../../models/modelUsers'
 
 export default function UserProfilePage() {
   const navigate = useNavigate()
-  const [orgId, setOrgId] = useState<number>(0)
+  const [orgId, setOrgId] = useState<number | null>(null)
+  const [isOwner, setIsOwner] = useState(false)
   const { user } = useAuth0()
   const isUser = useUsers()
-  const pendingUsers = usePendingUsersById(orgId)
-  const org = useOrganisationsById(orgId)
-  const [isOwner, setIsOwner] = useState(false)
+  const pendingUsers = usePendingUsersById(orgId ?? 0)
+  const org = useOrganisationsById(orgId ?? 0)
 
   useEffect(() => {
     if (isUser.data) {
-      // Assuming there's a way to fetch orgId from user or a separate API
-      const fetchOrgId = async () => {
-        const userCheck = isUser.data as User
-        setOrgId(userCheck.orgId)
-        setIsOwner(userCheck.isOwner)
-      }
-      fetchOrgId()
+      const userCheck = isUser.data as User
+      setOrgId(userCheck.orgId || null)
+      setIsOwner(userCheck.isOwner || false)
     }
   }, [isUser.data])
 
@@ -66,12 +62,14 @@ export default function UserProfilePage() {
       <div className="mb-6 flex items-center">
         <img
           src={user?.picture || 'https://via.placeholder.com/150'}
-          alt={userCheck.name}
+          alt={userCheck.name || user?.name}
           className="mr-4 h-24 w-24 rounded-full"
         />
         <div>
-          <h3 className="text-xl font-semibold">{userCheck.name}</h3>
-          <p className="text-gray-600">{userCheck.email}</p>
+          <h3 className="text-xl font-semibold">
+            {userCheck.name || user?.name}
+          </h3>
+          <p className="text-gray-600">{userCheck.email || user?.email}</p>
         </div>
       </div>
 
@@ -81,6 +79,7 @@ export default function UserProfilePage() {
           onClick={() => navigate(`/org/${orgId}`)}
           className="bg-blue-100 border-blue-200 hover:bg-blue-200 mb-6 cursor-pointer rounded-lg border p-4"
         >
+          <img src={organisation.image} alt={organisation.name} />
           <h4 className="text-lg font-semibold">
             Organization: {organisation.name}
           </h4>

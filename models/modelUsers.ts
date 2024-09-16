@@ -9,6 +9,7 @@ export interface User {
 export interface UserData {
   name: string
   email: string
+  isOwner: boolean
 }
 
 export interface UserDBData {

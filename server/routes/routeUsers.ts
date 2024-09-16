@@ -31,7 +31,7 @@ router.get('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.post('/', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
-  const { name, email, orgId } = req.body
+  const { name, email, orgId, isOwner } = req.body
 
   if (!auth0Id) {
     return res.sendStatus(StatusCodes.UNAUTHORIZED)
@@ -46,7 +46,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postUser(auth0Id, { name, email, orgId })
+    await db.postUser(auth0Id, { name, email, orgId, isOwner })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)
@@ -58,7 +58,7 @@ router.post('/', checkJwt, async (req: JwtRequest, res) => {
 
 router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
   const auth0Id = req.auth?.sub
-  const { name, email } = req.body
+  const { name, email, isOwner } = req.body
   const orgId = Number(req.params.id)
 
   if (!auth0Id) {
@@ -70,7 +70,7 @@ router.post('/:id', checkJwt, async (req: JwtRequest, res) => {
   }
 
   try {
-    await db.postUser(auth0Id, { name, email, orgId })
+    await db.postUser(auth0Id, { name, email, orgId, isOwner })
     res.sendStatus(StatusCodes.CREATED)
   } catch (error) {
     console.error(error)
