@@ -24,6 +24,7 @@ export function useUsers() {
     ...query,
     add: useAddUser(),
     accept: useAcceptRequest(),
+    deny: useDenyRequest(),
   }
 }
 
@@ -69,4 +70,8 @@ export function useAddUser() {
 
 export function useAcceptRequest() {
   return useUserMutation(API.acceptingUserRequest)
+}
+
+export function useDenyRequest() {
+  return useUserMutation(API.denyingUserRequest)
 }

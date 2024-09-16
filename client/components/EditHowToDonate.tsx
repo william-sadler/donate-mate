@@ -9,7 +9,7 @@ export default function EditHowToDonate({
 }: Props) {
   return (
     <>
-      <div className="col-span-full">
+      <div className="col-span-full w-96">
         <label
           htmlFor="about"
           className="block text-sm font-medium leading-6 text-gray-900"

@@ -85,7 +85,7 @@ export default function EditCard({
           onClick={(e) => e.stopPropagation()}
         />
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-gray-500 bg-opacity-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-gray-500 bg-opacity-50 opacity-50 transition-opacity duration-300 group-hover:opacity-100"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
