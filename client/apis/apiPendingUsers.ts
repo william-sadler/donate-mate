@@ -1,27 +1,35 @@
 import request from 'superagent'
 import { logError } from './utils.ts'
-import { User, UserData, UserDBData } from '../../models/modelUsers.ts'
+import { PendingUser, User, UserData } from '../../models/modelUsers.ts'
 
 const rootUrl = '/api/v1/pending'
 
 interface GetUsersFunction {
-  id: number
+  id?: number
   token: string
 }
 
 export async function getPendingUsers({
   id,
   token,
-}: GetUsersFunction): Promise<User> {
-  return await request
-    .get(`${rootUrl}/${id}`)
-    .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : null))
-    .catch(logError)
+}: GetUsersFunction): Promise<User[]> {
+  if (!id) {
+    return await request
+      .get(`${rootUrl}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((res) => (res.body ? res.body : []))
+      .catch(logError)
+  } else {
+    return await request
+      .get(`${rootUrl}/${id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .then((res) => (res.body ? res.body : []))
+      .catch(logError)
+  }
 }
 
 interface AddUserFunction {
-  newUser: UserDBData
+  newUser: PendingUser
   token: string
 }
 

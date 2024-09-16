@@ -4,7 +4,7 @@
 
 /* Grid Layout */
 .grid-layout {
-  @apply grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4;
+  @apply m-4 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4;
 }
 
 /* Image Card Styles */
@@ -266,6 +266,10 @@
   width: fit-content;
 }
 
+.custom-user-grid {
+  @apply mb-8 grid grid-cols-1 gap-6 md:grid-cols-2;
+}
+
 /* Container for centering content */
 .login-redirect-container {
   @apply flex min-h-screen flex-col items-center justify-center bg-gray-100 p-4;
@@ -290,7 +294,7 @@
   display: inline-flex;
   width: 15rem;
   justify-content: center;
-  border-radius: 0.375rem;
+  border-radius: 2rem;
   background-color: #163fa0;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
@@ -310,7 +314,7 @@
   display: inline-flex;
   width: 15rem;
   justify-content: center;
-  border-radius: 0.375rem;
+  border-radius: 2rem;
   background-color: #139128;
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;

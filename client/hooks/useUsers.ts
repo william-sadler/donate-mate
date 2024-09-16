@@ -23,6 +23,29 @@ export function useUsers() {
   return {
     ...query,
     add: useAddUser(),
+    accept: useAcceptRequest(),
+    deny: useDenyRequest(),
+  }
+}
+
+export function useAllUsersById(orgId: number) {
+  const { user, getAccessTokenSilently } = useAuth0()
+
+  const query = useQuery({
+    queryKey: ['users', orgId],
+    queryFn: async () => {
+      const token = await getAccessTokenSilently().catch(() => {
+        console.error('Login Required')
+        return 'undefined'
+      })
+      if (token === 'undefined') return []
+      return API.getAllUsersById({ id: orgId, token })
+    },
+    enabled: !!user,
+  })
+
+  return {
+    ...query,
   }
 }
 
@@ -43,4 +66,12 @@ export function useUserMutation<TData = unknown, TVariables = unknown>(
 
 export function useAddUser() {
   return useUserMutation(API.addUser)
+}
+
+export function useAcceptRequest() {
+  return useUserMutation(API.acceptingUserRequest)
+}
+
+export function useDenyRequest() {
+  return useUserMutation(API.denyingUserRequest)
 }

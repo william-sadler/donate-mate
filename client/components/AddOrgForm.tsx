@@ -26,7 +26,7 @@ type FormState = {
   orgLongitude: number
   orgLatitude: number
   orgTypes: string
-  orgImage: string
+  orgImage: string | File // Handle both string (URL) and File
   orgVolunteeringNeeded: boolean
   orgDonationMethod: string
   orgWebsite: string
@@ -107,28 +107,48 @@ export default function AddOrgForm({
       return setChanged(true)
     }
 
+    // Prepare data for submission
+    const userData = {
+      name: user?.name || '',
+      email: user?.email || '',
+      isOwner: true,
+    }
+
+    const orgData = {
+      id: newOrgId,
+      name: form.orgName,
+      contactEmail: form.orgContactEmail,
+      contactNumber: form.orgContactNumber,
+      location: form.orgLocation,
+      about: form.orgAbout,
+      longitude: form.orgLongitude,
+      latitude: form.orgLatitude,
+      orgTypes: form.orgTypes,
+      image:
+        typeof form.orgImage === 'string'
+          ? form.orgImage
+          : (form.orgImage as File).name,
+      volunteeringNeeded: form.orgVolunteeringNeeded,
+      donationMethod: form.orgDonationMethod,
+      website: form.orgWebsite,
+    }
+
+    // Check if image is a File object
+    const formData = new FormData()
+    formData.append('userData', JSON.stringify(userData))
+    formData.append('orgData', JSON.stringify(orgData))
+    formData.append('orgImage', form.orgImage || new File([], ''))
+
+    // Ensure correct data types for mutation functions
     orgQuery.postOrgData.mutate(
       {
-        userData: { name: user?.name || '', email: user?.email || '' },
-        token: token,
-        orgData: {
-          id: newOrgId,
-          name: form.orgName,
-          contactEmail: form.orgContactEmail,
-          contactNumber: form.orgContactNumber,
-          location: form.orgLocation,
-          about: form.orgAbout,
-          longitude: form.orgLongitude,
-          latitude: form.orgLatitude,
-          orgTypes: form.orgTypes,
-          image: form.orgImage,
-          volunteeringNeeded: form.orgVolunteeringNeeded,
-          donationMethod: form.orgDonationMethod,
-          website: form.orgWebsite,
-        },
+        userData,
+        token,
+        formData,
       },
       mutationOptions,
     )
+
     if (form.orgDonationTypes) {
       donationTypes.postTypesData.mutate(
         {
@@ -146,11 +166,21 @@ export default function AddOrgForm({
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    const { name, value } = event.target
-    setForm({
-      ...form,
-      [name]: value,
-    })
+    const { name, value, type, files } = event.target as HTMLInputElement &
+      HTMLTextAreaElement
+    if (type === 'file') {
+      if (files && files[0]) {
+        setForm({
+          ...form,
+          [name]: files[0], // Update the form state with the file
+        })
+      }
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      })
+    }
   }
 
   const handleTypeChange = (typeData: Types[]) => {

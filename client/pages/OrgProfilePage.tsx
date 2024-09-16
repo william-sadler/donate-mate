@@ -82,13 +82,21 @@ export default function OrgProfilePage() {
         <CurrentlyAccepting typeData={typeData.data} />
         <VolunteersNeeded id={id} />
       </section>
-
       <section className="flex hidden flex-col gap-4 pb-1 md:block lg:col-span-1">
         <div className="block md:hidden">
           <ProfileHowToDonate method={data.donationMethod || ''} />
+          {!hideMap && (
+            <ProfileMap
+              initial={{
+                lat: data.latitude || -41.28869,
+                lng: data.longitude || 174.7772,
+              }}
+            />
+          )}
         </div>
         <div className="mt-4">
-          <section className="block md:hidden">
+          <section className="hidden md:block">
+            <ProfileHowToDonate method={data.donationMethod || ''} />
             {!hideMap && (
               <ProfileMap
                 initial={{

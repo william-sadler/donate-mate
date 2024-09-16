@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react'
 import { Organisation } from '../../models/modelOrganisations'
 
 interface Props {
@@ -7,7 +8,11 @@ interface Props {
   orgContactNumber: string | null
   orgLocation: string
   orgWebsite: string
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  handleChange: (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>,
+  ) => void
 }
 
 export default function EditCard({
@@ -19,13 +24,83 @@ export default function EditCard({
   orgWebsite,
   handleChange,
 }: Props) {
+  const [imagePreview, setImagePreview] = useState<string | ArrayBuffer | null>(
+    form.image || '',
+  )
+
+  const handleImageChange = useCallback(
+    (file: File) => {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result) // Update the image preview
+        // Create a new event to pass the file to the parent
+        const newEvent = {
+          target: {
+            name: 'orgImage',
+            value: file,
+          },
+        } as unknown as React.ChangeEvent<HTMLInputElement>
+        handleChange(newEvent)
+      }
+      reader.readAsDataURL(file) // Read the image file
+    },
+    [handleChange],
+  )
+
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      handleImageChange(file)
+    }
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    const file = event.dataTransfer.files?.[0]
+    if (file) {
+      handleImageChange(file)
+    }
+  }
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+  }
   return (
     <div className="space-y-6 rounded-lg bg-white p-6 shadow-lg ring-1 ring-gray-200">
-      <img
-        className="h-32 w-full rounded-t-lg object-cover"
-        src={form.image}
-        alt={form.name}
-      />
+      <div className="group relative">
+        <img
+          className="h-36 w-full rounded-t-lg object-cover transition-transform duration-300 group-hover:scale-105"
+          src={imagePreview as string}
+          alt={form.name}
+        />
+        <input
+          type="file"
+          name="orgImage"
+          id="imageUpload"
+          className="absolute inset-0 z-10 cursor-pointer opacity-0"
+          accept="image/*"
+          onChange={handleFileInputChange}
+          onClick={(e) => e.stopPropagation()}
+        />
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-gray-500 bg-opacity-50 opacity-50 transition-opacity duration-300 group-hover:opacity-100"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            className="h-6 w-6 text-white"
+            viewBox="0 0 16 16"
+          >
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+          </svg>
+          <p className="text-white">Drag & Drop or Click to Upload</p>
+        </div>
+      </div>
 
       <div className="space-y-6">
         {/* Organisation Name */}

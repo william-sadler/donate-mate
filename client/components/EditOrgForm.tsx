@@ -106,6 +106,30 @@ export default function EditOrgForm({
       return setChanged(true)
     }
 
+    const orgData = {
+      id: organisation.id,
+      name: form.orgName,
+      contactEmail: form.orgContactEmail,
+      contactNumber: form.orgContactNumber,
+      location: form.orgLocation,
+      about: form.orgAbout,
+      longitude: form.orgLongitude,
+      latitude: form.orgLatitude,
+      orgTypes: form.orgTypes,
+      image:
+        typeof form.orgImage === 'string'
+          ? form.orgImage
+          : (form.orgImage as File).name,
+      volunteeringNeeded: form.orgVolunteeringNeeded,
+      donationMethod: form.orgMethod,
+      website: form.orgWebsite,
+    }
+
+    // Check if image is a File object
+    const formData = new FormData()
+    formData.append('orgData', JSON.stringify(orgData))
+    formData.append('orgImage', form.orgImage || new File([], ''))
+
     if (form.orgDonationTypes) {
       donationTypes.patchTypesData.mutate({
         id: organisation.id,
@@ -131,21 +155,7 @@ export default function EditOrgForm({
       {
         id: organisation.id,
         token: token,
-        orgData: {
-          id: organisation.id,
-          name: form.orgName,
-          contactEmail: form.orgContactEmail,
-          contactNumber: form.orgContactNumber,
-          location: form.orgLocation,
-          about: form.orgAbout,
-          longitude: form.orgLongitude,
-          latitude: form.orgLatitude,
-          orgTypes: form.orgTypes,
-          image: form.orgImage,
-          volunteeringNeeded: form.orgVolunteeringNeeded,
-          donationMethod: form.orgMethod,
-          website: form.orgWebsite,
-        },
+        orgData: formData,
       },
       mutationOptions,
     )
@@ -156,11 +166,21 @@ export default function EditOrgForm({
       | React.ChangeEvent<HTMLInputElement>
       | React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
-    const { name, value } = event.target
-    setForm({
-      ...form,
-      [name]: value,
-    })
+    const { name, value, type, files } = event.target as HTMLInputElement &
+      HTMLTextAreaElement
+    if (type === 'file') {
+      if (files && files[0]) {
+        setForm({
+          ...form,
+          [name]: files[0], // Update the form state with the file
+        })
+      }
+    } else {
+      setForm({
+        ...form,
+        [name]: value,
+      })
+    }
   }
 
   const handleTypeChange = (typeData: Types[], deletedData?: Types[]) => {
