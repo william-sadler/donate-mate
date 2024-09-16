@@ -3,8 +3,9 @@ import { useUsers } from '../hooks/useUsers'
 import { useAuth0 } from '@auth0/auth0-react'
 import { useOrganisationsById } from '../hooks/useOrganisations'
 import { useState, useEffect } from 'react'
-import { usePendingUsersById } from '../hooks/usePendingUsers'
 import { User } from '../../models/modelUsers'
+import UserPendingRequests from '../components/UserPendingRequests'
+import UserStaffList from '../components/UserStaffList'
 
 export default function UserProfilePage() {
   const { user, getAccessTokenSilently } = useAuth0()
@@ -13,7 +14,6 @@ export default function UserProfilePage() {
   const [isOwner, setIsOwner] = useState(false)
   const [acceptedUsers, setAcceptedUsers] = useState<string[]>([])
   const isUser = useUsers()
-  const pendingUsers = usePendingUsersById(orgId ?? 0)
   const org = useOrganisationsById(orgId ?? 0)
 
   useEffect(() => {
@@ -49,15 +49,13 @@ export default function UserProfilePage() {
 
   const userCheck = isUser.data as User
   const organisation = org.data
-  const requests = pendingUsers.data
 
-  const handleRequest = async (pendingUserId: string) => {
+  const handleRequest = async (employee: User) => {
     const token = await getAccessTokenSilently().catch(() => {
       console.error('Login Required')
       return 'undefined'
     })
-    console.log(`Request for user: ${pendingUserId}`)
-    const employee = requests?.find((item) => item.auth0Id === pendingUserId)
+    console.log(`Request for user: ${employee}`)
     if (employee) {
       setAcceptedUsers([...acceptedUsers, employee.name])
       isUser.accept.mutate({
@@ -105,31 +103,17 @@ export default function UserProfilePage() {
         </button>
       )}
 
+      {/* Staff List */}
+      <UserStaffList orgId={orgId} />
+
       {/* Pending Users List */}
-      {isOwner && requests && requests.length > 0 && (
-        <div>
-          <h4 className="mb-2 text-lg font-semibold">Pending User Requests</h4>
-          <ul className="mb-6 list-inside list-disc">
-            {requests
-              .filter(
-                (item) => !acceptedUsers.find((value) => item.name === value),
-              )
-              .map((pendingUser) => (
-                <li
-                  key={pendingUser.auth0Id}
-                  className="mb-2 flex items-center justify-between"
-                >
-                  <span className="text-gray-700">{pendingUser.name}</span>
-                  <button
-                    onClick={() => handleRequest(pendingUser.auth0Id)}
-                    className="custom-signup-button"
-                  >
-                    Request
-                  </button>
-                </li>
-              ))}
-          </ul>
-        </div>
+      {isOwner && (
+        <UserPendingRequests
+          orgId={orgId}
+          handle={handleRequest}
+          acceptedUsers={acceptedUsers}
+          isOwner={isOwner}
+        />
       )}
     </div>
   )

@@ -16,7 +16,7 @@ export async function getPendingUsers({
   return await request
     .get(`${rootUrl}/${id}`)
     .set('Authorization', `Bearer ${token}`)
-    .then((res) => (res.body ? res.body : null))
+    .then((res) => (res.body ? res.body : []))
     .catch(logError)
 }
 
