@@ -53,15 +53,13 @@ export default function ProfileMap({ initial }: Props) {
   }
 
   return (
-    <>
-      <section className="map  teal-shadow border-1 container m-2 mb-10 w-96 border border-darkerTeal border-opacity-25 px-8 py-6">
-        <h3 className="heading-4">Where to find us</h3>
-        <LoadScript googleMapsApiKey={API_HOST}>
-          <GoogleMap mapContainerStyle={mapContainer} center={center} zoom={15}>
-            <Marker position={center} />
-          </GoogleMap>
-        </LoadScript>
-      </section>
-    </>
+    <section className="map teal-shadow border-1 container m-2 mb-10 h-auto w-96 border border-darkerTeal border-opacity-25 px-8 py-6">
+      <h3 className="heading-4">Where to find us</h3>
+      <LoadScript googleMapsApiKey={API_HOST}>
+        <GoogleMap mapContainerStyle={mapContainer} center={center} zoom={15}>
+          <Marker position={center} />
+        </GoogleMap>
+      </LoadScript>
+    </section>
   )
 }
