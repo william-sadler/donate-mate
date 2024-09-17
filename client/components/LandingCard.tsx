@@ -23,7 +23,7 @@ export default function LandingCard({
     >
       <img src={image} alt={name} className="h-40 w-full object-cover" />
       <div className="max-h-50 w-full bg-white p-4">
-        <p className="text-md font-medium text-blue">
+        <p className="text-md font-medium text-cyan-700">
           {orgTypes || 'Organisation'}
         </p>
         <p className="mb-2 text-xl font-medium text-textBlue">{name}</p>
