@@ -9,7 +9,7 @@ export default function Footer() {
             <img
               src="/images/iconLogo.png"
               className="mr-5 h-12 w-12"
-              alt="logo"
+              alt="Donate Mate logo"
             />
           </div>
           <div className="mt-6 grid grid-cols-1 place-items-center gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
