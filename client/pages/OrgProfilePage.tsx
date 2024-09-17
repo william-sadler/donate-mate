@@ -66,36 +66,27 @@ export default function OrgProfilePage() {
   console.log({ lat: data.latitude, lng: data.longitude })
 
   return (
-    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-1 py-10 sm:py-10 md:grid-cols-3 lg:ml-20 lg:mt-0 lg:grid-cols-4 lg:px-1">
-      <section className=" col-span-1 md:col-span-1 lg:col-span-1">
-        <ProfileCard
-          image={data.image}
-          name={data.name}
-          contactEmail={data.contactEmail || ''}
-          contactNumber={data.contactNumber || ''}
-          location={data.location}
-          orgType={data.orgTypes}
-        />
-      </section>
-      <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
-        <ProfileAbout about={data.about} />
-        <CurrentlyAccepting typeData={typeData.data} />
-        <VolunteersNeeded id={id} />
-      </section>
-      <section className="flex hidden flex-col gap-4 pb-1 md:block lg:col-span-1">
-        <div className="block md:hidden">
-          <ProfileHowToDonate method={data.donationMethod || ''} />
-          {!hideMap && (
-            <ProfileMap
-              initial={{
-                lat: data.latitude || -41.28869,
-                lng: data.longitude || 174.7772,
-              }}
-            />
-          )}
-        </div>
-        <div className="mt-4">
-          <section className="hidden md:block">
+    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 xl:px-10">
+      <div className="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-2 2xl:grid-cols-4 2xl:gap-3">
+        <section className="md:col-span-1 lg:col-span-1">
+          <ProfileCard
+            image={data.image}
+            name={data.name}
+            contactEmail={data.contactEmail || ''}
+            contactNumber={data.contactNumber || ''}
+            location={data.location}
+            orgType={data.orgTypes}
+          />
+        </section>
+
+        <section className="col-span-1 flex flex-col gap-4 md:col-span-1 lg:col-span-2">
+          <ProfileAbout about={data.about} />
+          <CurrentlyAccepting typeData={typeData.data} />
+          <VolunteersNeeded id={id} />
+        </section>
+
+        <section className="flex flex-col gap-4 pb-1 lg:col-span-1 lg:flex lg:flex-col lg:items-center">
+          <div className="block md:hidden">
             <ProfileHowToDonate method={data.donationMethod || ''} />
             {!hideMap && (
               <ProfileMap
@@ -105,26 +96,31 @@ export default function OrgProfilePage() {
                 }}
               />
             )}
-          </section>
-        </div>
-      </section>
+          </div>
+          <div className="mt-4 hidden md:block">
+            <ProfileHowToDonate method={data.donationMethod || ''} />
+            {!hideMap && (
+              <ProfileMap
+                initial={{
+                  lat: data.latitude || -41.28869,
+                  lng: data.longitude || 174.7772,
+                }}
+              />
+            )}
+          </div>
+        </section>
 
-      {userCheck?.orgId === id && (
-        <button
-          onClick={handleEdit}
-          style={{
-            backgroundColor: '#007bff',
-            color: '#ffffff',
-            border: '1px solid #0056b3',
-            padding: '8px 16px',
-            borderRadius: '4px',
-            transition: 'background-color 0.3s ease, transform 0.2s ease',
-          }}
-          className="hover:bg-blue-800 focus:ring-blue-300 focus:outline-none focus:ring-2 active:scale-95"
-        >
-          Edit
-        </button>
-      )}
+        {userCheck?.orgId === id && (
+          <div className="col-span-1 flex items-center justify-center">
+            <button
+              onClick={handleEdit}
+              className="primary_button mt-2 bg-blue"
+            >
+              Edit
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
