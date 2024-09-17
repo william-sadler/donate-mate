@@ -114,7 +114,8 @@ export default function OrgProfilePage() {
           <div className="col-span-1 flex items-center justify-center">
             <button
               onClick={handleEdit}
-              className="primary_button mt-2 bg-blue"
+              className="primary_button mt-2 flex items-center space-x-4 rounded-full bg-blue px-20
+           transition duration-300 hover:bg-darkerTeal"
             >
               Edit
             </button>
