@@ -23,11 +23,12 @@ export default function LandingCard({
     >
       <img src={image} alt={name} className="h-40 w-full object-cover" />
       <div className="max-h-50 w-full bg-white p-4">
-        <p className="text-md font-medium text-indigo-500">
+        <p className="text-md font-medium text-blue">
           {orgTypes || 'Organisation'}
         </p>
-        <p className="mb-2 text-xl font-medium text-gray-800">{name}</p>
-        <p className="text-md font-light text-gray-400">{location}</p>
+        <p className="mb-2 text-xl font-medium text-textBlue">{name}</p>
+
+        <p className="text-md  text-textBlue">{location}</p>
         <div className="mt-4 flex flex-wrap items-center justify-start">
           <CardTypes id={orgId} />
         </div>
