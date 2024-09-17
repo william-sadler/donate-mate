@@ -39,13 +39,13 @@ export async function seed(knex) {
     {
       id: 3,
       name: 'Whiskers & Wonders',
-      contact_email: null,
+      contact_email: 'donatemate4@gmail.com',
       contact_number: null,
-      location: 'Furr Lane, Wellington',
+      location: '2, Dixon street, Te Aro, Wellington',
       about:
         'Whiskers & Wonders is dedicated to improving the lives of pets across the globe with innovative, heartwarming solutions. Our programs focus on delivering high-quality toys, engaging activities, and educational resources to pet owners, ensuring that every furry friend can experience a life full of happiness and adventure.',
-      longitude: 174.87086808543057,
-      latitude: -41.22812665502944,
+      longitude: 174.77817453708752,
+      latitude: -41.29198238838735,
       org_types: 'Charity',
       image: '/images/Whiskers-and-Wonders.webp',
       volunteering_needed: true,
@@ -55,9 +55,9 @@ export async function seed(knex) {
     },
     {
       id: 4,
-      name: 'Aro Valley Opshop',
-      contact_email: null,
-      contact_number: null,
+      name: 'St Vincent de Paul Aro Valley',
+      contact_email: 'national@svdp.org.nz',
+      contact_number: '(04) 3852561',
       location: '109 Aro Street, Aro Valley, Wellington 6021',
       about:
         'Helping people in need through various outreach and charity services.',
