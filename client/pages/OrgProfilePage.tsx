@@ -66,7 +66,7 @@ export default function OrgProfilePage() {
   console.log({ lat: data.latitude, lng: data.longitude })
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 xl:px-10">
+    <div className="2xl mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 xl:px-10">
       <div className="grid grid-cols-1 gap-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 xl:gap-2 2xl:grid-cols-4 2xl:gap-3">
         <section className="md:col-span-1 lg:col-span-1">
           <ProfileCard
@@ -105,6 +105,7 @@ export default function OrgProfilePage() {
                   lat: data.latitude || -41.28869,
                   lng: data.longitude || 174.7772,
                 }}
+                mode={data.name === 'Whiskers & Wonders' ? 'moon' : undefined}
               />
             )}
           </div>
