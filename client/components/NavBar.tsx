@@ -15,9 +15,9 @@ export default function NavBar() {
             <h1 className="heading-1-caveat caveat-bold -translate-y-1/5 ml-1 text-textBlue">
               DonateMate
             </h1>
-            <p className="caveat-semi text-2xl text-textBlue">
+            <h2 className="caveat-semi text-2xl text-textBlue">
               Donate Smart, Support Local
-            </p>
+            </h2>
           </div>
         </div>
       </Link>
