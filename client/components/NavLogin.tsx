@@ -31,6 +31,7 @@ function Nav() {
                 className="mb-1 h-6 w-6 rounded-full"
               />
               <p> Welcome {user?.given_name}!</p>
+              <p className="text-sm"> visit profile </p>
             </div>
           </Link>
         )}
