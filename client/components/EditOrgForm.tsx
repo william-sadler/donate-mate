@@ -273,7 +273,7 @@ export default function EditOrgForm({
       )}
       <form
         onSubmit={handleSubmit}
-        className={`mx-auto max-w-7xl px-1 py-10 sm:py-10 lg:ml-20 lg:mt-0 lg:px-1 ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
+        className={`mx-auto max-w-7xl px-1 py-10 sm:py-10 md:ml-5 lg:mt-0 lg:px-1 xl:ml-10 2xl:mx-auto ${changed ? 'grid cursor-not-allowed grid-cols-1 gap-4 blur-sm md:grid-cols-3 lg:grid-cols-4' : 'grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4'}`}
       >
         <section className="col-span-1 md:col-span-1 lg:col-span-1">
           <EditCard
