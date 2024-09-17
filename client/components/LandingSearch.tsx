@@ -78,6 +78,7 @@ export default function LandingSearch({ onSubmit }: Props) {
         autoComplete="off"
         onSubmit={handleSubmit}
         className="flex flex-col"
+        aria-label="search for organisation"
       >
         <div className="relative flex items-center">
           <input
@@ -88,8 +89,9 @@ export default function LandingSearch({ onSubmit }: Props) {
             placeholder="Organisation"
             onChange={handleChange}
             aria-autocomplete="list"
+            aria-label="search for organisation"
             aria-controls="myInputautocomplete-list"
-            className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="focus:ring-blue-500 w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 shadow-sm focus:outline-none focus:ring-2"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"

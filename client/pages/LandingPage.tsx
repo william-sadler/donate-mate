@@ -117,6 +117,7 @@ export default function LandingPage() {
                 <div className="mb-6 block">
                   <select
                     disabled
+                    aria-label="location filter"
                     value="Location"
                     className="focus:ring-blue-500 block w-full rounded-lg border border-gray-300 bg-white px-4 py-2 shadow-sm focus:outline-none focus:ring-2"
                   >
