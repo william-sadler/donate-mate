@@ -14,6 +14,10 @@
   - Information about the organization's cause
 - **Accessibility**: Ensures that crucial information is easily reachable for potential donors.
 
+### Live Website
+
+You can access the live application here: [Donate Mate](https://donatemate.pushed.nz)
+
 ### Setup
 
 To get started with the project, follow these instructions:
