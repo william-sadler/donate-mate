@@ -30,7 +30,7 @@ See the instructions [here](https://docs.github.com/en/free-pro-team@latest/gith
 
 ```bash
 git clone https://github.com/[your-username]/donate-mate 
-cd  donate-mate
+cd donate-mate
 npm install # to install dependencies
 npm run dev # to start the dev server
 ```
@@ -95,3 +95,7 @@ typescript@5.6.2
 vite@5.4.4 
 vitest@1.6.0 
 ```
+
+### Project Planning
+
+For a comprehensive overview of the planning done by the team, including retrospectives, reflections, schedules, and more, please check out our Miro board: [Project Planning on Miro](https://miro.com/app/board/uXjVLX_SZ90=/?share_link_id=613252876391).
